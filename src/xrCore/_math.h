@@ -2,6 +2,8 @@
 #define __XR_MATH_H__
 
 #include "cpuid.h"
+#include "xrCore_impexp.h"
+#include "Common/inlining_macros.h"
 
 namespace FPU
 {

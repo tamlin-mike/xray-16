@@ -1,5 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
+#include <stdlib.h> // _MAX_PATH
 
 // Type defs
 typedef signed char s8;

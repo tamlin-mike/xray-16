@@ -21,6 +21,7 @@ public:
     }
 };
 
+/*
 template <>
 template <typename... Args>
 void functor<void, typename...>::operator()(Args &&...args) const
@@ -28,6 +29,7 @@ void functor<void, typename...>::operator()(Args &&...args) const
     auto obj = static_cast<const adl::object *>(this);
     call_function<void, policy_list<Policies...>>(*obj, std::forward<Args>(args)...);
 }
+*/
 
 namespace detail
 {

@@ -537,8 +537,20 @@ IC bool pred_str_ff(const _finddata_t& x, const _finddata_t& y)
 
 bool ignore_name(const char* _name)
 {
-    // ignore processing ".svn" folders
-    return (_name[0] == '.' && _name[1] == 's' && _name[2] == 'v' && _name[3] == 'n' && _name[4] == 0);
+	if (strcmp(_name, ".svn") == 0) return true; // ignore ".svn" folders
+	if (strcmp(_name, ".vs") == 0) return true; // ignore ".vs" folders
+
+	const size_t len = strlen(_name);
+
+#define ENDS_WITH(STR) (len > sizeof(STR) && strcmp(_name + len - (sizeof(STR) - 1), STR) == 0)
+
+	if (ENDS_WITH(".VC.db")) return true;
+	if (ENDS_WITH(".VC.opendb")) return true;
+	if (ENDS_WITH(".sln")) return true;
+
+#undef ENDS_WITH
+
+	return false;
 }
 
 // we need to check for file existance

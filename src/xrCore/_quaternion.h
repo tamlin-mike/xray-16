@@ -1,5 +1,7 @@
 #ifndef __Q__
 #define __Q__
+#include "Common/inlining_macros.h"
+#include "_vector3d.h"
 
 /***************************************************************************
  The quatern module contains basic support for a quaternion object.
@@ -139,6 +141,10 @@
 #define AA_QZERO_TOLERANCE  0.0001f
 #define QEPSILON    0.00001f
 
+// fwd decl
+template <class T> struct _matrix;
+
+
 template <class T>
 struct _quaternion
 {
@@ -176,7 +182,7 @@ public:
         set(Q.w, Q.x, Q.y, Q.z); return *this;
     }
 
-    IC SelfRef set(const _matrix<T>& m);
+    SelfRef set(const _matrix<T>& m);
 
     // multiplies q1 * q2, and places the result in *this.
     // no failure.  renormalization not automatic
@@ -242,7 +248,7 @@ public:
     }
 
     // validates numerical stability
-    IC const BOOL isValid(void) const
+    IC const bool isValid(void) const
     {
         if ((w * w) < 0.0f) return false;
         if ((x * x) < 0.0f) return false;
@@ -252,7 +258,7 @@ public:
     }
 
     // checks for Unit-length quanternion
-    IC const BOOL isUnit(void)
+    IC const bool isUnit(void)
     {
         T m = magnitude();
 
