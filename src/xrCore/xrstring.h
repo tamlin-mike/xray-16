@@ -2,10 +2,12 @@
 #define xrstringH
 #pragma once
 
+// TODO: tamlin: Get rid of _std_extensions.h as compile-time dependency, if possible.
 #include "_std_extensions.h"
 
 #pragma pack(push,4)
 //////////////////////////////////////////////////////////////////////////
+// TODO: tamlin: Get rid of this blobal namespace polluting silly typedef.
 typedef const char* str_c;
 
 //////////////////////////////////////////////////////////////////////////
@@ -119,14 +121,16 @@ IC bool operator > (shared_str const& a, shared_str const& b) { return a._get() 
 
 // externally visible standart functionality
 IC void swap(shared_str& lhs, shared_str& rhs) { lhs.swap(rhs); }
-IC u32 xr_strlen(shared_str& a) { return a.size(); }
-IC int xr_strcmp(const shared_str& a, const char* b) { return xr_strcmp(*a, b); }
-IC int xr_strcmp(const char* a, const shared_str& b) { return xr_strcmp(a, *b); }
-IC int xr_strcmp(const shared_str& a, const shared_str& b)
+IC u32 xr_strlen(const shared_str& a)                throw() { return a.size(); }
+IC int xr_strcmp(const shared_str& a, const char* b) throw() { return xr_strcmp(*a, b); }
+IC int xr_strcmp(const char* a, const shared_str& b) throw() { return xr_strcmp(a, *b); }
+IC int xr_strcmp(const shared_str& a, const shared_str& b) throw()
 {
     if (a.equal(b)) return 0;
     else return xr_strcmp(*a, *b);
 }
+
+#pragma todo("tamlin: Move xr_strlwr into a static lib (f.ex. 'xrMisc_lib')")
 IC void xr_strlwr(xr_string& src) { for (xr_string::iterator it = src.begin(); it != src.end(); it++) *it = xr_string::value_type(tolower(*it)); }
 IC void xr_strlwr(shared_str& src) { if (*src) { LPSTR lp = xr_strdup(*src); xr_strlwr(lp); src = lp; xr_free(lp); } }
 
