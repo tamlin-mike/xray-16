@@ -15,7 +15,8 @@
 template <typename _type, typename _base>
 struct CLinearRegistryType : public _base, public _type {};
 
-class CALifeRegistryContainer : public Loki::GenLinearHierarchy<registry_type_list,CLinearRegistryType>::LinBase {
+class CALifeRegistryContainer : public Loki::GenLinearHierarchy<registry_type_list,CLinearRegistryType>::LinBase
+{
 private:
 	typedef registry_type_list TYPE_LIST;
 

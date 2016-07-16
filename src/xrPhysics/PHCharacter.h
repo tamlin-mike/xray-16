@@ -20,12 +20,12 @@ class CPHAICharacter;
 namespace ALife {
 	enum EHitType;
 };
- static enum EEnvironment
-			{
-				peOnGround,
-				peAtWall,
-				peInAir
-			};
+enum EEnvironment
+{
+	peOnGround,
+	peAtWall,
+	peInAir
+};
 
 
 class CPHCharacter : 
@@ -210,5 +210,3 @@ virtual		~CPHCharacter									(void)														;
 XRPHYSICS_API void			virtual_move_collide_callback( bool& do_collide, bool bo1, dContact& c, SGameMtl* material_1, SGameMtl* material_2 );
 XRPHYSICS_API CPHCharacter	*create_ai_character();
 XRPHYSICS_API CPHCharacter	*create_actor_character( bool single_game );
-
-
