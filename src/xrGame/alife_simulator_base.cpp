@@ -23,6 +23,11 @@
 #include "inventory_upgrade_manager.h"
 #include "Level.h"
 
+#ifdef DEBUG
+#include "alife_simulator_base_inline.h"
+#endif
+
+
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <malloc.h>
