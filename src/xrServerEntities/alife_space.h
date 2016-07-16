@@ -146,39 +146,10 @@ namespace ALife {
 		eAddonAttachable			= 2		//можно присоединять
 	};
 
-	IC EHitType	g_tfString2HitType(LPCSTR caHitType)
-	{
-		if (!stricmp(caHitType,"burn"))
-			return(eHitTypeBurn);
-		else if (!stricmp(caHitType,"light_burn"))
-			return(eHitTypeLightBurn);
-		else if (!stricmp(caHitType,"shock"))
-				return(eHitTypeShock);
-		else if (!stricmp(caHitType,"strike"))
-            	return(eHitTypeStrike);
-		else if (!stricmp(caHitType,"wound"))
-				return(eHitTypeWound);
-		else if (!stricmp(caHitType,"radiation"))
-				return(eHitTypeRadiation);
-		else if (!stricmp(caHitType,"telepatic"))
-				return(eHitTypeTelepatic);
-		else if (!stricmp(caHitType,"fire_wound"))
-				return(eHitTypeFireWound);
-		else if (!stricmp(caHitType,"chemical_burn"))
-				return(eHitTypeChemicalBurn);
-		else if (!stricmp(caHitType,"explosion"))
-				return(eHitTypeExplosion);
-		else if (!stricmp(caHitType,"wound_2"))
-				return(eHitTypeWound_2);
-		else
-				FATAL	("Unsupported hit type!");
-		NODEFAULT;
-#ifdef DEBUG
-		return(eHitTypeMax);
-#endif
-	}
+	EHitType	g_tfString2HitType(LPCSTR caHitType);
+
 #ifndef	_EDITOR
-xr_token							hit_types_token							[ ];
+	extern const xr_token hit_types_token[];
 
 	IC LPCSTR g_cafHitType2String(EHitType tHitType)
 	{
