@@ -40,7 +40,9 @@ void	uber_deffer	(CBlender_Compile& C, bool hq, LPCSTR _vspec, LPCSTR _pspec, BO
 			bHasDetailBump = true;
 			xr_strcpy		( texDetailBump, sizeof(texDetailBump), detail_bump_texture);
 			xr_strcpy		( texDetailBumpX, sizeof(texDetailBumpX), detail_bump_texture);
-			xr_strcat			( texDetailBumpX, "#");
+			VERIFY(xr_strlen(texDetailBump) > 2);
+			VERIFY(xr_strlen(texDetailBumpX) > 2);
+			xr_strcat		( texDetailBumpX, "#");
 		}
 	}
 
@@ -171,6 +173,8 @@ void	uber_deffer	(CBlender_Compile& C, bool hq, LPCSTR _vspec, LPCSTR _pspec, BO
 	{
 		C.r_dx10Texture	("s_detailBump",	texDetailBump);
 		C.r_dx10Texture	("s_detailBumpX",	texDetailBumpX);
+		VERIFY(xr_strlen(texDetailBump) > 2);
+		VERIFY(xr_strlen(texDetailBumpX) > 2);
 	}
 	C.r_dx10Sampler		("smp_base");
 	if (lmap)
