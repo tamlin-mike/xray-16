@@ -219,10 +219,10 @@ protected:
 };
 
 // instantiate the (simplest) member function in the collections, to get xalloc<T> as the default allocator.
-template <typename T, typename allocator = xalloc<T>                > class xr_list : public std::list     < T, allocator > { public: u32 size() const { return (u32)std::list     < T, allocator >::size(); } };
-template <typename K, class P = std::less<K>, typename allocator = xalloc<K>                > class xr_set : public std::set      < K, P, allocator > { public: u32 size() const { return (u32)std::set      < K, P, allocator >::size(); } };
-template <typename K, class P = std::less<K>, typename allocator = xalloc<K>                > class xr_multiset : public std::multiset < K, P, allocator > { public: u32 size() const { return (u32)std::multiset < K, P, allocator >::size(); } };
-template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<K, V> > > class xr_map : public std::map      < K, V, P, allocator > { public: u32 size() const { return (u32)std::map      < K, V, P, allocator >::size(); } };
+template <typename T,                                  typename allocator = xalloc<T>                > class xr_list     : public std::list     < T,       allocator > { public: u32 size() const { return (u32)std::list     < T,       allocator >::size(); } };
+template <typename K,          class P = std::less<K>, typename allocator = xalloc<K>                > class xr_set      : public std::set      < K,    P, allocator > { public: u32 size() const { return (u32)std::set      < K,    P, allocator >::size(); } };
+template <typename K,          class P = std::less<K>, typename allocator = xalloc<K>                > class xr_multiset : public std::multiset < K,    P, allocator > { public: u32 size() const { return (u32)std::multiset < K,    P, allocator >::size(); } };
+template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<K, V> > > class xr_map      : public std::map      < K, V, P, allocator > { public: u32 size() const { return (u32)std::map      < K, V, P, allocator >::size(); } };
 template <typename K, class V, class P = std::less<K>, typename allocator = xalloc<std::pair<K, V> > > class xr_multimap : public std::multimap < K, V, P, allocator > { public: u32 size() const { return (u32)std::multimap < K, V, P, allocator >::size(); } };
 
 #ifdef STLPORT
