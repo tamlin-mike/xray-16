@@ -57,7 +57,8 @@ void	CBlender_Compile::_cpp_Compile	(ShaderElement* _SH)
 			if (id>=int(lst.size()))	xrDebug::Fatal(DEBUG_INFO,"Not enought textures for shader. Base texture: '%s'.",*lst[0]);
 			base	=	*lst [id];
 		}
-		if (!RImplementation.Resources->m_textures_description.GetDetailTexture(base,detail_texture,detail_scaler))	bDetail	= FALSE;
+		if (!RImplementation.Resources->m_textures_description.GetDetailTexture(base,detail_texture,detail_scaler))
+			bDetail	= false;
 	} 
 	else 
 	{
@@ -78,17 +79,17 @@ void	CBlender_Compile::_cpp_Compile	(ShaderElement* _SH)
 		//	Igor
 		////////////////////
 
-		bDetail	= FALSE;
+		bDetail	= false;
 	}
 
 	// Validate for R1 or R2
-	bDetail_Diffuse	= FALSE;
-	bDetail_Bump	= FALSE;
+	bDetail_Diffuse	= false;
+	bDetail_Bump	= false;
 
 #ifndef _EDITOR
 #if RENDER==R_R1
 	if (RImplementation.o.no_detail_textures)
-		bDetail = FALSE;
+		bDetail = false;
 #endif
 #endif
 
