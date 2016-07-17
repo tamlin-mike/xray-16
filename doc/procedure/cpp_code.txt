@@ -3,9 +3,8 @@ STATUS: WORK IN PROGRESS
 
 ---------------------
 
-Shift width (indentation) is 4 spaces.
+Indentation is 4 spaces.
 Line size is 120 columns.
-Indentation is always one shift-width (4):
  BAD
     GatherInfo(expression, description, arg0, arg1, file, line,
                function, assertionInfo);
@@ -14,7 +13,7 @@ Indentation is always one shift-width (4):
     GatherInfo(expression, description, arg0, arg1, file, line,
         function, assertionInfo);
 
-Open and close brackets of a section should be on the same level:
+Open and close braces should be on the same level:
  BAD
     if (lastErr==ERROR_SUCCESS) {
         *buffer = 0;
@@ -27,6 +26,9 @@ Open and close brackets of a section should be on the same level:
         *buffer = 0;
         return;
     }
+
+Q: Should braces be required even for one-liners?
+Q: Should the first example here be allowed for one-liners (remove the "return;" line for an example)?
 
 Access modifiers are indented like goto labels - at the class level
 indentation:
@@ -66,8 +68,10 @@ Namespace content should not be indented:
     }
     }
 
-When breaking up a long line, it should continue with one shift-width for
-indentation:
+Q: should the last brace be commented with "// namespace xxx"? Example:
+    } // namespace XRay
+
+When breaking up a long line, the following line should be indented one level:
  BAD
     if (lineLength>1 && (screenSize.Vertical<bufferSize.Vertical
                           || explicitLines))
@@ -88,7 +92,7 @@ indentation:
     }
 
 if/for/while statement that takes more than one line should always have
-brackets same thing goes when the then/loop part is more than one line:
+braces same thing goes when the then/loop part is more than one line:
  BAD
     if (!ErrorAfterDialog)
         MessageBox(NULL, "Fatal error occured\n\n"
@@ -189,8 +193,8 @@ if the case is one line, then one space after ':':
     default: vendor = Vendor::Unknown; break;
     }
 
-No space between function name and opening brackets,
-no space between opening brackets and first parameter,
+No space between function name and opening parenthesis,
+no space between opening parenthesis and first parameter,
 one space after comma:
  BAD
     Msg ("hello %s\n", "world");
@@ -205,7 +209,7 @@ One space after reserved words before the opening parenthesis:
  GOOD
     if (OnDialog)
 
-'then' part of if statement should be in a separate line.
+'then' part of if statement should be on a separate line.
 Reason: allows to debug the if and see when it is run.
  BAD
     if (OnDialog) OnDialog(true);
@@ -213,7 +217,7 @@ Reason: allows to debug the if and see when it is run.
     if (OnDialog)
         OnDialog(true);
 
-else if statements should be on the same level at the starting if
+else-if statements should be on the same level as the starting if
 Reason: this is similar to switch statement.
  BAD
     if (!strcmp(argv[1],"--help")) PrintUsage();
@@ -232,7 +236,7 @@ Reason: this is similar to switch statement.
     else
         PrintError();
 
-return statements should not have parentheses and should not have a space
+Return statements should not have parentheses and should not have a space
 after them:
  BAD
     return (0);
@@ -243,7 +247,8 @@ after them:
  GOOD
     return;
 
-Don't use unneeded parentheses in expressions:
+Don't use unneeded parentheses in expressions, unless it helps clarify the expression,
+f.ex. to clearly display operator precedence:
  BAD
     if ((a!=b) || (c!=d))
         ...
@@ -251,7 +256,8 @@ Don't use unneeded parentheses in expressions:
     if (a!=b || c!=d)
         ...
 
-Don't call return at the end of a function returning void:
+Don't "return" at the end of a function returning void (unless, obviously, the
+return value is a template parameter):
  BAD
     void foo()
     {
@@ -265,8 +271,9 @@ Don't call return at the end of a function returning void:
     }
 
 Don't separate code sections with more than one blank line.
+Q: Not even if it makes the code more readable? Relax "one" to "two"?
 
-class/struct/enum definitions, initializations should open { at the next line:
+class/struct/enum definitions shoukd have opening brace at the next line:
  BAD
     struct Size {
         int Width;
@@ -302,7 +309,7 @@ Prefer C++ comments to C comments:
     // draw overlay statistics
     DrawStats();
 
-Comments should be aligned as the code they comment, or one space after
+Comments should be aligned to the code they comment, or one space after
 the end of line:
  BAD
     /*
@@ -348,6 +355,10 @@ loops:
  GOOD
     for (int i = 0; i<10; i++)
         ...
+ GOOD (if the value of 'i' is needed after the loop)
+    int i;
+    for (i = 0; i<10; i++)
+        ...
  BAD
     for (ptr = ptr->next; ptr; ptr = ptr->next)
         ...
@@ -355,29 +366,51 @@ loops:
     while (ptr = ptr->next, ptr)
        ...
 
-In for and while loops without a statement, statement separator should be in
-the same line.
+In for and while loops without a statement, statement separator should be on
+the next line. Rationale: it's easy to miss a trailing semicolon on the same line
+as the loop itself. Also prefer to comment it.
  BAD
+   for (i = 0; Test(i); i++);
+ GOOD
    for(i = 0; Test(i); i++)
        ;
  GOOD
-   for (i = 0; Test(i); i++);
+   for(i = 0; Test(i); i++)
+       ; // empty body
 
-Put one space before and after an assignment operator:
+Unary operators should not be surrounded by space:
+ BAD
+    ++ x;
+    y --;
+ GOOD
+    ++x;
+    y--;
+
+Binary operators should be surrounded by one space on each side:
  BAD
     int a=0;
     x= x+1;
+    y<<=2;
     capacity*=2;
  GOOD
     int a = 0;
-    x = x+1;
+    x = x + 1;
+    y <<= 2;
     capacity *= 2;
+ GOOD (better example for 'x')
+    x += 1;
+ GOOD (even better example for 'x')
+    ++x;
+
+Prefer pre-increment over post-increment for efficiency reasons.
+A post-increment is conceptually:
+    { temp = val; ++val; return temp; }
 
 Don't put a space before a statement separator, put one after it:
  BAD
-    for (i = 0 ;i<10 ;i--, j *= 2) ;
+    for (i = 0 ;i<10 ;i++, j *= 2) ;
  GOOD
-    for (i = 0; i<10; i--, j *= 2);
+    for (i = 0; i < 10; ++i, j *= 2);
 
 Don't put a space after increment and decrement. Increment after the value,
 not before.
@@ -387,6 +420,8 @@ not before.
  GOOD
     i--;
     j++;
+
+TODO: The following section contradicts both previous recommendations and itself.
 
 Trivial > >= < <= == != expressions should not have spaces around them.
 Examples: a, array[i].var[j], sizeof(Foo), x+1
@@ -420,11 +455,11 @@ Don't increment, set or change value of variable inside a function call:
     SetX(i = 3);
  GOOD (if i is not a global)
     CalcXY(i, 2);
-    i++;
+    ++i;
  GOOD (if i is a global that CalcXY() uses)
-    i++;
+    ++i;
     CalcXY(i-1, 2);
- GOOD
+ GOOD (but hard to understand, so should be rewritten)
     if (i++)
         a[i++] = 4;
  GOOD (if i is not a global)
@@ -503,6 +538,8 @@ its empty inline implementation after the class definition:
     
     inline IServer::~IServer() {}
 
+Q: A word about __declspec(novtable) for compilers able to handle it?
+
 Do not mark interface classes with linkage attributes.
 
 When overriding virtual function, use override specifier on function
@@ -554,7 +591,7 @@ comparing, if they return true or false.
     if (cl)
         Disconnect(cl);
 
-When allocating a structure on stack, use zero initializer unstead of memset:
+When allocating a structure on stack, use zero initializer instead of memset:
  BAD
     ShaderParams params;
     memset(&params, sizeof(params), 0);
@@ -644,7 +681,7 @@ across compilers.
 
     // The XRay.hpp content comes here
 
-Files should terminate with an empty line:
+Files should end with a linefeed:
  BAD
     int main()
     {
@@ -671,7 +708,7 @@ COMPLEX #if sections should adhere to the following guideline:
             #endif
         #endif
     #endif
- BAD
+ BAD (Q: How? The indentation makes it clearer.)
     #ifndef NO_SINGLE
         Msg("* Found new patch: %s", versionName);
     # ifdef DOWNLOAD_UPDATES
@@ -752,8 +789,8 @@ a large gap between the #if and its corresponding #endif.
         // to see all of it.
     #endif // _EDITOR
 
-Only use the defined() macro when you have a complex expression. If you find
-that you do need to use the defined() macro for more than one flag, see if
+Only use the 'defined' preprocessor keyword when you have a complex expression.
+If you find that you do need to use defined() for more than one flag, see if
 that flags can be grouped under another one new flag:
  BAD
     #ifndef DEDICATED_SERVER
@@ -870,7 +907,8 @@ allocation only when needed.
  GOOD
     ConnectionParams cp;
 
-Operator delete also handles nullptr, so no need for 'if ()' before it:
+Operator delete (and free(), should you encounter the need) also handles nullptr,
+so no need for 'if ()' before it:
  BAD (if str can be null):
     if (str)
         delete str;
@@ -890,12 +928,13 @@ is more than 120 chars long so we need to split it");
     Log("Hello world, this is a long string that we want to print "
         "and is more than 120 chars long so we need to split it");
 
-Functions that accept zero parameters should be defined without void:
+Functions that accept zero parameters should be declared and defined without void:
  BAD
     IClient *GetServerClient(void);
  GOOD
     IClient *GetServerClient();
 
+Discuss: Next section could be questionable.
 Trivial + - * / expressions should not have spaces around them:
  BAD
     Foo(a + b);
@@ -997,19 +1036,20 @@ Use #include <Foo.hpp> for external system files.
     #include <algorithm>
 
 Free function used in one CPP file:
-  should be implemented static, and a declaration in the CPP file should only
+  should be implemented static (or within an unnamed/unique namespace?),
+  and a declaration in the CPP file should only
   be added if used before implementation.
 Free function used out of the CPP file (global):
-  should be declared in the HPP file.
-class/struct used in one CPP file:
-  should be declared inside the CPP file.
+  should be declared in the header file.
+class/struct used in only one CPP file:
+  should be declared inside the CPP file. (within an unnamed/unique namespace?)
 A pointer is needed out of the CPP file:
-  a forward declaration should be in the HPP file, and the definition should
-  be in the C file.
+  a forward declaration should be in the header file, and the definition should
+  be in the source file.
 class/struct members are needed out of the CPP file:
-  declare it in the HPP file.
+  declare it in the header file.
 
-Comments of XXX should be <keywords>: <comment>. Multiple names should be
+Comments of XXX/TODO/BUG/BUGBUG etc. should be <keyword>: <comment>. Multiple names should be
 separated with a '/':
  BAD
     XXX: dima: optimize this case
