@@ -52,11 +52,11 @@ void SStaticSound::Update(u32 game_time, u32 global_time)
 			}
 		}else{
 			if (Device.dwTimeGlobal>=m_StopTime)
-				m_Source.stop_deffered();
+				m_Source.stop_deferred();
 		}
 	}else{
 		if (0!=m_Source._feedback())
-			m_Source.stop_deffered();
+			m_Source.stop_deferred();
 	}
 }
 //-----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ void SMusicTrack::SetVolume(float volume)
 
 void SMusicTrack::Stop()
 {
-	m_SourceStereo.stop_deffered();
+	m_SourceStereo.stop_deferred();
 }
 
 //-----------------------------------------------------------------------------

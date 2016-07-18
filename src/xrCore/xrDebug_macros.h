@@ -55,6 +55,7 @@
 #endif
 
 #ifdef DEBUG
+#include "xrDebug.h"
 #define NODEFAULT FATAL("nodefault reached")
 #define VERIFY(expr)\
     do {\

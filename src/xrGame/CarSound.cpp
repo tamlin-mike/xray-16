@@ -150,7 +150,7 @@ void CCar::SCarSound::Stall()
 	VERIFY(!physics_world()->Processing());
 	if(eCarSound==sndOff)return;
 	SwitchState(sndStalling);
-	snd_engine.stop_deffered();
+	snd_engine.stop_deferred();
 	snd_engine_stop.play(pcar);
 	SetSoundPosition(snd_engine_stop);
 }
@@ -160,7 +160,7 @@ void CCar::SCarSound::Stop()
 	VERIFY(!physics_world()->Processing());
 	if(eCarSound==sndOff)return;
 	SwitchState(sndStoping);
-	snd_engine.stop_deffered();
+	snd_engine.stop_deferred();
 	snd_engine_stop.play(pcar);
 	SetSoundPosition(snd_engine_stop);
 }

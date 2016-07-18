@@ -263,3 +263,16 @@ XRCORE_API BOOL is_stack_ptr(void* _ptr)
     ptrdiff_t difference = (ptrdiff_t)_abs(s64(ptrdiff_t(ptr_local) - ptrdiff_t(ptr_refsound)));
     return (difference < (512 * 1024));
 }
+
+//////////////////////////////////////////////////////////////////
+#ifdef DEBUG_MEMORY_NAME
+
+XRCORE_API void* xr_malloc(size_t size) { return Memory.mem_alloc(size, "xr_malloc"); }
+XRCORE_API void* xr_realloc(void* P, size_t size) { return Memory.mem_realloc(P, size, "xr_realloc"); }
+
+#else // DEBUG_MEMORY_NAME
+
+XRCORE_API void* xr_malloc(size_t size) { return Memory.mem_alloc(size); }
+XRCORE_API void* xr_realloc(void* P, size_t size) { return Memory.mem_realloc(P, size); }
+
+#endif // DEBUG_MEMORY_NAME

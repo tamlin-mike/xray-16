@@ -426,12 +426,12 @@ void ESoundSource::OnFrame()
                             }
                         }else{
                             if (EDevice.dwTimeGlobal>=m_StopTime)
-                                m_Source.stop_deffered();
+                                m_Source.stop_deferred();
                         }
                         
                     }else{
                         if (0!=m_Source._feedback())
-                            m_Source.stop_deffered();
+                            m_Source.stop_deferred();
                     }
             */
         }

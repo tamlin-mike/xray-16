@@ -21,7 +21,7 @@ SCRIPT_EXPORT(CScriptParticles, (),
 			.def("play",						&CScriptParticles::Play)
 			.def("play_at_pos",					&CScriptParticles::PlayAtPos)
 			.def("stop",						&CScriptParticles::Stop)
-			.def("stop_deffered",				&CScriptParticles::StopDeffered)
+			.def("stop_deffered",				&CScriptParticles::StopDeferred)
 
 			.def("playing",						&CScriptParticles::IsPlaying)
 			.def("looped",						&CScriptParticles::IsLooped)

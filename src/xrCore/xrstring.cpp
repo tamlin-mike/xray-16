@@ -1,7 +1,8 @@
 #include "stdafx.h"
-#pragma hdrstop
+#pragma hdrstop // Huh?
 
 #include "xrstring.h"
+#include "Threading/Lock.hpp"
 
 #include "FS_impl.h"
 
@@ -11,6 +12,7 @@ XRCORE_API str_container* g_pStringContainer = NULL;
 
 struct str_container_impl
 {
+    Lock cs;
     static const u32 buffer_size = 1024 * 256;
     str_value* buffer[buffer_size];
     int num_docs;
@@ -133,15 +135,18 @@ struct str_container_impl
 };
 
 str_container::str_container()
+: impl(new str_container_impl())
+#ifdef CONFIG_PROFILE_LOCKS
+    , cs(MUTEX_PROFILE_ID(str_container))
+#endif // CONFIG_PROFILE_LOCKS
 {
-    impl = new str_container_impl();
 }
 
 str_value* str_container::dock(str_c value)
 {
     if (0 == value) return 0;
 
-    cs.Enter();
+    impl->cs.Enter();
 
 #ifdef DEBUG_MEMORY_MANAGER
     Memory.stat_strdock++;
@@ -198,48 +203,48 @@ str_value* str_container::dock(str_c value)
 
         impl->insert(result);
     }
-    cs.Leave();
+	impl->cs.Leave();
 
     return result;
 }
 
 void str_container::clean()
 {
-    cs.Enter();
+	impl->cs.Enter();
     impl->clean();
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 void str_container::verify()
 {
-    cs.Enter();
+	impl->cs.Enter();
     impl->verify();
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 void str_container::dump()
 {
-    cs.Enter();
+	impl->cs.Enter();
     FILE* F = fopen("d:\\$str_dump$.txt", "w");
     impl->dump(F);
     fclose(F);
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 void str_container::dump(IWriter* W)
 {
-    cs.Enter();
+	impl->cs.Enter();
     impl->dump(W);
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 u32 str_container::stat_economy()
 {
-    cs.Enter();
+	impl->cs.Enter();
     int counter = 0;
     counter -= sizeof(*this);
     counter += impl->stat_economy();
-    cs.Leave();
+	impl->cs.Leave();
     return u32(counter);
 }
 
@@ -250,7 +255,7 @@ str_container::~str_container()
     xr_delete(impl);
 }
 
-#else
+#else // 0/1
 
 struct str_container_impl
 {
@@ -263,15 +268,18 @@ struct str_container_impl
 };
 
 str_container::str_container()
+: impl(new str_container_impl())
+#ifdef CONFIG_PROFILE_LOCKS
+    , cs(MUTEX_PROFILE_ID(str_container))
+#endif // CONFIG_PROFILE_LOCKS
 {
-    impl = new str_container_impl();
 }
 
 str_value* str_container::dock(str_c value)
 {
     if (0 == value) return 0;
 
-    cs.Enter();
+	impl->cs.Enter();
 
     // ++impl->num_docs;
     // if ( impl->num_docs == 10000000 )
@@ -353,14 +361,14 @@ str_value* str_container::dock(str_c value)
         impl->container.insert(result);
     }
 
-    cs.Leave();
+	impl->cs.Leave();
 
     return result;
 }
 
 void str_container::clean()
 {
-    cs.Enter();
+	impl->cs.Enter();
     str_container_impl::cdb::iterator it = impl->container.begin();
     str_container_impl::cdb::iterator end = impl->container.end();
     for (; it != end;)
@@ -380,12 +388,12 @@ void str_container::clean()
         }
     }
     if (impl->container.empty()) impl->container.clear();
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 void str_container::verify()
 {
-    cs.Enter();
+	impl->cs.Enter();
     str_container_impl::cdb::iterator it = impl->container.begin();
     str_container_impl::cdb::iterator end = impl->container.end();
     for (; it != end; ++it)
@@ -396,24 +404,24 @@ void str_container::verify()
         R_ASSERT3(crc == sv->dwCRC, "CorePanic: read-only memory corruption (shared_strings)", _itoa(sv->dwCRC, crc_str, 16));
         R_ASSERT3(sv->dwLength == xr_strlen(sv->value), "CorePanic: read-only memory corruption (shared_strings, internal structures)", sv->value);
     }
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 void str_container::dump()
 {
-    cs.Enter();
+	impl->cs.Enter();
     str_container_impl::cdb::iterator it = impl->container.begin();
     str_container_impl::cdb::iterator end = impl->container.end();
     FILE* F = fopen("d:\\$str_dump$.txt", "w");
     for (; it != end; it++)
         fprintf(F, "ref[%4d]-len[%3d]-crc[%8X] : %s\n", (*it)->dwReference, (*it)->dwLength, (*it)->dwCRC, (*it)->value);
     fclose(F);
-    cs.Leave();
+	impl->cs.Leave();
 }
 
 u32 str_container::stat_economy()
 {
-    cs.Enter();
+	impl->cs.Enter();
     str_container_impl::cdb::iterator it = impl->container.begin();
     str_container_impl::cdb::iterator end = impl->container.end();
     int counter = 0;
@@ -426,7 +434,7 @@ u32 str_container::stat_economy()
         counter -= node_size;
         counter += int((int((*it)->dwReference) - 1)*int((*it)->dwLength + 1));
     }
-    cs.Leave();
+	impl->cs.Leave();
 
     return u32(counter);
 }
@@ -438,4 +446,5 @@ str_container::~str_container()
     xr_delete(impl);
     //R_ASSERT(impl->container.empty());
 }
-#endif
+
+#endif // 0/1
