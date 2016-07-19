@@ -1,12 +1,14 @@
+#pragma once
 #ifndef ACCOUNT_MANAGER
 #define ACCOUNT_MANAGER
 
 #include "Common/Noncopyable.hpp"
 #include "mixed_delegate.h"
 #include "queued_async_method.h"
-#include "xrGameSpy/xrGameSpy.h"
+//#include "xrGameSpy/xrGameSpy.h" // Hell no!
 
 class CGameSpy_GP;
+extern "C" { typedef void * GPConnection; }
 
 namespace gamespy_gp
 {
@@ -177,10 +179,10 @@ private:
 }; //class account_manager
 } //namespace gamespy_gp
 
-typedef gamespy_gp::account_manager			gamespy_gp_account_manager;
-typedef gamespy_gp::suggest_nicks_cb		gamespy_gp_suggest_nicks_cb;
-typedef gamespy_gp::account_operation_cb	gamespy_gp_account_operation_cb;
-typedef gamespy_gp::account_profiles_cb		gamespy_gp_account_profiles_cb;
-typedef gamespy_gp::found_email_cb			gamespy_gp_found_email_cb;
+//typedef gamespy_gp::account_manager			gamespy_gp_account_manager;
+//typedef gamespy_gp::suggest_nicks_cb		gamespy_gp_suggest_nicks_cb;
+//typedef gamespy_gp::account_operation_cb	gamespy_gp_account_operation_cb;
+//typedef gamespy_gp::account_profiles_cb		gamespy_gp_account_profiles_cb;
+//typedef gamespy_gp::found_email_cb			gamespy_gp_found_email_cb;
 
 #endif //#ifndef ACCOUNT_MANAGER

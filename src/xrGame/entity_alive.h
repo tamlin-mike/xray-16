@@ -6,7 +6,7 @@
 // Igor DEFINE_VECTOR(ref_shader, SHADER_VECTOR, SHADER_VECTOR_IT);
 DEFINE_VECTOR(shared_str, STR_VECTOR, STR_VECTOR_IT);
 
-
+// fwd. decl.
 class MONSTER_COMMUNITY;
 class CEntityCondition;
 class CWound;
@@ -14,7 +14,9 @@ class CCharacterPhysicsSupport;
 class CMaterialManager;
 class CVisualMemoryManager;
 class CBlend;
-class CEntityAlive : public CEntity {
+
+class CEntityAlive : public CEntity
+{
 private:
 	typedef	CEntity			inherited;	
 	u32						m_used_time;

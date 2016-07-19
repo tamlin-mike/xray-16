@@ -21,7 +21,8 @@ public:
     }
 };
 
-/*
+/* Returning void_type has been allowed since C++03 for templates. VS20015.3 even throws an ERROR,
+   so this specialization has no purpose.
 template <>
 template <typename... Args>
 void functor<void, typename...>::operator()(Args &&...args) const

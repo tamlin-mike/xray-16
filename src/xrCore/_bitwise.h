@@ -1,6 +1,7 @@
+#pragma once
 #ifndef _BITWISE_
 #define _BITWISE_
-#pragma once
+#include "math_constants.h"
 
 // float values defines
 #define fdSGN 0x080000000 // mask for sign bit
@@ -78,6 +79,8 @@ IC u64 btwCount1(u64 v)
 }
 
 
+// XXX: TODO: This function is WAY too large to inline, much less FORCE inline.
+// Additionally, doesn't SSE2 have a fast ftol() ?
 ICF int iFloor(float x)
 {
     int a = *(const int*)(&x);

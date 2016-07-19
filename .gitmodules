@@ -1,21 +1,21 @@
-[submodule "src/Externals/luabind"]
-	path = src/Externals/luabind
+[submodule "Externals/luabind"]
+	path = Externals/luabind
 	url = https://github.com/OpenXRay/luabind-deboostified.git
-[submodule "src/Externals/luajit"]
-	path = src/Externals/luajit
+[submodule "Externals/luajit"]
+	path = Externals/luajit
 	url = https://github.com/OpenXRay/LuaJIT.git
-[submodule "src/Externals/gli"]
-	path = src/Externals/gli
+[submodule "Externals/gli"]
+	path = Externals/gli
 	url = https://github.com/g-truc/gli
-[submodule "src/Externals/GameSpy"]
-	path = src/Externals/GameSpy
+[submodule "Externals/GameSpy"]
+	path = Externals/GameSpy
 	url = https://github.com/nitrocaster/GameSpy.git
-[submodule "src/Externals/AGS_SDK"]
-	path = src/Externals/AGS_SDK
+[submodule "Externals/AGS_SDK"]
+	path = Externals/AGS_SDK
 	url = https://github.com/GPUOpen-LibrariesAndSDKs/AGS_SDK.git
-[submodule "src/Externals/glew"]
-	path = src/Externals/glew
+[submodule "Externals/glew"]
+	path = Externals/glew
 	url = https://github.com/Armada651/glew.git
-[submodule "src/Externals/lzo"]
-	path = src/Externals/lzo
+[submodule "Externals/lzo"]
+	path = Externals/lzo
 	url = https://github.com/alexgdi/lzo.git

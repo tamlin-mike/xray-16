@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CRYPTO_INCLUDED
 #define CRYPTO_INCLUDED
 

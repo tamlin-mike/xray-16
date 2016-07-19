@@ -6,9 +6,14 @@ class CEntityAlive;
 class CLevel;
 
 #include "hit_immunity.h"
-#include "Hit.h"
+//#include "Hit.h"
 #include "Level.h"
-enum EBoostParams{
+
+// fwd decl.
+struct SHit;
+
+enum EBoostParams
+{
 	eBoostHpRestore = 0,
 	eBoostPowerRestore,
 	eBoostRadiationRestore,
@@ -29,7 +34,8 @@ enum EBoostParams{
 	eBoostMaxCount,
 };
 
-static const LPCSTR ef_boosters_section_names[] =
+// XXX: Place this array in a C++ fource file, not the header.
+static const char* const ef_boosters_section_names[] =
 {
 	"boost_health_restore",
 	"boost_power_restore",
@@ -50,7 +56,8 @@ static const LPCSTR ef_boosters_section_names[] =
 	"boost_wound_immunity"
 };
 
-struct SBooster{
+struct SBooster
+{
 	float fBoostTime;
 	float fBoostValue;
 	EBoostParams m_type;
@@ -58,7 +65,8 @@ struct SBooster{
 	void Load(const shared_str& sect, EBoostParams type);
 };
 
-struct SMedicineInfluenceValues{
+struct SMedicineInfluenceValues
+{
 	float fHealth;
 	float fPower;
 	float fSatiety;

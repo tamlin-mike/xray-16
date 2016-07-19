@@ -13,6 +13,10 @@
 #include "xrAICore/Navigation/game_graph_space.h"
 #include "Common/Noncopyable.hpp"
 
+// fwd. decl.
+class IGameObject;
+class CSE_Abstract;
+
 namespace MovementManager {
 	enum EPathType;
 };

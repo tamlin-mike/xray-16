@@ -8,6 +8,10 @@
 
 #pragma once
 
+// XXX: Get rid of this dependency, and replace THROW2 below with something more approrpriate?
+#include "xrScriptEngine/DebugMacros.hpp"
+
+
 IC	bool CDetailPathManager::actual			() const
 {
 	return					(m_actuality);

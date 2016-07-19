@@ -11,7 +11,7 @@
 
 #pragma warning(disable:4995)
 #pragma warning(disable:4267)
-#include "Externals/ode/ode/src/joint.h"
+#include "ode/ode/src/joint.h"
 
 #pragma warning(default:4995)
 #pragma warning(default:4267)
