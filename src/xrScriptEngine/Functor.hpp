@@ -21,8 +21,9 @@ public:
     }
 };
 
-/* Returning void_type has been allowed since C++03 for templates. VS20015.3 even throws an ERROR,
-   so this specialization has no purpose.
+// VS 2015 Update 3 (cl ver. 19.00.24210) claims it can't find a matching member, so this has to be disabled for it.
+// No big deal, since this is pointless anyway.
+#if !(defined(_MSC_FULL_VER) && (_MSC_FULL_VER == 190024210))
 template <>
 template <typename... Args>
 void functor<void, typename...>::operator()(Args &&...args) const
@@ -30,7 +31,7 @@ void functor<void, typename...>::operator()(Args &&...args) const
     auto obj = static_cast<const adl::object *>(this);
     call_function<void, policy_list<Policies...>>(*obj, std::forward<Args>(args)...);
 }
-*/
+#endif
 
 namespace detail
 {
