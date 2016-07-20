@@ -140,23 +140,21 @@ namespace ALife {
 		eCombatTypeDummy = u32(-1),
 	};
 
-	//возможность подключения аддонов
-	enum EWeaponAddonStatus{
-		eAddonDisabled				= 0,	//нельзя присоеденить
-		eAddonPermanent				= 1,	//постоянно подключено по умолчанию
-		eAddonAttachable			= 2		//можно присоединять
+        enum EWeaponAddonStatus {
+                eAddonDisabled				= 0,
+                eAddonPermanent				= 1,
+                eAddonAttachable			= 2
 	};
 
 	EHitType	g_tfString2HitType(LPCSTR caHitType);
 
-#ifndef	_EDITOR
 	extern const xr_token hit_types_token[];
 
 	IC LPCSTR g_cafHitType2String(EHitType tHitType)
 	{
 		return get_token_name(hit_types_token, tHitType);
 	}
-#endif
+
 	DEFINE_VECTOR	(int,						INT_VECTOR,						INT_IT);
 	DEFINE_VECTOR	(_OBJECT_ID,				OBJECT_VECTOR,					OBJECT_IT);
 	DEFINE_VECTOR	(CSE_ALifeInventoryItem*,	ITEM_P_VECTOR,					ITEM_P_IT);

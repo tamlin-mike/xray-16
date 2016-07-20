@@ -1,6 +1,9 @@
 #pragma once
 #ifndef xrDebug_macrosH
 #define xrDebug_macrosH
+#ifndef DEBUG
+#include "Common/Platform.hpp" // Need the XR_ASSUME macro from Compiler.inl
+#endif
 
 #define DEBUG_INFO {__FILE__, __LINE__, __FUNCTION__}
 
@@ -100,7 +103,7 @@
 #ifdef __BORLANDC__
 #define NODEFAULT
 #else
-#define NODEFAULT __assume(0)
+#define NODEFAULT XR_ASSUME(0)
 #endif
 #define VERIFY(expr) do {} while (false)
 #define VERIFY2(expr, desc) do {} while (false)

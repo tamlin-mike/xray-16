@@ -8,6 +8,8 @@
 #define _WIN32_WINNT 0x0501
 #endif
 
+#include <sys/utime.h>
+
 #define NOGDICAPMASKS
 //#define NOSYSMETRICS
 #define NOMENUS
