@@ -332,7 +332,7 @@ class CCC_RestoreQuadIBData : public IConsole_Command
 {
 public:
 	CCC_RestoreQuadIBData(LPCSTR N) : IConsole_Command(N)  { };
-	virtual void Execute(LPCSTR args) {
+	virtual void Execute(LPCSTR /*args*/) {
 		RCache.RestoreQuadIBData();
 	}
 };
@@ -341,7 +341,7 @@ class CCC_ModelPoolStat : public IConsole_Command
 {
 public:
 	CCC_ModelPoolStat(LPCSTR N) : IConsole_Command(N)  { bEmptyArgsHandled = TRUE; };
-	virtual void Execute(LPCSTR args) {
+	virtual void Execute(LPCSTR /*args*/) {
 		RImplementation.Models->dump();
 	}
 };
@@ -434,7 +434,7 @@ public		:
 
 	CCC_memory_stats(LPCSTR N) :	IConsole_Command(N)	{ bEmptyArgsHandled = true; };
 
-	virtual void	Execute	(LPCSTR args)
+	virtual void	Execute	(LPCSTR /*args*/)
 	{
 		// TODO: OGL: Implement memory usage statistics.
 #ifndef USE_OGL
@@ -480,7 +480,7 @@ class CCC_BuildSSA : public IConsole_Command
 {
 public:
 	CCC_BuildSSA(LPCSTR N) : IConsole_Command(N)  { bEmptyArgsHandled = TRUE; };
-	virtual void Execute(LPCSTR args) 
+	virtual void Execute(LPCSTR /*args*/)
 	{
 #if !defined(USE_DX10) && !defined(USE_DX11)
 		//	TODO: DX10: Implement pixel calculator
@@ -518,7 +518,7 @@ public:
 	}
 
 	//	CCC_Dof should save all data as well as load from config
-	virtual void	Save	(IWriter *F)	{;}
+	virtual void	Save	(IWriter * /*F*/)	{;}
 };
 
 class CCC_DofNear : public CCC_Float
@@ -548,7 +548,7 @@ public:
 	}
 
 	//	CCC_Dof should save all data as well as load from config
-	virtual void	Save	(IWriter *F)	{;}
+	virtual void	Save	(IWriter * /*F*/)	{;}
 };
 
 class CCC_DofFocus : public CCC_Float
@@ -585,7 +585,7 @@ public:
 	}
 
 	//	CCC_Dof should save all data as well as load from config
-	virtual void	Save	(IWriter *F)	{;}
+	virtual void	Save	(IWriter * /*F*/)	{;}
 };
 
 class CCC_Dof : public CCC_Vector3
@@ -627,7 +627,7 @@ class CCC_DumpResources : public IConsole_Command
 {
 public:
 	CCC_DumpResources(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = TRUE; };
-	virtual void Execute(LPCSTR args) {
+	virtual void Execute(LPCSTR /*args*/) {
 		RImplementation.Models->dump();
 		RImplementation.Resources->Dump(false);
 	}

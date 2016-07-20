@@ -7,6 +7,6 @@
 #endif
 
 #include "xr_impexp_macros.h"
-#include "inlining_macros.h"
+#include "xrCommon/inlining_macros.h"
 
 #define UNUSED(...) (void)(__VA_ARGS__)

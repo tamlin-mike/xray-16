@@ -69,7 +69,7 @@ public:
 
     BENCH_SEC_SCRAMBLEVTBL2
 
-    virtual void fill_tips(vecTips& tips, u32 mode)
+    virtual void fill_tips(vecTips& tips, u32 /*mode*/)
     {
         add_LRU_to_tips(tips);
     }
@@ -131,7 +131,7 @@ public:
         bEmptyArgsHandled = TRUE;
     };
     const BOOL GetValue()const { return value->test(mask); }
-    virtual void Execute(LPCSTR args)
+    virtual void Execute(LPCSTR /*args*/)
     {
         value->set(mask, !GetValue());
         TStatus S;

@@ -3,7 +3,7 @@
 #define __V3D__
 
 //#include "Common/Platform.hpp"
-#include "Common/inlining_macros.h"
+#include "xrCommon/inlining_macros.h"
 #include "_random.h"
 #include "_std_extensions.h"
 
