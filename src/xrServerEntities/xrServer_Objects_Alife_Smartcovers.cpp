@@ -94,29 +94,29 @@ IServerEntityShape* CSE_SmartCover::shape()
     return                      (this);
 }
 
-bool CSE_SmartCover::used_ai_locations  () const
+bool CSE_SmartCover::used_ai_locations() const throw()
 {
-    return                      (true);
+    return true;
 }
 
-bool CSE_SmartCover::can_save           () const
+bool CSE_SmartCover::can_save() const throw()
 {
-    return                      (true);
+    return true;
 }
 
-bool CSE_SmartCover::can_switch_online  () const
+bool CSE_SmartCover::can_switch_online() const throw()
 {
-    return                      (true);
+    return true;
 }
 
-bool CSE_SmartCover::can_switch_offline () const
+bool CSE_SmartCover::can_switch_offline() const throw()
 {
-    return                      (false);
+    return false;
 }
 
-bool CSE_SmartCover::interactive        () const
+bool CSE_SmartCover::interactive() const throw()
 {
-    return                      (false);
+    return false;
 }
 
 LPCSTR CSE_SmartCover::description      () const
