@@ -53,7 +53,7 @@ IC char* xr_strcpy(char* strDestination, const char* strSource)
 
 IC char* _strlwr_s(char* strDestination, size_t sizeInBytes)
 {
-    return strlwr(strDestination);
+    return _strlwr(strDestination);
 }
 
 IC char* xr_strcat(char* strDestination, size_t sizeInBytes, const char* strSource)
