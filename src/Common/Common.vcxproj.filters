@@ -81,6 +81,9 @@
     <ClInclude Include="..\xrCommon\xr_deque.h">
       <Filter>xrCommon</Filter>
     </ClInclude>
+    <ClInclude Include="..\xrCommon\xr_hash_map.h">
+      <Filter>xrCommon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NvMender2003">

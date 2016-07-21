@@ -113,6 +113,7 @@
     <ClInclude Include="..\xrCommon\predicates.h" />
     <ClInclude Include="..\xrCommon\xalloc.h" />
     <ClInclude Include="..\xrCommon\xr_deque.h" />
+    <ClInclude Include="..\xrCommon\xr_hash_map.h" />
     <ClInclude Include="..\xrCommon\xr_list.h" />
     <ClInclude Include="..\xrCommon\xr_map.h" />
     <ClInclude Include="..\xrCommon\xr_set.h" />
