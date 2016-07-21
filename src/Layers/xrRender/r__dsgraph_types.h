@@ -24,7 +24,7 @@ public:
 													doug_lea_alloc	(const doug_lea_alloc<T>&)				{	}
 	template<class _Other>							doug_lea_alloc	(const doug_lea_alloc<_Other>&)			{	}
 	template<class _Other>	doug_lea_alloc<T>&		operator=		(const doug_lea_alloc<_Other>&)			{	return (*this);	}
-							pointer					allocate		(size_type n, const void* p=0) const	{	return (T*)g_render_allocator.malloc_impl(sizeof(T)*(u32)n);	}
+							pointer					allocate		(size_type n, const void* /*p*/=0) const{	return (T*)g_render_allocator.malloc_impl(sizeof(T)*(u32)n);	}
 							void					deallocate		(pointer p, size_type) const			{	g_render_allocator.free_impl	((void*&)p);				}
 							void					deallocate		(void* p, size_type n) const			{	g_render_allocator.free_impl	(p);				}
 							char*					__charalloc		(size_type n)							{	return (char*)allocate(n); }

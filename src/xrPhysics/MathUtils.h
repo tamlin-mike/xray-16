@@ -1,8 +1,18 @@
+#pragma once
 #ifndef MATH_UTILS_H
 #define MATH_UTILS_H
-
+#include "xrCore/_fbox.h"
+#include "xrCore/_obb.h"
+#ifdef DEBUG
+#include "xrCore/dump_string.h"
+#endif
 
 extern XRPHYSICS_API	const float	phInfinity;
+
+// fwd. decl.
+template <class T> struct _quaternion;
+typedef _quaternion<float> Fquaternion;
+
 
 IC  float* cast_fp(Fvector& fv)
 {
@@ -22,7 +32,6 @@ IC const Fvector &cast_fv(const float* fp)
 {
 	return *((const Fvector*)fp);
 }
-
 
 IC  float	dXZMag(const float* v)
 {
@@ -147,27 +156,7 @@ IC	void	dMatrixSmallDeviationAdd(const float* matrix33_from,const float* matrix3
 	vector_dev[2]+=matrix33_from[4]-matrix33_to[4];
 }
 
-IC	void twoq_2w(const Fquaternion& q1,const Fquaternion& q2,float dt,Fvector& w)
-{
-//	
-//	w=	2/dt*arccos(q1.w*q2.w+ q1.v.dotproduct(q2.v))
-//		*1/sqr(1-(q1.w*q2.w+ q1.v.dotproduct(q2.v))^2)
-//		[q1.w*q2.v-q2.w*q1.v-q1.v.crossproduct(q2.v)]
-	
-	Fvector v1,v2;
-	v1.set(q1.x,q1.y,q1.z);
-	v2.set(q2.x,q2.y,q2.z);
-	float cosinus=q1.w*q2.w+v1.dotproduct(v2);//q1.w*q2.w+ q1.v.dotproduct(q2.v)
-	w.crossproduct(v1,v2);
-	//								  //the signum must be inverted ?
-	v1.mul(q2.w);
-	v2.mul(q1.w);
-	w.sub(v2);
-	w.add(v1);
-	float sinus_2=1.f-cosinus*cosinus,k=2.f/dt;
-	if(sinus_2>EPS)	k*=acos(cosinus)/_sqrt(sinus_2);
-	w.mul(k);
-}
+// void twoq_2w(const Fquaternion& q1, const Fquaternion& q2, float dt, Fvector& w) throw(); // Not used, but move to xrMiscMath
 
 IC float	to_mag_and_dir(const Fvector &in_v,Fvector &out_v)
 {
@@ -396,4 +385,5 @@ const float				DET_CHECK_FATAL_EPS =0.8f					;//scale -35%  !? ;)
 #else
 #define	VERIFY_RMATRIX(M)	
 #endif
-#endif
+
+#endif // include guard

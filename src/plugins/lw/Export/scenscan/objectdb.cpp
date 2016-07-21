@@ -350,12 +350,12 @@ int printObjectDB( ObjectDB *odb, FILE *fp, int c )
    char *tag;
    int i, j, k, n;
 
-   fprintf( fp, "%08.8x %s\n\n", odb->id, odb->filename );
+   fprintf( fp, "%08.8x %s\n\n", (unsigned int)(odb->id), odb->filename );
 
    fprintf( fp, "Points (%d)\n\n", odb->npoints );
    for ( i = 0; i < odb->npoints; i++ ) {
       fprintf( fp, "%08.8x  pos (%g, %g, %g)  npols %d:",
-         odb->pt[ i ].id,
+		  (unsigned int)(odb->pt[ i ].id),
          odb->pt[ i ].pos[ c ][ 0 ],
          odb->pt[ i ].pos[ c ][ 1 ],
          odb->pt[ i ].pos[ c ][ 2 ],
@@ -394,7 +394,7 @@ int printObjectDB( ObjectDB *odb, FILE *fp, int c )
    fprintf( fp, "\n\nPolygons (%d)\n\n", odb->npolygons );
    for ( i = 0; i < odb->npolygons; i++ ) {
       fprintf( fp, "%08.8x  surf %d  norm (%g, %g, %g)  nverts %d:\n",
-         odb->pol[ i ].id,
+		  (unsigned int)(odb->pol[ i ].id),
          odb->pol[ i ].sindex,
          odb->pol[ i ].norm[ c ][ 0 ],
          odb->pol[ i ].norm[ c ][ 1 ],
@@ -412,7 +412,7 @@ int printObjectDB( ObjectDB *odb, FILE *fp, int c )
    fprintf( fp, "\n\nSurfaces (%d)\n", odb->nsurfaces );
    for ( i = 0; i < odb->nsurfaces; i++ ) {
       fprintf( fp, "\n%08.8X  \"%s\"\n",
-         odb->surf[ i ].id,
+		  (unsigned int)(odb->surf[ i ].id),
          odb->surf[ i ].name );
       fprintf( fp, "  " SURF_COLR "  %g %g %g\n",
          odb->surf[ i ].colr[ 0 ],
@@ -447,8 +447,8 @@ int printObjectDB( ObjectDB *odb, FILE *fp, int c )
          odb->surf[ i ].lcol[ 1 ],
          odb->surf[ i ].lcol[ 2 ] );
       fprintf( fp, "  " SURF_SIDE "  0x%X\n", odb->surf[ i ].side );
-      fprintf( fp, "  " SURF_RIMG "  %08.8X\n", odb->surf[ i ].rimg );
-      fprintf( fp, "  " SURF_TIMG "  %08.8X\n", odb->surf[ i ].timg );
+      fprintf( fp, "  " SURF_RIMG "  %08.8X\n", (unsigned int)(odb->surf[ i ].rimg) );
+      fprintf( fp, "  " SURF_TIMG "  %08.8X\n", (unsigned int)(odb->surf[ i ].timg) );
    }
 
    fprintf( fp, "\n\nVertex Maps (%d)\n\n", odb->nvertmaps );

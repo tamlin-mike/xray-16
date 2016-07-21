@@ -74,7 +74,7 @@ IC	void CLevelPathManager::init			()
 }
 
 TEMPLATE_SPECIALIZATION
-IC	_dist_type CLevelPathManager::evaluate	(const _index_type &node_index1, const _index_type &node_index2, const _Graph::const_iterator &/**i/**/)
+IC	_dist_type CLevelPathManager::evaluate	(const _index_type &/*node_index1*/, const _index_type &/*node_index2*/, const _Graph::const_iterator &/**i/**/)
 {
 	VERIFY					(graph);
 	
@@ -87,7 +87,7 @@ IC	_dist_type CLevelPathManager::evaluate	(const _index_type &node_index1, const
 }
 
 TEMPLATE_SPECIALIZATION
-IC	_dist_type CLevelPathManager::estimate	(const _index_type &node_index) const
+IC	_dist_type CLevelPathManager::estimate	(const _index_type &/*node_index*/) const
 {
 	VERIFY					(graph);
 //		return					(_sqrt((float)(m_sqr_distance_xz*float(_sqr(x3 - x1) + _sqr(z3 - z1)) + square_size_y*(float)_sqr(y3 - y1))));

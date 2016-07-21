@@ -28,9 +28,9 @@ static D3DVERTEXELEMENT9 dwDecl[]	=
 	D3DDECL_END()
 };
 
-void FLOD::Load			(LPCSTR N, IReader *data, u32 dwFlags)
+void FLOD::Load			(LPCSTR Name, IReader *data, u32 dwFlags)
 {
-	inherited::Load		(N,data,dwFlags);
+	inherited::Load		(Name,data,dwFlags);
 
 	// LOD-def
 	R_ASSERT			(data->find_chunk(OGF_LODDEF2));
@@ -72,7 +72,7 @@ void FLOD::Copy			(dxRender_Visual *pFrom	)
 	lod_factor			= F->lod_factor	;
 	CopyMemory		(facets,F->facets,sizeof(facets));
 }
-void FLOD::Render		(float LOD)
+void FLOD::Render		(float /*LOD*/)
 {
 	/*
 	Fvector				Ldir;

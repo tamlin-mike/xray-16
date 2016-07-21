@@ -1,5 +1,9 @@
 #include "stdafx.h"
+
 #ifdef DEBUG
+#include "dump_string.h"
+#include "_fbox.h"
+
 std::string get_string(const Fvector& v)
 {
     return make_string("( %f, %f, %f )", v.x, v.y, v.z);
@@ -15,7 +19,7 @@ std::string get_string(const Fmatrix& dop)
 }
 std::string get_string(const Fbox& box)
 {
-    return make_string("[ min: %s - max: %s ]", get_string(box.min).c_str(), get_string(box.max).c_str());
+    return make_string("[ min: %s - max: %s ]", get_string(box.vMin).c_str(), get_string(box.vMax).c_str());
 }
 std::string get_string(bool v)
 {
@@ -24,17 +28,17 @@ std::string get_string(bool v)
 
 
 
-std::string dump_string(LPCSTR name, const Fvector& v)
+std::string dump_string(const char* name, const Fvector& v)
 {
     return make_string("%s : (%f,%f,%f) ", name, v.x, v.y, v.z);
 }
 
-void dump(LPCSTR name, const Fvector& v)
+void dump(const char* name, const Fvector& v)
 {
     Msg("%s", dump_string(name, v).c_str());
 }
 
-std::string dump_string(LPCSTR name, const Fmatrix& form)
+std::string dump_string(const char* name, const Fmatrix& form)
 {
     return
         make_string("%s, _14_=%f \n", dump_string(make_string("%s.i, ", name).c_str(), form.i).c_str(), form._14_) +
@@ -43,7 +47,7 @@ std::string dump_string(LPCSTR name, const Fmatrix& form)
         make_string("%s, _44_=%f \n", dump_string(make_string("%s.c, ", name).c_str(), form.c).c_str(), form._44_);
 }
 
-void dump(LPCSTR name, const Fmatrix& form)
+void dump(const char* name, const Fmatrix& form)
 {
     Msg("%s", dump_string(name, form).c_str());
     //Msg( "%s, _14_=%f ", dump_string( make_string( "%s.i, ", name ).c_str(), form.i ).c_str( ) , form._14_ );
@@ -52,4 +56,4 @@ void dump(LPCSTR name, const Fmatrix& form)
     //Msg( "%s, _44_=%f ", dump_string( make_string( "%s.c, ", name ).c_str(), form.c ).c_str( ) , form._44_ );
 }
 
-#endif
+#endif // DEBUG

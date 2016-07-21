@@ -28,7 +28,7 @@ public:
 	IC	SelfRef	set(const T _x1, const T _y1, const T _x2, const T _y2)	{ x1=_x1;	y1=_y1;		x2=_x2;		y2=_y2;		return *this;	};
 	IC	SelfRef	set(const Tvector &mn, const Tvector &mx)		{ x1=mn.x;	y1=mn.y;	x2=mx.x;	y2=mx.y;	return *this;	};
 	IC	SelfRef	set(const Self &r)										{ x1=r.x1;	y1=r.y1;	x2=r.x2;	y2=r.y2;	return *this;	};
-	IC	SelfRef	null( )										{ x1=T(0);	y1=T(0);	x2=T(0);	y2=T(0);		return *this;	};
+	IC	SelfRef	set_zero()									{ x1=T(0);	y1=T(0);	x2=T(0);	y2=T(0);		return *this;	};
 	
 	IC	SelfRef	add(T x, T y)								{ x1+=x;	y1+=y;		x2+=x;		y2+=y;			return *this;	};
 	IC	SelfRef	sub(T x, T y)								{ x1-=x;	y1-=y;		x2-=x;		y2-=y;			return *this;	};

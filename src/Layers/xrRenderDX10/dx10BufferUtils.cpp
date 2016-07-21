@@ -4,7 +4,7 @@
 namespace dx10BufferUtils
 {
 
-HRESULT	IC CreateBuffer( ID3DBuffer** ppBuffer, const void* pData, UINT DataSize, bool bImmutable, bool bIndexBuffer)
+HRESULT	IC CreateBuffer( ID3DBuffer** ppBuffer, const void* pData, UINT DataSize, bool /*bImmutable*/, bool bIndexBuffer)
 {
 	D3D_BUFFER_DESC desc;
 	desc.ByteWidth = DataSize;

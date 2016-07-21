@@ -1,4 +1,5 @@
 #pragma once
+#include "xrCore/_fbox.h"
 
 class ik_foot_geom
 {
@@ -19,8 +20,8 @@ IC	void	set( const Fvector &toe, const Fvector &heel,  const Fvector &side  )
 IC	bool is_valid	() const
 	{
 		Fbox test ;
-		test.max.set(FLT_MAX/2.f, FLT_MAX/2.f, FLT_MAX/2.f );
-		test.min.set(-FLT_MAX/2.f, -FLT_MAX/2.f, -FLT_MAX/2.f );
+		test.vMax.set(FLT_MAX/2.f, FLT_MAX/2.f, FLT_MAX/2.f );
+		test.vMin.set(-FLT_MAX/2.f, -FLT_MAX/2.f, -FLT_MAX/2.f );
 		return test.contains( pos_toe() ) && test.contains( pos_heel() ) && test.contains( pos_side() ) ;
 	}
 	ik_foot_geom(): _toe(Fvector().set( -FLT_MAX, -FLT_MAX, -FLT_MAX )),

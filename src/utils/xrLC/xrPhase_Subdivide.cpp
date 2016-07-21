@@ -9,19 +9,19 @@ extern void		Detach		(vecFace* S);
 void	setup_bbs	(Fbox& b1, Fbox& b2, Fbox& bb,int edge)	{
 	Fvector	size;
 	b1.set	(bb);	b2.set(bb);
-	size.sub(bb.max,bb.min);
+	size.sub(bb.vMax,bb.vMin);
 	switch	(edge)	{
 		case 0:
-			b1.max.x -= size.x/2;
-			b2.min.x += size.x/2;
+			b1.vMax.x -= size.x/2;
+			b2.vMin.x += size.x/2;
 			break;
 		case 1:
-			b1.max.y -= size.y/2;
-			b2.min.y += size.y/2;
+			b1.vMax.y -= size.y/2;
+			b2.vMin.y += size.y/2;
 			break;
 		case 2:
-			b1.max.z -= size.z/2;
-			b2.min.z += size.z/2;
+			b1.vMax.z -= size.z/2;
+			b2.vMin.z += size.z/2;
 			break;
 	}
 };
@@ -59,7 +59,7 @@ void CBuild::xrPhase_Subdivide()
 		}
 		
 		// analyze if we need to split
-		size.sub(bb.max,bb.min);
+		size.sub(bb.vMax,bb.vMin);
 		BOOL	bSplit	= FALSE;
 		if  	(size.x>c_SS_maxsize)					bSplit	= TRUE;
 		if		(size.y>c_SS_maxsize)					bSplit	= TRUE;
@@ -114,14 +114,14 @@ resplit:
 				{
 					if (s2.size()>s1.size())	
 					{	//b2 -less, b1-grow
-						size.sub	(b2.max,b2.min);
-						b1.max[box_edge]	+= size[box_edge]/2;
-						b2.min[box_edge]	=  b1.max[box_edge];
+						size.sub	(b2.vMax,b2.vMin);
+						b1.vMax[box_edge]	+= size[box_edge]/2;
+						b2.vMin[box_edge]	=  b1.vMax[box_edge];
 					} else {
 						//b2 -grow, b1-less
-						size.sub	(b1.max,b1.min);
-						b2.min[box_edge]	-= size[box_edge]/2;
-						b1.max[box_edge]	=  b2.min[box_edge];
+						size.sub	(b1.vMax,b1.vMin);
+						b2.vMin[box_edge]	-= size[box_edge]/2;
+						b1.vMax[box_edge]	=  b2.vMin[box_edge];
 					}
 					goto		resplit;
 				}

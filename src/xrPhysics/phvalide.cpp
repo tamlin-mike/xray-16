@@ -1,10 +1,11 @@
 #include "stdafx.h"
 
 #include "phvalide.h"
-#include "mathutils.h"
+#include "MathUtils.h"
 #include "iphysicsshellholder.h"
-
-
+#ifdef	DEBUG
+#include "xrCore/dump_string.h"
+#endif
 
 extern Fbox	phBoundaries;
 

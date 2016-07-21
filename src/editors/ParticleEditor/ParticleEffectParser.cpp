@@ -1010,7 +1010,7 @@ bool InitCommandTemplates()
             F.type = PFunction::ftState;
             if (!(bRes = F.LoadTemplate(PStateCommands[k])))
                 break;
-            ct.insert(mk_pair(F.command, F));
+            ct.insert(std::make_pair(F.command, F));
         }
         if (!bRes)
             break;
@@ -1021,7 +1021,7 @@ bool InitCommandTemplates()
             F.type = PS::PFunction::ftAction;
             if (!(bRes = F.LoadTemplate(PActionCommands[k])))
                 break;
-            ct.insert(mk_pair(F.command, F));
+            ct.insert(std::make_pair(F.command, F));
         }
     } while (0);
     if (!bRes)

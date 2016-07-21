@@ -62,11 +62,11 @@ CALifeMonsterBrain::~CALifeMonsterBrain			()
 #endif
 }
 
-void CALifeMonsterBrain::on_state_write		(NET_Packet &packet)
+void CALifeMonsterBrain::on_state_write		(NET_Packet &/*packet*/)
 {
 }
 
-void CALifeMonsterBrain::on_state_read		(NET_Packet &packet)
+void CALifeMonsterBrain::on_state_read		(NET_Packet &/*packet*/)
 {
 }
 

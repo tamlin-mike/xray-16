@@ -140,7 +140,7 @@ BOOL CObjectSpace::_RayPick	( const Fvector &start, const Fvector &dir, float ra
 				if (bDebug()){
 					Fsphere	S;		S.P = spatial->GetSpatialData().sphere.P; S.R = spatial->GetSpatialData().sphere.R;
 					(*m_pRender)->dbgAddSphere(S,C);
-					//dbg_S.push_back	(mk_pair(S,C));
+					//dbg_S.push_back	(std::make_pair(S,C));
 				}
 #endif
 			}

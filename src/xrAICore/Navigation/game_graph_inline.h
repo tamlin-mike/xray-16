@@ -96,7 +96,7 @@ IC	void CGameGraph::begin											(u32 const vertex_id, const_iterator &start,
 	end							= (start = (const CEdge *)((BYTE *)m_nodes + vertex(_GRAPH_ID(vertex_id))->edge_offset())) + vertex(_GRAPH_ID(vertex_id))->edge_count();
 }
 
-IC	const CGameGraph::_GRAPH_ID &CGameGraph::value					(u32 const vertex_id, const_iterator &i) const
+IC	const CGameGraph::_GRAPH_ID &CGameGraph::value					(u32 const /*vertex_id*/, const_iterator &i) const
 {
 	return						(i->vertex_id());
 }
@@ -294,7 +294,7 @@ IC	void GameGraph::CHeader::load									(IReader *reader)
 	for (u32 i=0; i<level_count; ++i) {
 		SLevel					l_tLevel;
 		l_tLevel.load			(reader);
-		m_levels.insert			(mk_pair(l_tLevel.id(),l_tLevel));
+		m_levels.insert			(std::make_pair(l_tLevel.id(),l_tLevel));
 	}
 }
 

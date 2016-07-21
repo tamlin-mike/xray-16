@@ -72,7 +72,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>$(xrExternals)\OpenAutomate\inc;$(xrExternals)\gl\include;$(xrExternals)\glew\include;$(xrExternals)\gli;$(xrExternals)\gli\external\glm;$(xrExternals)\AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)gl\include;$(xrExternals)glew\include;$(xrExternals)gli;$(xrExternals)gli\external\glm;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>USE_OGL;NO_XR_VDECLARATOR;_USRDLL;XRRENDER_GL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -88,7 +88,7 @@
     <Link>
       <AdditionalDependencies>LuaJIT.lib;nvapi.lib;amd_ags_x86.lib;oalib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(xrExternals)\OpenAutomate\libraries;$(xrExternals)\nvapi\x86;$(xrExternals)\luajit\bin\$(PlatformShortName);$(xrExternals)\AGS_SDK\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(xrExternals)OpenAutomate\libraries;$(xrExternals)nvapi\x86;$(xrExternals)luajit\bin\$(PlatformShortName);$(xrExternals)AGS_SDK\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>false</GenerateMapFile>
       <SubSystem>Windows</SubSystem>
@@ -99,7 +99,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copy AGS dll to output directory</Message>
-      <Command>copy /Y "$(xrExternals)\AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Command>copy /Y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,7 +111,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>$(xrExternals)\OpenAutomate\inc;$(xrExternals)\gl\include;$(xrExternals)\glew\include;$(xrExternals)\gli;$(xrExternals)\gli\external\glm;$(xrExternals)\AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)gl\include;$(xrExternals)glew\include;$(xrExternals)gli;$(xrExternals)gli\external\glm;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>USE_OGL;NO_XR_VDECLARATOR;_USRDLL;XRRENDER_GL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -127,7 +127,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>LuaJIT.lib;nvapi.lib;amd_ags_x86.lib;oalib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(xrExternals)\OpenAutomate\libraries;$(xrExternals)\nvapi\x86;$(xrExternals)\luajit\bin\$(PlatformShortName);$(xrExternals)\AGS_SDK\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(xrExternals)OpenAutomate\libraries;$(xrExternals)nvapi\x86;$(xrExternals)luajit\bin\$(PlatformShortName);$(xrExternals)AGS_SDK\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
       <GenerateMapFile>false</GenerateMapFile>
@@ -142,7 +142,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copy AGS dll to output directory</Message>
-      <Command>copy /Y "$(xrExternals)\AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Command>copy /Y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Mixed|Win32'">
@@ -153,7 +153,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>$(xrExternals)\OpenAutomate\inc;$(xrExternals)\gl\include;$(xrExternals)\glew\include;$(xrExternals)\gli;$(xrExternals)\gli\external\glm;$(xrExternals)\AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(xrExternals)OpenAutomate\inc;$(xrExternals)gl\include;$(xrExternals)glew\include;$(xrExternals)gli;$(xrExternals)gli\external\glm;$(xrExternals)AGS_SDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>USE_OGL;NO_XR_VDECLARATOR;_USRDLL;XRRENDER_GL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -168,7 +168,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>LuaJIT.lib;nvapi.lib;amd_ags_x86.lib;oalib.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(xrExternals)\OpenAutomate\libraries;$(xrExternals)\nvapi\x86;$(xrExternals)\luajit\bin\$(PlatformShortName);$(xrExternals)\AGS_SDK\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(xrExternals)OpenAutomate\libraries;$(xrExternals)nvapi\x86;$(xrExternals)luajit\bin\$(PlatformShortName);$(xrExternals)AGS_SDK\ags_lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>false</GenerateMapFile>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +179,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copy AGS dll to output directory</Message>
-      <Command>copy /Y "$(xrExternals)\AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
+      <Command>copy /Y "$(xrExternals)AGS_SDK\ags_lib\lib\amd_ags_$(PlatformShortName).dll" "$(OutDir)amd_ags_$(PlatformShortName).dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -353,7 +353,7 @@
     <ClCompile Include="r2_R_calculate.cpp" />
     <ClCompile Include="gl_rendertarget.cpp" />
     <ClCompile Include="r2_R_lights.cpp" />
-    <ClCompile Include="r2_R_sun.cpp" />
+    <ClCompile Include="gl_R_sun.cpp" />
     <ClCompile Include="r2_sector_detect.cpp" />
     <ClCompile Include="r3_R_rain.cpp" />
     <ClCompile Include="r3_R_sun_support.cpp" />

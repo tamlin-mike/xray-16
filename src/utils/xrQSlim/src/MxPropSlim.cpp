@@ -428,7 +428,7 @@ void MxPropSlim::compute_target_placement(edge_info *info)
 		double ei=Q(vi), ej=Q(vj);
 
 		if( ei<ej )	{ e_min = ei; best = vi; }
-		else		{ e_min = ej; best = vj; swap(info->v1,info->v2);}
+		else		{ e_min = ej; best = vj; std::swap(info->v1,info->v2); }
 
 		if( placement_policy>=MX_PLACE_ENDORMID ){
 			MxVector mid(dim());

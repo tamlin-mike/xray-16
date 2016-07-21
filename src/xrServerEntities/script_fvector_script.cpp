@@ -111,8 +111,8 @@ SCRIPT_EXPORT(Fbox, (),
     module(luaState)
     [
         class_<Fbox>("Fbox")
-            .def_readwrite("min",				&Fbox::min)
-            .def_readwrite("max",				&Fbox::max)
+            .def_readwrite("min",				&Fbox::vMin)
+            .def_readwrite("max",				&Fbox::vMax)
             .def(constructor<>())
     ];
 });

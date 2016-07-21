@@ -731,9 +731,6 @@
     <ClCompile Include="r2_R_lights.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="r2_R_sun.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="r2_sector_detect.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -1282,6 +1279,9 @@
     </ClCompile>
     <ClCompile Include="..\xrRenderDX10\dx10MinMaxSMBlender.cpp">
       <Filter>Shading templates</Filter>
+    </ClCompile>
+    <ClCompile Include="r3_R_sun.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

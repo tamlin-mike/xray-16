@@ -15,14 +15,14 @@ struct CSaver {
 	template <typename T>
 	struct CHelper1 {
 		template <bool a>
-		IC	static void save_data(const T &data, M &stream, const P &p)
+		IC	static void save_data(const T &data, M &stream, const P & /*p*/)
 		{
 			STATIC_CHECK				(!std::is_polymorphic<T>::value,Cannot_save_polymorphic_classes_as_binary_data);
 			stream.w					(&data,sizeof(T));
 		}
 
 		template <>
-		IC	static void save_data<true>(const T &data, M &stream, const P &p)
+		IC	static void save_data<true>(const T &data, M &stream, const P & /*p*/)
 		{
 			T* data1 = const_cast<T*>(&data);
 			data1->save	(stream);
@@ -78,22 +78,22 @@ struct CSaver {
 		}
 	};
 
-	IC	static void save_data(LPSTR data, M &stream, const P &p)
+	IC	static void save_data(LPSTR data, M &stream, const P & /*p*/)
 	{
 		stream.w_stringZ				(data);
 	}
 
-	IC	static void save_data(LPCSTR data, M &stream, const P &p)
+	IC	static void save_data(LPCSTR data, M &stream, const P & /*p*/)
 	{
 		stream.w_stringZ				(data);
 	}
 
-	IC	static void save_data(const shared_str &data, M &stream, const P &p)
+	IC	static void save_data(const shared_str &data, M &stream, const P & /*p*/)
 	{
 		stream.w_stringZ				(data);
 	}
 
-	IC	static void save_data(const xr_string &data, M &stream, const P &p)
+	IC	static void save_data(const xr_string &data, M &stream, const P & /*p*/)
 	{
 		stream.w_stringZ				(data.c_str());
 	}
@@ -107,7 +107,7 @@ struct CSaver {
 			CSaver<M,P>::save_data		(data.second,stream,p);
 	}
 
-	IC	static void save_data(const xr_vector<bool> &data, M &stream, const P &p)
+	IC	static void save_data(const xr_vector<bool> &data, M &stream, const P & /*p*/)
 	{
 		stream.w_u32					((u32)data.size());
 		xr_vector<bool>::const_iterator I = data.begin();
@@ -191,9 +191,9 @@ namespace object_saver {
 	namespace detail {
 		struct CEmptyPredicate {
 			template <typename T1, typename T2>
-			IC	bool operator()	(const T1 &data, const T2 &value) const {return(true);}
+			IC	bool operator()	(const T1 &/*data*/, const T2 &/*value*/) const { return true; }
 			template <typename T1, typename T2>
-			IC	bool operator()	(const T1 &data, const T2 &value, bool) const {return(true);}
+			IC	bool operator()	(const T1 &/*data*/, const T2 &/*value*/, bool) const { return true; }
 		};
 	};
 };

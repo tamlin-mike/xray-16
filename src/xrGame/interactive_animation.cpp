@@ -4,7 +4,7 @@
 
 #include	"xrPhysics/physicsshell.h"
 #include	"xrPhysics/ExtendedGeom.h"
-#include	"xrPhysics/mathutils.h"
+#include	"xrPhysics/MathUtils.h"
 
 
 #include	"Include/xrRender/KinematicsAnimated.h"

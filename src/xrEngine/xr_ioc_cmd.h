@@ -108,7 +108,7 @@ public:
         xr_strcpy(I, "'on/off' or '1/0'");
     }
 
-    virtual void fill_tips(vecTips& tips, u32 mode)
+    virtual void fill_tips(vecTips& tips, u32 /*mode*/)
     {
         TStatus str;
         xr_sprintf(str, sizeof(str), "%s (current) [on/off]", value->test(mask) ? "on" : "off");
@@ -147,7 +147,7 @@ public:
         xr_strcpy(I, "'on/off' or '1/0'");
     }
 
-    virtual void fill_tips(vecTips& tips, u32 mode)
+    virtual void fill_tips(vecTips& tips, u32 /*mode*/)
     {
         TStatus str;
         xr_sprintf(str, sizeof(str), "%s (current) [on/off]", value->test(mask) ? "on" : "off");
@@ -210,7 +210,7 @@ public:
     }
     virtual xr_token* GetToken() { return tokens; }
 
-    virtual void fill_tips(vecTips& tips, u32 mode)
+    virtual void fill_tips(vecTips& tips, u32 /*mode*/)
     {
         TStatus str;
         bool res = false;
@@ -400,7 +400,7 @@ public:
 class ENGINE_API CCC_LoadCFG : public IConsole_Command
 {
 public:
-    virtual bool allow(LPCSTR cmd) { return true; };
+    virtual bool allow(LPCSTR /*cmd*/) { return true; };
     CCC_LoadCFG(LPCSTR N);
     virtual void Execute(LPCSTR args);
 };

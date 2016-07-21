@@ -351,9 +351,9 @@ bool detail_slot_calculate( u32 _x, u32 _z, DetailSlot&	DS, DWORDVec& box_result
 			// compute position
 			Fvector t_n;	t_n.set(0,1,0);
 			P.z				= bbC.z + coeff*float(z);
-			P.y				= BB.min.y-5;
+			P.y				= BB.vMin.y-5;
 			Fvector	dir;	dir.set		(0,-1,0);
-			Fvector start;	start.set	(P.x,BB.max.y+EPS,P.z);
+			Fvector start;	start.set	(P.x,BB.vMax.y+EPS,P.z);
 			
 			float		r_u,r_v,r_range;
 			for (DWORDIt tit=box_result.begin(); tit!=box_result.end(); tit++)
@@ -371,7 +371,7 @@ bool detail_slot_calculate( u32 _x, u32 _z, DetailSlot&	DS, DWORDVec& box_result
 					}
 				}
 			}
-			if (P.y<BB.min.y) continue;
+			if (P.y<BB.vMin.y) continue;
 			
 			// light point
 			LightPoint		(&DB,amount,P,t_n,Selected,0);

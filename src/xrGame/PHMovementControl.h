@@ -5,7 +5,7 @@
 
 
 #include "xrPhysics/physicsexternalcommon.h"
-#include "xrPhysics/mathutils.h"
+#include "xrPhysics/MathUtils.h"
 #include "xrPhysics/movementboxdynamicactivate.h"
 namespace ALife {
 	enum EHitType;

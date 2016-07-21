@@ -58,8 +58,8 @@ void CEditableObject::FillBasicProps(LPCSTR pref, PropItemVec &items)
     V->OnChangeEvent.bind(this, &CEditableObject::OnChangeTransform);
     V = PHelper().CreateVector(items, PrepareKey(pref, "Transform\\Scale"), &t_vScale, 0.01, 10000, 0.01, 2);
     V->OnChangeEvent.bind(this, &CEditableObject::OnChangeTransform);
-    V = PHelper().CreateCaption(items, PrepareKey(pref, "Transform\\BBox Min"), shared_str().printf("{%3.2f, %3.2f, %3.2f}", VPUSH(GetBox().min)));
-    V = PHelper().CreateCaption(items, PrepareKey(pref, "Transform\\BBox Max"), shared_str().printf("{%3.2f, %3.2f, %3.2f}", VPUSH(GetBox().max)));
+    V = PHelper().CreateCaption(items, PrepareKey(pref, "Transform\\BBox Min"), shared_str().printf("{%3.2f, %3.2f, %3.2f}", VPUSH(GetBox().vMin)));
+    V = PHelper().CreateCaption(items, PrepareKey(pref, "Transform\\BBox Max"), shared_str().printf("{%3.2f, %3.2f, %3.2f}", VPUSH(GetBox().vMax)));
     //.    PHelper().CreateChoose	    (items, PrepareKey(pref,"LOD\\Reference"),	&m_LODs, smObject);
     PHelper().CreateChoose(items, PrepareKey(pref, "LOD\\Reference"), &m_LODs, smVisual);
 

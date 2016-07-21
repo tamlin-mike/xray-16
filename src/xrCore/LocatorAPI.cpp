@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#pragma hdrstop
+#pragma hdrstop // huh?
 
 #pragma warning(disable:4995)
 #include <direct.h>
@@ -14,6 +14,7 @@
 #include "FS_internal.h"
 #include "stream_reader.h"
 #include "file_stream_reader.h"
+#include "xrCore/Threading/Lock.hpp"
 
 const u32 BIG_FILE_READER_WINDOW_SIZE = 1024*1024;
 
@@ -180,9 +181,11 @@ XRCORE_API void _dump_open_files(int mode)
         Log("----total count=", g_open_files.size());
 }
 
-CLocatorAPI::CLocatorAPI()
+CLocatorAPI::CLocatorAPI() :
 #ifdef CONFIG_PROFILE_LOCKS
-    :m_auth_lock(MUTEX_PROFILE_ID(CLocatorAPI::m_auth_lock))
+    m_auth_lock(new Lock(MUTEX_PROFILE_ID(CLocatorAPI::m_auth_lock)))
+#else
+	m_auth_lock(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 {
     m_Flags.zero();
@@ -198,6 +201,7 @@ CLocatorAPI::~CLocatorAPI()
 {
     VERIFY(0 == m_iLockRescan);
     _dump_open_files(1);
+	delete m_auth_lock;
 }
 
 const CLocatorAPI::file* CLocatorAPI::RegisterExternal(const char* name)
@@ -264,9 +268,9 @@ const CLocatorAPI::file* CLocatorAPI::Register(LPCSTR name, u32 vfs, u32 crc, u3
             desc.size_real = 0;
             desc.size_compressed = 0;
             desc.modif = u32(-1);
-            std::pair<files_it, bool> I = m_files.insert(desc);
+            std::pair<files_it, bool> I2 = m_files.insert(desc);
 
-            R_ASSERT(I.second);
+            R_ASSERT(I2.second);
         }
         xr_strcpy(temp, sizeof(temp), folder);
         if (xr_strlen(temp)) temp[xr_strlen(temp) - 1] = 0;
@@ -800,7 +804,7 @@ void CLocatorAPI::_initialize(u32 flags, LPCSTR target_folder, LPCSTR fs_name)
             FS_Path* P = new FS_Path((p_it != pathes.end()) ? p_it->second->m_Path : root, lp_add, lp_def, lp_capt, fl);
             bNoRecurse = !(fl&FS_Path::flRecurse);
             Recurse(P->m_Path);
-            I = pathes.insert(mk_pair(xr_strdup(id), P));
+            I = pathes.insert(std::make_pair(xr_strdup(id), P));
 #ifndef DEBUG
             m_Flags.set(flCacheFiles, FALSE);
 #endif // DEBUG
@@ -1588,7 +1592,7 @@ FS_Path* CLocatorAPI::append_path(LPCSTR path_alias, LPCSTR root, LPCSTR add, BO
     FS_Path* P = new FS_Path(root, add, LPCSTR(0), LPCSTR(0), 0);
     bNoRecurse = !recursive;
     Recurse(P->m_Path);
-    pathes.insert(mk_pair(xr_strdup(path_alias), P));
+    pathes.insert(std::make_pair(xr_strdup(path_alias), P));
     return P;
 }
 

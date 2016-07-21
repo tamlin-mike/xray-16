@@ -31,11 +31,11 @@ void CRenderTarget::enable_dbt_bounds		(light* L)
 		Device.mFullTransform.transform	(pt);
 		bbp.modify	(pt);
 	}
-	u_DBT_enable	(bbp.min.z,bbp.max.z);
+	u_DBT_enable	(bbp.vMin.z,bbp.vMax.z);
 }
 
 // nv-DBT
-BOOL	CRenderTarget::u_DBT_enable	(float zMin, float zMax)
+BOOL	CRenderTarget::u_DBT_enable	(float /*zMin*/, float /*zMax*/)
 {
 	if (!RImplementation.o.nvdbt)					return	FALSE;
 	if (!ps_r2_ls_flags.test(R2FLAG_USE_NVDBT))		return	FALSE;
@@ -81,7 +81,7 @@ BOOL CRenderTarget::enable_scissor		(light* L)		// true if intersects near plane
 	if (1)
 	{
 		Fsphere		S;	S.set	(L->spatial.sphere.P,L->spatial.sphere.R);
-		dbg_spheres.push_back	(mk_pair(S,L->color));
+		dbg_spheres.push_back	(std::make_pair(S,L->color));
 	}
 #endif
 

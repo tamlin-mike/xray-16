@@ -269,7 +269,8 @@ float CKinematicsAnimated::get_animation_length (MotionID motion_ID)
 	return							bone_motions->at(motion_ID.idx).GetLength() / anim_speed;
 }
 
-void CKinematicsAnimated::IBlendSetup(CBlend& B,u16 part,u8 channel, MotionID motion_ID, BOOL  bMixing, float blendAccrue, float blendFalloff, float Speed, BOOL noloop, PlayCallback Callback, LPVOID CallbackParam)
+void CKinematicsAnimated::IBlendSetup(CBlend& B,u16 part,u8 channel, MotionID motion_ID, BOOL  bMixing,
+	float blendAccrue, float /*blendFalloff*/, float Speed, BOOL noloop, PlayCallback Callback, LPVOID CallbackParam)
 {
 	VERIFY(B.channel<MAX_CHANNELS);
 	// Setup blend params

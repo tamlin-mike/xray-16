@@ -81,12 +81,12 @@ public:
 		FATAL("mixed delegate is not bound");
 		return R();
 	}
-	bool	operator !	() const
+	bool operator!() const throw()
 	{
-		return ! operator bool ();
+		return ! operator bool();
 	}
 	
-	operator bool () const
+	operator bool() const throw()
 	{
 		if (m_cpp_delegate)
 			return true;

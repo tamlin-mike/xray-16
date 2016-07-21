@@ -878,7 +878,7 @@ void CPHShell::AddElementRecursive(CPhysicsElement* root_e, u16 id,Fmatrix globa
 #endif
     if(m_spliter_holder&&E->has_geoms())
     {
-        m_spliter_holder->AddToGeomMap(mk_pair(id,E->last_geom())); 
+        m_spliter_holder->AddToGeomMap(std::make_pair(id,E->last_geom())); 
     }
 
     if(spGetingMap)
@@ -1003,7 +1003,7 @@ void CPHShell::EnabledCallbacks(BOOL val)
 
 
 template< typename T>
-void for_each_bone_id( IKinematics &K, T &op )
+void for_each_bone_id( IKinematics &K, const T &op )
 {
     u16 bn =  K.LL_BoneCount();
     for(u16 i = 0; i < bn; ++i )
@@ -1044,7 +1044,7 @@ void CPHShell::SetCallbacks( )
     {
         IKinematics &K;
         set_bone_reference( IKinematics &K_ ): K( K_ ){}
-        void operator() ( u16 id )
+        void operator() ( u16 id ) const
         {
             CBoneInstance &bi  = K.LL_GetBoneInstance(id);
             if(!bi.callback() || bi.callback_type() != bctPhysics  )

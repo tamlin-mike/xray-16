@@ -6,9 +6,9 @@
 #define SORT(a,b)			\
 	if(a>b)					\
 	{						\
-		const float c=a;	\
+		const float tmp_=a;	\
 		a=b;				\
-		b=c;				\
+		b=tmp_;				\
 	}
 
 //! Edge to edge test based on Franlin Antonio's gem: "Faster Line Segment Intersection", in Graphics Gems III, pp. 199-202

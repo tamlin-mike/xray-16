@@ -305,8 +305,8 @@ public:
 	virtual u32					get_width				()				{ return dwWidth;					}
 	virtual u32					get_height				()				{ return dwHeight;					}
 
-	virtual void				set_cm_imfluence	(float	f)		{ param_color_map_influence = f;							}
-	virtual void				set_cm_interpolate	(float	f)		{ param_color_map_interpolate = f;							}
+	virtual void				set_cm_imfluence	(float	f)		{ param_color_map_influence = f;		}
+	virtual void				set_cm_interpolate	(float	f)		{ param_color_map_interpolate = f;		}
 	virtual void				set_cm_textures		(const shared_str &tex0, const shared_str &tex1) {color_map_manager.SetTextures(tex0, tex1);}
 
 	//	Need to reset stencil only when marker overflows.
@@ -317,17 +317,19 @@ public:
 	void						DoAsyncScreenshot		();
 
 #ifdef DEBUG
-	IC void						dbg_addline				(Fvector& P0, Fvector& P1, u32 c)					{
+	IC void dbg_addline(Fvector& P0, Fvector& P1, u32 c)
+	{
 		dbg_lines.push_back		(dbg_line_t());
 		dbg_lines.back().P0		= P0;
 		dbg_lines.back().P1		= P1;
 		dbg_lines.back().color	= c;
 	}
-	IC void						dbg_addplane			(Fplane& P0,  u32 c)								{
+	IC void dbg_addplane(Fplane& P0,  u32 /*c*/)
+	{
 		dbg_planes.push_back(P0);
 	}
 #else
-	IC void						dbg_addline				(Fvector& P0, Fvector& P1, u32 c)					{}
-	IC void						dbg_addplane			(Fplane& P0,  u32 c)								{}
+	IC void dbg_addline(Fvector& /*P0*/, Fvector& P1, u32 /*c*/) {}
+	IC void dbg_addplane(Fplane& /*P0*/,  u32 /*c*/) {}
 #endif
 };

@@ -11,7 +11,7 @@
 
 struct CDestroyer
 {
-	static void delete_data(LPCSTR data)
+	static void delete_data(LPCSTR /*data*/)
 	{
 	}
 

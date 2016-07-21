@@ -41,7 +41,7 @@ typedef NV_ERROR_CODE (*DXTWriteCallback)(
     void* userData);
 
 // Compresses an image with a user supplied callback with the data for each MIP level created
-typedef enum nvPixelOrder
+enum nvPixelOrder
 {
     nvRGBA,
     nvBGRA,

@@ -909,8 +909,8 @@ void CActorTools::FillObjectProperties(PropItemVec &items, LPCSTR pref, ListItem
     V->OnChangeEvent.bind(this, &CActorTools::OnChangeTransform);
     V = PHelper().CreateAngle3(items, "Object\\Transform\\Rotation", &m_pEditObject->a_vRotate, -10000, 10000, 0.1, 1);
     V->OnChangeEvent.bind(this, &CActorTools::OnChangeTransform);
-    V = PHelper().CreateCaption(items, "Object\\Transform\\BBox Min", shared_str().printf("{%3.2f, %3.2f, %3.2f}",VPUSH(m_pEditObject->GetBox().min)));
-    V = PHelper().CreateCaption(items, "Object\\Transform\\BBox Max", shared_str().printf("{%3.2f, %3.2f, %3.2f}",VPUSH(m_pEditObject->GetBox().max)));
+    V = PHelper().CreateCaption(items, "Object\\Transform\\BBox Min", shared_str().printf("{%3.2f, %3.2f, %3.2f}",VPUSH(m_pEditObject->GetBox().vMin)));
+    V = PHelper().CreateCaption(items, "Object\\Transform\\BBox Max", shared_str().printf("{%3.2f, %3.2f, %3.2f}",VPUSH(m_pEditObject->GetBox().vMax)));
 
     //.    PHelper().CreateChoose		 (items, "Object\\LOD\\Reference",  			&m_pEditObject->m_LODs, smObject);
     PHelper().CreateChoose(items, "Object\\LOD\\Reference", &m_pEditObject->m_LODs, smVisual);

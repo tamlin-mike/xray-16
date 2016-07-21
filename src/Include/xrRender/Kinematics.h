@@ -6,14 +6,17 @@
 
 typedef void (* UpdateCallback)		(IKinematics*	P);
 
+// fwd. decl.
 class CBoneData;
 class IBoneData;
 class IKinematicsAnimated;
 class IRenderVisual;
 class CBoneInstance;
 struct	SEnumVerticesCallback;
+template <class T> class _box3; typedef _box3<float> Fbox;
+template <class T> struct _obb; typedef _obb<float> Fobb;
 
-// 10 fps
+// 100ms = 10 fps
 #define UCalc_Interval		(u32(100))
 
 class IKinematics

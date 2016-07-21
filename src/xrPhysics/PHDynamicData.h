@@ -2,17 +2,13 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-
-
+#pragma once
+#ifndef XRPHYSICS_PHDYNAMICDATA_H
+#define XRPHYSICS_PHDYNAMICDATA_H
 
 #include "PHInterpolation.h"
 #include "MathUtilsOde.h"
-#if !defined(AFX_PHDynamicData_H__ACC01646_B581_4639_B78C_30311432021B__INCLUDED_)
-#define AFX_PHDynamicData_H__ACC01646_B581_4639_B78C_30311432021B__INCLUDED_
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#include "xrCore/_matrix33.h"
 
 class PHDynamicData  
 {
@@ -145,4 +141,4 @@ public:
 	bool SetTransform(dGeomID ageom);
 };
 
-#endif // !defined(AFX_PHDynamicData_H__ACC01646_B581_4639_B78C_30311432021B__INCLUDED_)
+#endif // include guard
