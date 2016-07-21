@@ -5,6 +5,7 @@
 //#include "_stl_extensions.h"
 #include "xrCore_impexp.h"
 #include "xrCommon/xr_vector.h"
+#include "Common/Noncopyable.hpp"
 
 // fwd. decl.
 class Lock;
@@ -48,7 +49,7 @@ IC bool smem_equal(const smem_value* A, u32 dwCRC, u32 dwLength, u8* ptr)
 #pragma warning(default : 4200)
 
 //////////////////////////////////////////////////////////////////////////
-class XRCORE_API smem_container
+class XRCORE_API smem_container : Noncopyable
 {
 public:
     smem_container();
@@ -60,9 +61,6 @@ public:
     u32 stat_economy();
 
 private:
-    smem_container(const smem_container&) = delete;
-    void operator=(const smem_container&) = delete;
-
     typedef xr_vector<smem_value*> cdb;
     Lock* pcs;
     cdb container;

@@ -9,6 +9,7 @@
 //#include "xrCore/Threading/Lock.hpp"
 #include "xrCommon/xr_map.h"
 #include "xrCommon/predicates.h"
+#include "Common/Noncopyable.hpp"
 
 class CStreamReader;
 class Lock;
@@ -37,7 +38,7 @@ public:
     inline operator bool() { return Exists; }
 };
 
-class XRCORE_API CLocatorAPI
+class XRCORE_API CLocatorAPI : Noncopyable
 {
     friend class FS_Path;
 public:
@@ -206,10 +207,6 @@ public:
     void rescan_pathes();
     void lock_rescan();
     void unlock_rescan();
-
-private:
-	CLocatorAPI(const CLocatorAPI&) = delete;
-	void operator=(const CLocatorAPI&) = delete;
 };
 
 extern XRCORE_API CLocatorAPI* xr_FS;

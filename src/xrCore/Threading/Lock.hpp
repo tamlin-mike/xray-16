@@ -1,5 +1,6 @@
 #pragma once
 #include "xrCore/xrCore_impexp.h"
+#include "Common/Noncopyable.hpp"
 
 #include <mutex>
 #include <atomic>
@@ -16,7 +17,7 @@ void XRCORE_API set_add_profile_portion(add_profile_portion_callback callback);
 # define MUTEX_PROFILE_ID(a) STRINGIZER(CONCATENIZE(MUTEX_PROFILE_PREFIX_ID,a))
 #endif // CONFIG_PROFILE_LOCKS
 
-class XRCORE_API Lock
+class XRCORE_API Lock : Noncopyable
 {
 public:
 #ifdef CONFIG_PROFILE_LOCKS
@@ -24,9 +25,6 @@ public:
 #else
     Lock() : lockCounter(0) {}
 #endif
-
-    Lock(const Lock &) = delete;
-    Lock operator=(const Lock &) = delete;
 
 #ifdef CONFIG_PROFILE_LOCKS
     void Enter();

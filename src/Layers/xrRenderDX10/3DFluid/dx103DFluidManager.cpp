@@ -594,7 +594,7 @@ void dx103DFluidManager::ApplyVorticityConfinement( float timestep )
 
 }
 
-void dx103DFluidManager::ApplyExternalForces(const dx103DFluidData &FluidData, float timestep )
+void dx103DFluidManager::ApplyExternalForces(const dx103DFluidData &FluidData, float /*timestep*/)
 {
 	PIX_EVENT(ApplyExternalForces);
 
@@ -623,7 +623,7 @@ void dx103DFluidManager::ComputeVelocityDivergence( float timestep )
 	//pShaderResourceVariables[RENDER_TARGET_TEMPVECTOR]->SetResource( pRenderTargetShaderViews[RENDER_TARGET_TEMPVECTOR] );
 }
 
-void dx103DFluidManager::ComputePressure( float timestep )
+void dx103DFluidManager::ComputePressure( float /*timestep*/)
 {
 	PIX_EVENT(ComputePressure);
 
@@ -694,7 +694,7 @@ void dx103DFluidManager::ComputePressure( float timestep )
 
 }
 
-void dx103DFluidManager::ProjectVelocity( float timestep )
+void dx103DFluidManager::ProjectVelocity( float /*timestep*/)
 {
 	PIX_EVENT(ProjectVelocity);
 
