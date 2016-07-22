@@ -1,7 +1,6 @@
+#pragma once
 #ifndef _INCDEF_XRMESSAGES_H_
 #define _INCDEF_XRMESSAGES_H_
-
-#pragma once
 
 // CL	== client 2 server message
 // SV	== server 2 client message
@@ -78,7 +77,7 @@ enum {
 	M_CREATE_PLAYER_STATE,
 	M_COMPRESSED_UPDATE_OBJECTS,
 
-	MSG_FORCEDWORD				= u32(-1)
+	MSG_FORCEDWORD				= unsigned int(~0)
 };
 
 enum {
@@ -160,7 +159,7 @@ enum {
 	GEG_PLAYER_USE_BOOSTER,
 	GE_REQUEST_PLAYERS_INFO,
 
-	GE_FORCEDWORD				= u32(-1)
+	GE_FORCEDWORD				= unsigned int(~0)
 };
 
 
@@ -229,7 +228,7 @@ enum EGameMessages {  //game_cl <----> game_sv messages
 
 	//-----------------------------------------
 	GAME_EVENT_SCRIPT_BEGINS_FROM,		// don't add messages after this
-	GAME_EVENT_FORCEDWORD				= u32(-1)
+	GAME_EVENT_FORCEDWORD				= unsigned int(~0)
 };
 
 enum
@@ -243,7 +242,7 @@ enum
 	M_SPAWN_TIME				= (1<<7),	// + spawn time
 	M_SPAWN_DENIED				= (1<<8),	// don't spawn entity with this flag
 
-	M_SPAWN_OBJECT_FORCEDWORD	= u32(-1)
+	M_SPAWN_OBJECT_FORCEDWORD	= unsigned int(~0)
 };
 
 enum enum_connection_results

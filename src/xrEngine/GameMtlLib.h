@@ -1,4 +1,14 @@
 #pragma once
+#include <algorithm>
+#include "xrCore/xrCore_benchmark_macros.h"
+#include "xrCore/xrstring.h"
+#include "xrCore/_flags.h"
+#include "xrCommon/xr_vector.h"
+#include "Common/Platform.hpp"
+
+// fwd. decl.
+class IReader;
+class IWriter;
 
 #define GAMEMTL_CURRENT_VERSION 0x0001
 
@@ -41,6 +51,7 @@
 #include "ElTree.hpp"
 #define MTL_EXPORT_API ECORE_API
 #else
+#include "xrEngine/Engine_impexp.h"
 #define MTL_EXPORT_API ENGINE_API
 #endif
 #endif

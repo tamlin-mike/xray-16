@@ -9,6 +9,8 @@
 #pragma once
 #ifndef XRAY_ALIFE_SPACE
 #define XRAY_ALIFE_SPACE
+#include "xrCommon/xr_vector.h"
+#include "xrCommon/xr_map.h"
 
 
 // ALife objects, events and tasks
@@ -140,20 +142,15 @@ namespace ALife {
 		eCombatTypeDummy = u32(-1),
 	};
 
-        enum EWeaponAddonStatus {
-                eAddonDisabled				= 0,
-                eAddonPermanent				= 1,
-                eAddonAttachable			= 2
+	enum EWeaponAddonStatus {
+		eAddonDisabled   = 0,
+		eAddonPermanent  = 1,
+		eAddonAttachable = 2
 	};
 
 	EHitType	g_tfString2HitType(LPCSTR caHitType);
 
-	extern const xr_token hit_types_token[];
-
-	IC LPCSTR g_cafHitType2String(EHitType tHitType)
-	{
-		return get_token_name(hit_types_token, tHitType);
-	}
+	LPCSTR g_cafHitType2String(EHitType tHitType);
 
 	DEFINE_VECTOR	(int,						INT_VECTOR,						INT_IT);
 	DEFINE_VECTOR	(_OBJECT_ID,				OBJECT_VECTOR,					OBJECT_IT);
@@ -163,6 +160,6 @@ namespace ALife {
 
 	DEFINE_MAP		(_OBJECT_ID,				CSE_ALifeDynamicObject*,		D_OBJECT_P_MAP,				D_OBJECT_P_PAIR_IT);
 	DEFINE_MAP		(_STORY_ID,					CSE_ALifeDynamicObject*,		STORY_P_MAP,				STORY_P_PAIR_IT);
-};
+}
 
 #endif //XRAY_ALIFE_SPACE

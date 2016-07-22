@@ -16,10 +16,7 @@
 #include "xrAICore/Navigation/game_graph_space.h"
 #include "game_location_selector.h"
 
-enum EPdaMsg;
-enum ESoundTypes;
-enum ETaskState;
-
+// fwd. decl.
 namespace ALife { enum ERelationType; }
 namespace ScriptEntity { enum EActionType; }
 namespace MovementManager { enum EPathType; }
@@ -30,9 +27,13 @@ namespace doors { class door; }
 
 class NET_Packet;
 class CGameTask;
+class IGameObject;
 
 enum EPatrolStartType;
 enum EPatrolRouteType;
+enum EPdaMsg;
+enum ESoundTypes;
+enum ETaskState;
 
 namespace MemorySpace {
 	struct CMemoryInfo;

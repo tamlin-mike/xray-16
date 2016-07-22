@@ -77,7 +77,7 @@ void InitSettings()
 #endif
     pSettings = new CInifile(fname, TRUE);
     CHECK_OR_EXIT(pSettings->section_count(),
-        make_string("Cannot find file %s.\nReinstalling application may fix this problem.", fname));
+        make_string("Cannot find file %s.\nReinstalling application may fix this problem.", fname).c_str());
     xr_auth_strings_t ignoredPaths, checkedPaths;
     fill_auth_check_params(ignoredPaths, checkedPaths);
     PathIncludePred includePred(&ignoredPaths);
@@ -87,7 +87,7 @@ void InitSettings()
     FS.update_path(fname, "$game_config$", "game.ltx");
     pGameIni = new CInifile(fname, TRUE);
     CHECK_OR_EXIT(pGameIni->section_count(),
-        make_string("Cannot find file %s.\nReinstalling application may fix this problem.", fname));
+        make_string("Cannot find file %s.\nReinstalling application may fix this problem.", fname).c_str());
 }
 
 void InitConsole()

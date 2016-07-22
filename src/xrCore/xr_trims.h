@@ -1,12 +1,15 @@
 #pragma once
 #ifndef xr_trimsH
 #define xr_trimsH
-//#include "xrCore/_stl_extensions.h"
 #include "Common/Platform.hpp" // LPCSTR etc
+#include "xrCore/_types.h"
 #include "xrCore/xr_vector_defs.h"
+#include "xrCore/xrstring.h"
 
 // refs
 struct xr_token;
+DEFINE_VECTOR(shared_str, RStringVec, RStringVecIt);
+DEFINE_VECTOR(string64, string64Vec, string64It);
 
 #ifdef __BORLANDC__
 XRCORE_API AnsiString& _Trim ( AnsiString& str );

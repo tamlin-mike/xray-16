@@ -7,9 +7,17 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "xrCore/_types.h"
+#include "xrCore/_matrix.h"
+#include "xrCore/xrstring.h"
+#ifdef DEBUG
+#include "xrCore/log.h"
+#include "xrCore/_vector3d.h"
+#endif
 
 class CPhysicsShellHolder;
 class CInventoryItem;
+class IFactoryObject;
 
 class CAttachableItem {
 private:
@@ -26,7 +34,7 @@ private:
 public:
 	IC							CAttachableItem			();
 	virtual						~CAttachableItem		();
-	virtual	IFactoryObject			*_construct				();
+	virtual	IFactoryObject		*_construct				();
 	virtual CAttachableItem		*cast_attachable_item	()	{return this;}
 	virtual	void				reload					(LPCSTR section);
 	virtual void				OnH_A_Chield			();

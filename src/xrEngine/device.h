@@ -14,6 +14,7 @@
 #include "xrCore/ftimer.h"
 #include "stats.h"
 #include "xrCore/Threading/Event.hpp"
+#include "xrCore/fastdelegate.h"
 #include "xrCommon/xr_list.h"
 
 #define VIEWPORT_NEAR 0.2f

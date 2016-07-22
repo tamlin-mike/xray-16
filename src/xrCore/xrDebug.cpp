@@ -12,8 +12,10 @@
 #pragma warning(pop)
 #include <malloc.h>
 #include <direct.h>
+#include <stdarg.h>
 
 extern bool shared_str_initialized;
+extern LPCSTR log_name();
 
 #ifdef __BORLANDC__
 #include "d3d9.h"
@@ -48,8 +50,16 @@ static BOOL bException = FALSE;
 
 namespace
 {
-void __declspec(naked, noinline) *__cdecl GetInstructionPtr()
+#ifdef _MSC_VER
+__declspec(noinline)
+#else
+__declspec(naked, noinline)
+#endif
+void *__cdecl GetInstructionPtr()
 {
+#ifdef _MSC_VER
+    return _ReturnAddress(); // same as "*(void*)_AddressOfReturnAddress"
+#else
 #ifdef _WIN64
     _asm mov rax, [rsp]
     _asm retn
@@ -57,16 +67,178 @@ void __declspec(naked, noinline) *__cdecl GetInstructionPtr()
     _asm mov eax, [esp]
     _asm retn
 #endif
-}
+#endif
 }
 
-xrDebug::UnhandledExceptionFilter xrDebug::PrevFilter = nullptr;
-xrDebug::OutOfMemoryCallbackFunc xrDebug::OutOfMemoryCallback = nullptr;
-xrDebug::CrashHandler xrDebug::OnCrash = nullptr;
-xrDebug::DialogHandler xrDebug::OnDialog = nullptr;
-string_path xrDebug::BugReportFile;
-bool xrDebug::ErrorAfterDialog = false;
-StackTraceInfo xrDebug::StackTrace = {};
+//////////////////////
+// private variables
+using UnhandledExceptionFilter = LONG(WINAPI *)(EXCEPTION_POINTERS *exPtrs);
+UnhandledExceptionFilter PrevFilter;
+string_path BugReportFile;
+bool ErrorAfterDialog;
+xrDebug::DialogHandler OnDialog;
+StackTraceInfo StackTrace;
+
+// private/implementation functions
+
+void FormatLastError(char *buffer, const size_t bufferSize)
+{
+    int lastErr = GetLastError();
+    if (lastErr == ERROR_SUCCESS)
+    {
+        *buffer = 0;
+        return;
+    }
+    void *msg = nullptr;
+    FormatMessage(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        nullptr,
+        lastErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPSTR)&msg,
+        0,
+        nullptr);
+    // XXX nitrocaster: check buffer overflow
+    sprintf(buffer, "[error][%8d]: %s", lastErr, (char *)msg);
+    LocalFree(msg);
+}
+
+
+size_t BuildStackTracePriv(EXCEPTION_POINTERS* exPtrs, char *buffer, size_t capacity, size_t lineCapacity)
+{
+    memset(buffer, capacity*lineCapacity, 0);
+    auto flags = GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE;
+    auto traceDump = GetFirstStackTraceString(flags, exPtrs);
+    int frameCount = 0;
+    while (traceDump)
+    {
+        lstrcpy(buffer + frameCount*lineCapacity, traceDump);
+        frameCount++;
+        traceDump = GetNextStackTraceString(flags, exPtrs);
+    }
+    return frameCount;
+}
+
+#ifdef USE_OWN_MINI_DUMP
+void SaveMiniDump(EXCEPTION_POINTERS *exPtrs)
+{
+	string64 dateStr;
+	timestamp(dateStr);
+	string_path dumpPath;
+	sprintf(dumpPath, "%s_%s_%s.mdmp", Core.ApplicationName, Core.UserName, dateStr);
+	__try
+	{
+		if (FS.path_exist("$logs$"))
+			FS.update_path(dumpPath, "$logs$", dumpPath);
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		string_path temp;
+		strcpy_s(temp, dumpPath);
+		sprintf(dumpPath, "logs/%s", temp);
+	}
+	WriteMiniDump(MINIDUMP_TYPE(MiniDumpFilterMemory | MiniDumpScanMemory),
+		dumpPath, GetCurrentThreadId(), exPtrs);
+}
+#endif // USE_OWN_MINI_DUMP
+
+LONG WINAPI UnhandledFilter(EXCEPTION_POINTERS *exPtrs)
+{
+    string256 errMsg;
+    FormatLastError(errMsg, sizeof(errMsg));
+    if (!ErrorAfterDialog && !strstr(GetCommandLine(), "-no_call_stack_assert"))
+    {
+        CONTEXT save = *exPtrs->ContextRecord;
+        StackTrace.Count = BuildStackTracePriv(exPtrs, StackTrace.Frames, StackTrace.Capacity, StackTrace.LineCapacity);
+        *exPtrs->ContextRecord = save;
+        if (shared_str_initialized)
+            Msg("stack trace:\n");
+        if (!IsDebuggerPresent())
+            os_clipboard::copy_to_clipboard("stack trace:\r\n\r\n");
+        string4096 buffer;
+        for (size_t i = 0; i<StackTrace.Count; i++)
+        {
+            if (shared_str_initialized)
+                Log(StackTrace[i]);
+            sprintf(buffer, "%s\r\n", StackTrace[i]);
+#ifdef DEBUG
+            if (!IsDebuggerPresent())
+                os_clipboard::update_clipboard(buffer);
+#endif
+        }
+        if (*errMsg)
+        {
+            if (shared_str_initialized)
+                Msg("\n%s", errMsg);
+            strcat(errMsg, "\r\n");
+#ifdef DEBUG
+            if (!IsDebuggerPresent())
+                os_clipboard::update_clipboard(buffer);
+#endif
+        }
+    }
+    if (shared_str_initialized)
+        FlushLog();
+#ifndef USE_OWN_ERROR_MESSAGE_WINDOW
+#ifdef USE_OWN_MINI_DUMP
+    SaveMiniDump(exPtrs);
+#endif
+#else
+    if (!ErrorAfterDialog)
+    {
+        if (OnDialog)
+            OnDialog(true);
+        MessageBox(NULL, "Fatal error occured\n\n"
+            "Press OK to abort program execution", "Fatal error", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
+    }
+#endif
+    ReportFault(exPtrs, 0);
+    if (PrevFilter)
+        PrevFilter(exPtrs);
+#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
+    if (OnDialog)
+        OnDialog(false);
+#endif
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+
+#ifdef USE_BUG_TRAP
+void WINAPI PreErrorHandler(INT_PTR)
+{
+    if (!xr_FS || !FS.m_Flags.test(CLocatorAPI::flReady))
+        return;
+    string_path logDir;
+    __try
+    {
+        FS.update_path(logDir, "$logs$", "");
+        if (logDir[0] != '\\' && logDir[1] != ':')
+        {
+            string256 currentDir;
+            _getcwd(currentDir, sizeof(currentDir));
+            string256 relDir;
+            strcpy_s(relDir, logDir);
+            strconcat(sizeof(logDir), logDir, currentDir, "\\", relDir);
+        }
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        strcpy_s(logDir, "logs");
+    }
+    string_path temp;
+    strconcat(sizeof(temp), temp, logDir, log_name());
+    BT_AddLogFile(temp);
+    if (*BugReportFile)
+        BT_AddLogFile(BugReportFile);
+    BT_SaveSnapshot(nullptr);
+}
+#endif // USE_BUG_TRAP
+
+} // anonymous/unique namespace
+
+//////////////////////////////////////////////////////////////////
+// xrDebug private static variables
+xrDebug::OutOfMemoryCallbackFunc xrDebug::OutOfMemoryCallback;
+xrDebug::CrashHandler xrDebug::OnCrash;
 
 void xrDebug::SetBugReportFile(const char *fileName)
 { strcpy_s(BugReportFile, fileName); }
@@ -95,24 +267,9 @@ size_t xrDebug::BuildStackTrace(char *buffer, size_t capacity, size_t lineCapaci
         context.Esp = (DWORD)&context;
         ex_ptrs.ContextRecord = &context;
         ex_ptrs.ExceptionRecord = 0;
-        return BuildStackTrace(&ex_ptrs, buffer, capacity, lineCapacity);
+        return BuildStackTracePriv(&ex_ptrs, buffer, capacity, lineCapacity);
     }
     return 0;
-}
-
-size_t xrDebug::BuildStackTrace(EXCEPTION_POINTERS* exPtrs, char *buffer, size_t capacity, size_t lineCapacity)
-{
-    memset(buffer, capacity*lineCapacity, 0);
-    auto flags = GSTSO_MODULE|GSTSO_SYMBOL|GSTSO_SRCLINE;
-    auto traceDump = GetFirstStackTraceString(flags, exPtrs);
-    int frameCount = 0;
-    while (traceDump)
-    {
-        lstrcpy(buffer+frameCount*lineCapacity, traceDump);
-        frameCount++;
-        traceDump = GetNextStackTraceString(flags, exPtrs);
-    }
-    return frameCount;
 }
 
 void xrDebug::GatherInfo(char *assertionInfo, const ErrorLocation &loc, const char *expr,
@@ -265,10 +422,12 @@ void xrDebug::Fail(bool &ignoreAlways, const ErrorLocation &loc, const char *exp
     const std::string &desc, const char *arg1, const char *arg2)
 { Fail(ignoreAlways, loc, expr, desc.c_str(), arg1, arg2); }
 
-void xrDebug::DoExit(const std::string &message)
+//void xrDebug::DoExit(const std::string &message)
+void xrDebug::DoExit(const char* message)
 {
     FlushLog();
-    MessageBox(NULL, message.c_str(), "Error", MB_OK|MB_ICONERROR|MB_SYSTEMMODAL);
+//    MessageBox(NULL, message.c_str(), "Error", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
+    MessageBox(NULL, message, "Error", MB_OK|MB_ICONERROR|MB_SYSTEMMODAL);
     TerminateProcess(GetCurrentProcess(), 1);
 }
 
@@ -303,39 +462,8 @@ int out_of_memory_handler(size_t size)
     return 1;
 }
 
-extern LPCSTR log_name();
-
 #ifdef USE_BUG_TRAP
-void WINAPI xrDebug::PreErrorHandler(INT_PTR)
-{
-    if (!xr_FS || !FS.m_Flags.test(CLocatorAPI::flReady))
-        return;
-    string_path logDir;
-    __try
-    {
-        FS.update_path(logDir, "$logs$", "");
-        if (logDir[0]!='\\' && logDir[1]!=':')
-        {
-            string256 currentDir;
-            _getcwd(currentDir, sizeof(currentDir));
-            string256 relDir;
-            strcpy_s(relDir, logDir);
-            strconcat(sizeof(logDir), logDir, currentDir, "\\", relDir);
-        }
-    }
-    __except (EXCEPTION_EXECUTE_HANDLER)
-    {
-        strcpy_s(logDir, "logs");
-    }
-    string_path temp;
-    strconcat(sizeof(temp), temp, logDir, log_name());
-    BT_AddLogFile(temp);
-    if (*BugReportFile)
-        BT_AddLogFile(BugReportFile);
-    BT_SaveSnapshot(nullptr);
-}
-
-void xrDebug::SetupExceptionHandler(const bool &dedicated)
+void xrDebug::SetupExceptionHandler(const bool dedicated)
 {
     // disable 'appname has stopped working' popup dialog
     UINT prevMode = SetErrorMode(SEM_NOGPFAULTERRORBOX);
@@ -373,111 +501,6 @@ void xrDebug::SetupExceptionHandler(const bool &dedicated)
     BT_SetSupportEMail("cop-crash-report@stalker-game.com");
 }
 #endif // USE_BUG_TRAP
-
-#ifdef USE_OWN_MINI_DUMP
-void xrDebug::SaveMiniDump(EXCEPTION_POINTERS *exPtrs)
-{
-    string64 dateStr;
-    timestamp(dateStr);
-    string_path dumpPath;
-    sprintf(dumpPath, "%s_%s_%s.mdmp", Core.ApplicationName, Core.UserName, dateStr);
-    __try
-    {
-        if (FS.path_exist("$logs$"))
-            FS.update_path(dumpPath, "$logs$", dumpPath);
-    }
-    __except (EXCEPTION_EXECUTE_HANDLER)
-    {
-        string_path temp;
-        strcpy_s(temp, dumpPath);
-        sprintf(dumpPath, "logs/%s", temp);
-    }
-    WriteMiniDump(MINIDUMP_TYPE(MiniDumpFilterMemory|MiniDumpScanMemory),
-        dumpPath, GetCurrentThreadId(), exPtrs);
-}
-#endif
-
-void xrDebug::FormatLastError(char *buffer, const size_t &bufferSize)
-{
-    int lastErr = GetLastError();
-    if (lastErr==ERROR_SUCCESS)
-    {
-        *buffer = 0;
-        return;
-    }
-    void *msg = nullptr;
-    FormatMessage(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM,
-        nullptr,
-        lastErr,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        (LPSTR)&msg,
-        0,
-        nullptr);
-    // XXX nitrocaster: check buffer overflow
-    sprintf(buffer, "[error][%8d]: %s", lastErr, (char *)msg);
-    LocalFree(msg);
-}
-
-LONG WINAPI xrDebug::UnhandledFilter(EXCEPTION_POINTERS *exPtrs)
-{
-    string256 errMsg;
-    FormatLastError(errMsg, sizeof(errMsg));
-    if (!ErrorAfterDialog && !strstr(GetCommandLine(), "-no_call_stack_assert"))
-    {
-        CONTEXT save = *exPtrs->ContextRecord;
-        StackTrace.Count = BuildStackTrace(exPtrs, StackTrace.Frames, StackTrace.Capacity, StackTrace.LineCapacity);
-        *exPtrs->ContextRecord = save;
-        if (shared_str_initialized)
-            Msg("stack trace:\n");
-        if (!IsDebuggerPresent())
-            os_clipboard::copy_to_clipboard("stack trace:\r\n\r\n");
-        string4096 buffer;
-        for (size_t i = 0; i<StackTrace.Count; i++)
-        {
-            if (shared_str_initialized)
-                Log(StackTrace[i]);
-            sprintf(buffer, "%s\r\n", StackTrace[i]);
-#ifdef DEBUG
-            if (!IsDebuggerPresent())
-                os_clipboard::update_clipboard(buffer);
-#endif
-        }
-        if (*errMsg)
-        {
-            if (shared_str_initialized)
-                Msg("\n%s", errMsg);
-            strcat(errMsg, "\r\n");
-#ifdef DEBUG
-            if (!IsDebuggerPresent())
-                os_clipboard::update_clipboard(buffer);
-#endif
-        }
-    }
-    if (shared_str_initialized)
-        FlushLog();
-#ifndef USE_OWN_ERROR_MESSAGE_WINDOW
-#ifdef USE_OWN_MINI_DUMP
-    SaveMiniDump(exPtrs);
-#endif
-#else
-    if (!ErrorAfterDialog)
-    {
-        if (OnDialog)
-            OnDialog(true);
-        MessageBox(NULL, "Fatal error occured\n\n"
-            "Press OK to abort program execution", "Fatal error", MB_OK|MB_ICONERROR|MB_SYSTEMMODAL);
-    }
-#endif
-    ReportFault(exPtrs, 0);
-    if (PrevFilter)
-        PrevFilter(exPtrs);
-#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
-    if (OnDialog)
-        OnDialog(false);
-#endif
-    return EXCEPTION_CONTINUE_SEARCH;
-}
 
 #ifndef USE_BUG_TRAP
 void _terminate()
@@ -579,6 +602,9 @@ void xrDebug::OnThreadSpawn()
 #endif
 }
 
+xrDebug::DialogHandler xrDebug::GetDialogHandler() { return OnDialog; }
+void xrDebug::SetDialogHandler(xrDebug::DialogHandler handler) { OnDialog = handler; }
+
 void xrDebug::Initialize(const bool &dedicated)
 {
     *BugReportFile = 0;
@@ -586,4 +612,14 @@ void xrDebug::Initialize(const bool &dedicated)
     SetupExceptionHandler(dedicated);
     // exception handler to all "unhandled" exceptions
     PrevFilter = ::SetUnhandledExceptionFilter(UnhandledFilter);
+}
+
+// for debug purposes only
+std::string make_string(const char *format, ...)
+{
+    va_list args;
+    va_start(args, format);
+    string4096 temp;
+    vsprintf(temp, format, args);
+    return temp;
 }

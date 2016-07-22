@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Common/object_broker.h"
+#include "xrCommon/xr_vector.h"
 
 template <
 	typename _data_type,

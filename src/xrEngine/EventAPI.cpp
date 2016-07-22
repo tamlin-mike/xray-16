@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "EventAPI.h"
 #include "XR_IOConsole.h"
+#include "xrCore/Threading/Lock.hpp"
 
 extern void msRead();
 extern void msCreate(LPCSTR name);
@@ -66,6 +67,22 @@ IC bool ev_sort(CEvent* E1, CEvent* E2)
     return E1->GetFull() < E2->GetFull();
 }
 
+//-----------------------------------------
+
+CEventAPI::CEventAPI() :
+#ifdef CONFIG_PROFILE_LOCKS
+    pCS(new Lock(MUTEX_PROFILE_ID(CEventAPI)))
+#else
+    pCS(new Lock)
+#endif // CONFIG_PROFILE_LOCKS
+{
+}
+
+CEventAPI::~CEventAPI()
+{
+	delete pCS;
+}
+
 void CEventAPI::Dump()
 {
     std::sort(Events.begin(), Events.end(), ev_sort);
@@ -75,7 +92,7 @@ void CEventAPI::Dump()
 
 EVENT CEventAPI::Create(const char* N)
 {
-    CS.Enter();
+    pCS->Enter();
     CEvent E(N);
     for (xr_vector<CEvent*>::iterator I = Events.begin(); I != Events.end(); I++)
     {
@@ -83,19 +100,19 @@ EVENT CEventAPI::Create(const char* N)
         {
             EVENT F = *I;
             F->dwRefCount++;
-            CS.Leave();
+            pCS->Leave();
             return F;
         }
     }
 
     EVENT X = new CEvent(N);
     Events.push_back(X);
-    CS.Leave();
+    pCS->Leave();
     return X;
 }
 void CEventAPI::Destroy(EVENT& E)
 {
-    CS.Enter();
+    pCS->Enter();
     E->dwRefCount--;
     if (E->dwRefCount == 0)
     {
@@ -104,57 +121,57 @@ void CEventAPI::Destroy(EVENT& E)
         Events.erase(I);
         xr_delete(E);
     }
-    CS.Leave();
+    pCS->Leave();
 }
 
 EVENT CEventAPI::Handler_Attach(const char* N, IEventReceiver* H)
 {
-    CS.Enter();
+    pCS->Enter();
     EVENT E = Create(N);
     E->Attach(H);
-    CS.Leave();
+    pCS->Leave();
     return E;
 }
 
 void CEventAPI::Handler_Detach(EVENT& E, IEventReceiver* H)
 {
     if (0 == E) return;
-    CS.Enter();
+    pCS->Enter();
     E->Detach(H);
     Destroy(E);
-    CS.Leave();
+    pCS->Leave();
 }
 void CEventAPI::Signal(EVENT E, u64 P1, u64 P2)
 {
-    CS.Enter();
+    pCS->Enter();
     E->Signal(P1, P2);
-    CS.Leave();
+    pCS->Leave();
 }
 void CEventAPI::Signal(LPCSTR N, u64 P1, u64 P2)
 {
-    CS.Enter();
+    pCS->Enter();
     EVENT E = Create(N);
     Signal(E, P1, P2);
     Destroy(E);
-    CS.Leave();
+    pCS->Leave();
 }
 void CEventAPI::Defer(EVENT E, u64 P1, u64 P2)
 {
-    CS.Enter();
+    pCS->Enter();
     E->dwRefCount++;
     Events_Deferred.push_back(Deferred());
     Events_Deferred.back().E = E;
     Events_Deferred.back().P1 = P1;
     Events_Deferred.back().P2 = P2;
-    CS.Leave();
+    pCS->Leave();
 }
 void CEventAPI::Defer(LPCSTR N, u64 P1, u64 P2)
 {
-    CS.Enter();
+    pCS->Enter();
     EVENT E = Create(N);
     Defer(E, P1, P2);
     Destroy(E);
-    CS.Leave();
+    pCS->Leave();
 }
 
 #ifdef DEBUG
@@ -177,8 +194,8 @@ void CEventAPI::OnFrame()
 #ifdef DEBUG
     msRead();
 #endif
-    CS.Enter();
-    if (Events_Deferred.empty()) { CS.Leave(); return; }
+    pCS->Enter();
+    if (Events_Deferred.empty()) { pCS->Leave(); return; }
     for (u32 I = 0; I < Events_Deferred.size(); I++)
     {
         Deferred& DEF = Events_Deferred[I];
@@ -186,24 +203,24 @@ void CEventAPI::OnFrame()
         Destroy(Events_Deferred[I].E);
     }
     Events_Deferred.clear();
-    CS.Leave();
+    pCS->Leave();
 }
 
 BOOL CEventAPI::Peek(LPCSTR EName)
 {
-    CS.Enter();
-    if (Events_Deferred.empty()) { CS.Leave(); return FALSE; }
+    pCS->Enter();
+    if (Events_Deferred.empty()) { pCS->Leave(); return FALSE; }
     for (u32 I = 0; I < Events_Deferred.size(); I++)
     {
         Deferred& DEF = Events_Deferred[I];
         if (xr_stricmp(DEF.E->GetFull(), EName) == 0)
         {
-            CS.Leave();
+            pCS->Leave();
             return TRUE;
         }
 
     }
-    CS.Leave();
+    pCS->Leave();
     return FALSE;
 }
 

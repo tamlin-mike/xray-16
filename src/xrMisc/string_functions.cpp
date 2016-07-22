@@ -1,5 +1,8 @@
+#include <stdarg.h>
+#include <stdio.h>
 #include "xrCore/xrstring.h"
 #include "xrCore/xrMemory.h"
+#include "Common/Platform.hpp" // xr_strlwr(const char*)
 
 void xr_strlwr(shared_str& src)
 {

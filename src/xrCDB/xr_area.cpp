@@ -1,10 +1,9 @@
 #include "stdafx.h"
-
-
 #include "xr_area.h"
 #include "xrEngine/xr_object.h"
 #include "Common/LevelStructure.hpp"
 #include "xrEngine/xr_collide_form.h"
+#include "xrCore/Threading/Lock.hpp"
 
 using namespace	collide;
 

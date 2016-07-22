@@ -1,4 +1,3 @@
-
 #pragma once
 
 #define	MTL_EXPORT_API
@@ -6,32 +5,28 @@
 #define DLL_API		
 #define ECORE_API
 
-
 #include "xrCore/xrCore.h"
-
 #include "xrServerEntities/smart_cast.h"
-
-
-
-
-
 #include "xrCDB/xrCDB.h"
 #include "xrSound/sound.h"
+#include "xrEngine/GameMtlLib.h"
 
+#include "xrPhysics.h"
+#include "Include/xrAPI/xrapi.h"
+#ifdef	DEBUG
+#include <d3d9types.h>
+#endif
 
 #pragma comment( lib, "xrCore.lib"	)
 
-#include "xrPhysics.h"
+// XXX: TODO: What on earth have CODE to do in a PCH header like this?!
 
-#include "Include/xrAPI/xrapi.h"
-#ifdef	DEBUG
-#include "d3d9types.h"
-#endif
 //IC IGame_Level &GLevel()
 //{
 //	VERIFY( g_pGameLevel );
 //	return *g_pGameLevel;
 //}
+
 class CGameMtlLibrary;
 IC CGameMtlLibrary &GMLibrary()
 {

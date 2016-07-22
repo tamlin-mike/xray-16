@@ -1,5 +1,12 @@
+#pragma once
 #ifndef ChooseTypesH
 #define ChooseTypesH
+#include "xrCore/fastdelegate.h"
+#include "xrCommon/xr_vector.h"
+
+// fwd. decl.
+template <class T> struct _rect;  typedef _rect<int> Irect;
+
 
 enum EChooseMode
 {

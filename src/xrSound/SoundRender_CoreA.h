@@ -8,8 +8,8 @@
 
 
 #ifdef DEBUG
-#	define A_CHK(expr)		{ alGetError(); 		expr; ALenum error=alGetError(); 			VERIFY2(error==AL_NO_ERROR, (LPCSTR)alGetString(error)); }
-#	define AC_CHK(expr)		{ alcGetError(pDevice); expr; ALCenum error=alcGetError(pDevice); 	VERIFY2(error==ALC_NO_ERROR,(LPCSTR)alcGetString(pDevice,error)); }
+#	define A_CHK(expr)		{ alGetError(); 		expr; ALenum err_=alGetError(); 			VERIFY2(err_==AL_NO_ERROR, (LPCSTR)alGetString(err_)); }
+#	define AC_CHK(expr)		{ alcGetError(pDevice); expr; ALCenum err_=alcGetError(pDevice); 	VERIFY2(err_==ALC_NO_ERROR,(LPCSTR)alcGetString(pDevice,err_)); }
 #else
 #	define A_CHK(expr)		{ expr; }
 #	define AC_CHK(expr)		{ expr; }

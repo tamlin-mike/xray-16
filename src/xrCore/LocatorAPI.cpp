@@ -685,7 +685,7 @@ IReader* CLocatorAPI::setup_fs_ltx(LPCSTR fs_name)
     IReader* result = 0;
     CHECK_OR_EXIT(
         file_handle_internal(fs_file_name, file_size, file_handle),
-        make_string("Cannot open file \"%s\".\nCheck your working folder.", fs_file_name)
+        make_string("Cannot open file \"%s\".\nCheck your working folder.", fs_file_name).c_str()
         );
 
     void* buffer = FileDownload(fs_file_name, file_handle, file_size);

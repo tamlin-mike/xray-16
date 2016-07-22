@@ -4,6 +4,7 @@
 
 #include "Common/Platform.hpp"
 #include "Common/Noncopyable.hpp"
+#include "xrCore/math_constants.h"
 
 // The following ifdef block is the standard way of creating macros which make exporting
 // from a DLL simpler. All files within this DLL are compiled with the XRCDB_EXPORTS

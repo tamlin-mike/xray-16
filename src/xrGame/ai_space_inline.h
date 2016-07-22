@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "Include/xrAPI/xrAPI.h" // GlobalEnv
 
 IC	CEF_Storage					&CAI_Space::ef_storage				() const
 {

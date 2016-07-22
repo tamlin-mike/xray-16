@@ -9,14 +9,6 @@
 #include "xrCore/xrCore_impexp.h"
 #include "xrCommon/math_funcs_inline.h"
 
-#define BREAK_AT_STRCMP
-#ifndef DEBUG
-#undef BREAK_AT_STRCMP
-#endif
-#ifdef _EDITOR
-#undef BREAK_AT_STRCMP
-#endif
-
 #ifdef abs
 #undef abs
 #endif
@@ -188,25 +180,6 @@ IC u32 xr_strlen(const char* S)
 {
     return (u32)strlen(S);
 }
-
-IC char* xr_strupr(char *S)
-{
-    return xr_strupr(S);
-}
-
-IC char* xr_strlwr(char* S)
-{
-    return xr_strlwr(S);
-}
-
-#ifdef BREAK_AT_STRCMP
-XRCORE_API int xr_strcmp(const char* S1, const char* S2);
-#else
-IC int xr_strcmp(const char* S1, const char* S2)
-{
-    return (int)strcmp(S1, S2);
-}
-#endif
 
 #ifndef _EDITOR
 #ifndef MASTER_GOLD

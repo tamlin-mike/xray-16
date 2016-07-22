@@ -64,4 +64,7 @@ typedef char string4096[4096];
 
 typedef char string_path[2 * _MAX_PATH];
 
+// XXX: Replace __interface with either struct or class. MS defines it as struct for COM, but this project is C++.
+#define xr_pure_interface __interface
+
 #endif

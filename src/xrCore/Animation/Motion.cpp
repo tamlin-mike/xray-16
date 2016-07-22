@@ -408,8 +408,8 @@ bool CSMotion::Load(IReader& F)
     if (vers==0x0004)
     {
         m_BoneOrPart= u16(F.r_u32()&0xffff);
-        m_Flags.set (esmFX,F.r_u8());
-        m_Flags.set (esmStopAtEnd,F.r_u8());
+        m_Flags.set (esmFX,F.r_u8() != 0);
+        m_Flags.set (esmStopAtEnd,F.r_u8() != 0);
         fSpeed = F.r_float();
         fAccrue = F.r_float();
         fFalloff = F.r_float();

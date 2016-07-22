@@ -1,14 +1,25 @@
 //---------------------------------------------------------------------------
+#pragma once
 #ifndef PropertiesListTypesH
 #define PropertiesListTypesH
 
-
 #include "WaveForm.H"
 #include "gametype_chooser.h"
+#include "xrCommon/xr_string.h"
+#include "xrCommon/xr_vector.h"
+#include "xrCore/_rect.h"
+#include "xrCore/xr_trims.h"
+#include "xrCore/xr_shortcut.h"
+//#include "xrCore/xrCore.h"
 
 #ifdef __BORLANDC__            
 #	include "ElTree.hpp"
 #endif
+
+// fwd. decl.
+DEFINE_VECTOR(shared_str, RStringVec, RStringVecIt);
+struct xr_rtoken;
+
 
 #pragma pack( push,1 )
 
@@ -290,7 +301,7 @@ public:
 class ButtonValue: public PropValue{
 public:
 	RStringVec			value;
-    int					btn_num;
+	int					btn_num;
 	typedef fastdelegate::FastDelegate3<ButtonValue*, bool&, bool&> 	TOnBtnClick;
     TOnBtnClick			OnBtnClickEvent;
     enum{

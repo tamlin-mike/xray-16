@@ -1,6 +1,7 @@
 #pragma once
 
 #include "alife_space.h"
+#include "xrCore/xrstring.h"
 
 
 //личное отношение (благосклонность) одного персонажа к другому - 

@@ -19,7 +19,6 @@ const xr_token hit_types_token[] = {
 	{ 0,							0											}
 };
 
-
 EHitType g_tfString2HitType(LPCSTR caHitType)
 {
 	if (!xr_stricmp(caHitType, "burn"         )) return eHitTypeBurn;
@@ -40,6 +39,11 @@ EHitType g_tfString2HitType(LPCSTR caHitType)
 #ifdef DEBUG
 	return eHitTypeMax;
 #endif
+}
+
+LPCSTR g_cafHitType2String(EHitType tHitType)
+{
+	return get_token_name(hit_types_token, tHitType);
 }
 
 } // namespace ALife

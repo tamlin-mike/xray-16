@@ -1,4 +1,5 @@
 #include "xrCore/_vector3d_ext.h"
+#include "xrCommon/math_funcs_inline.h"
 
 float dotproduct(const Fvector& v1, const Fvector& v2)
 {

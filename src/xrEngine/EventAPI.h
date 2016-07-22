@@ -1,6 +1,6 @@
 #pragma once
 
-#include "xrCore/Threading/Lock.hpp"
+#include "Common/Noncopyable.hpp"
 
 class ENGINE_API CEvent;
 typedef CEvent* EVENT;
@@ -12,7 +12,7 @@ public:
     virtual void OnEvent(EVENT E, u64 P1, u64 P2) = 0;
 };
 //---------------------------------------------------------------------
-class ENGINE_API CEventAPI
+class ENGINE_API CEventAPI : private Noncopyable
 {
     struct Deferred
     {
@@ -23,11 +23,10 @@ class ENGINE_API CEventAPI
 private:
     xr_vector<EVENT> Events;
     xr_vector<Deferred> Events_Deferred;
-    Lock CS;
+    Lock *pCS;
 public:
-#ifdef CONFIG_PROFILE_LOCKS
-    CEventAPI () : CS(MUTEX_PROFILE_ID(CEventAPI)) {}
-#endif // CONFIG_PROFILE_LOCKS
+    CEventAPI();
+    ~CEventAPI();
     EVENT Create(const char* N);
     void Destroy(EVENT& E);
 

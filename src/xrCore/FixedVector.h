@@ -1,6 +1,7 @@
+#pragma once
 #ifndef FixedVectorH
 #define FixedVectorH
-#pragma once
+#include "xrCore/_types.h"
 
 template <class T, const int dim>
 class svector

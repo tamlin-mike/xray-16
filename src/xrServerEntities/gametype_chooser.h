@@ -1,8 +1,16 @@
+#pragma once
 #ifndef GAMETYPE_CHOOSER_INCLUDED
 #define GAMETYPE_CHOOSER_INCLUDED
 
-#pragma once
-#include "xrCore/xrCore.h"
+#include "xrCore/_std_extensions.h"
+#include "xrCore/_flags.h"
+#include "xrCore/xrstring.h"
+#include "xrCommon/xr_vector.h"
+
+// fwd. decl.
+class IReader;
+class IWriter;
+class CInifile;
 
 //new
 enum EGameIDs {
@@ -16,28 +24,11 @@ enum EGameIDs {
         eGameIDTeamDominationZone                       = u32(1) << 6,
 };
 
-inline EGameIDs ParseStringToGameType(LPCSTR str)
-{
-    if (!xr_strcmp(str, "single"))
-        return eGameIDSingle;
-    if (!xr_strcmp(str, "deathmatch") || !xr_strcmp(str, "dm"))
-        return eGameIDDeathmatch;
-    if (!xr_strcmp(str, "teamdeathmatch") || !xr_strcmp(str, "tdm"))
-        return eGameIDTeamDeathmatch;
-    if (!xr_strcmp(str, "artefacthunt") || !xr_strcmp(str, "ah"))
-        return eGameIDArtefactHunt;
-    if (!xr_strcmp(str, "capturetheartefact") || !xr_strcmp(str, "cta"))
-        return eGameIDCaptureTheArtefact;
-    if (!xr_strcmp(str, "dominationzone"))
-        return eGameIDDominationZone;
-    if (!xr_strcmp(str, "teamdominationzone"))
-        return eGameIDTeamDominationZone;
-    return eGameIDNoGame; //EGameIDs
-}
+EGameIDs ParseStringToGameType(LPCSTR str); // in xrMisc
 
 class PropValue;
 class PropItem;
-DEFINE_VECTOR			(PropItem*,PropItemVec,PropItemIt);
+DEFINE_VECTOR(PropItem*,PropItemVec,PropItemIt);
 
 struct GameTypeChooser
 {
@@ -56,4 +47,4 @@ struct GameTypeChooser
 	bool	MatchType		(const u16 t) const		{return (t==eGameIDNoGame) || !!m_GameType.test(t);};
 };
 
-#endif
+#endif // include guard
