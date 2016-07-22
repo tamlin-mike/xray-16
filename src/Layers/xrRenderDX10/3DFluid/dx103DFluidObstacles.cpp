@@ -382,7 +382,7 @@ void dx103DFluidObstacles::RenderDynamicOOBB( const IPhysicsElement &Element, co
 }
 */
 
-void dx103DFluidObstacles::RenderDynamicOOBB( const IPhysicsGeometry &Geometry, const Fmatrix &WorldToFluid, float timestep)
+void dx103DFluidObstacles::RenderDynamicOOBB( const IPhysicsGeometry &Geometry, const Fmatrix &WorldToFluid, float /*timestep*/)
 {
 	PIX_EVENT(RenderDynamicObstacle);
 

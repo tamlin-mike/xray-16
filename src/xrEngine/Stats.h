@@ -2,9 +2,12 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+#pragma once
 #if !defined(AFX_STATS_H__4C8D1860_0EE2_11D4_B4E3_4854E82A090D__INCLUDED_)
 #define AFX_STATS_H__4C8D1860_0EE2_11D4_B4E3_4854E82A090D__INCLUDED_
-#pragma once
+#include "xrCore/_flags.h"
+#include "xrCore/xrstring.h"
+#include "xrCommon/xr_vector.h"
 
 class ENGINE_API CGameFont;
 

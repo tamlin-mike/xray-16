@@ -1,5 +1,6 @@
 #pragma once
 #include "PHItemList.h"
+#include "xrPhysics.h"
 
 class CPhysicsShell;
 class XRPHYSICS_API CPHUpdateObject 
@@ -17,4 +18,5 @@ IC	bool			IsActive		()																{return b_activated;}
 	virtual void	PhTune			(float step)													=0;
 	virtual void	NetRelcase		(CPhysicsShell *s)												{};
 };
+
 DEFINE_PHITEM_LIST(CPHUpdateObject,PH_UPDATE_OBJECT_STORAGE,PH_UPDATE_OBJECT_I)

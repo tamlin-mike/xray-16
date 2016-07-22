@@ -107,11 +107,11 @@ void CPSLibrary::Remove(const char* nm)
 		m_PEDs.erase	(it);
 	}else
     {
-		PS::PGDIt it = FindPGDIt(nm);
-		if (it!=m_PGDs.end())
+		PS::PGDIt it2 = FindPGDIt(nm);
+		if (it2!=m_PGDs.end())
         {
-			xr_delete	(*it);
-			m_PGDs.erase(it);
+			xr_delete	(*it2);
+			m_PGDs.erase(it2);
 		}
 	}
 }
@@ -145,7 +145,7 @@ bool CPSLibrary::Load2()
 #endif
 
         xr_sprintf				(_path, sizeof(_path),"%s%s",p_path, p_name);
-        if(0==_stricmp(p_ext,".pe"))
+        if(0==xr_stricmp(p_ext,".pe"))
         {
             PS::CPEDef*	def		= new PS::CPEDef();
             def->m_Name			= _path;
@@ -154,7 +154,7 @@ bool CPSLibrary::Load2()
             else
             	xr_delete		(def);
         }else
-        if(0==_stricmp(p_ext,".pg"))
+        if(0==xr_stricmp(p_ext,".pg"))
         {
             PS::CPGDef*	def		= new PS::CPGDef();
             def->m_Name			= _path;

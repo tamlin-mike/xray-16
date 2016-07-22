@@ -3,7 +3,7 @@
 #define XRCDB_H
 
 #include "Common/Platform.hpp"
-#include "xrCore/Threading/Lock.hpp" // XXX: Remove from header. Put in .cpp.
+#include "Common/Noncopyable.hpp"
 
 // The following ifdef block is the standard way of creating macros which make exporting
 // from a DLL simpler. All files within this DLL are compiled with the XRCDB_EXPORTS
@@ -24,8 +24,8 @@ namespace Opcode {
 	class OPCODE_Model;
 	class AABBNoLeafNode;
 };
-template <class T> class _box3;
-typedef _box3<float> Fbox;
+template <class T> class _box3; typedef _box3<float> Fbox;
+class Lock;
 
 
 #pragma pack(push,8)
@@ -53,7 +53,7 @@ namespace CDB
 	typedef		void __stdcall	build_callback	(Fvector* V, int Vcnt, TRI* T, int Tcnt, void* params);
 
 	// Model definition
-	class		XRCDB_API		MODEL
+	class		XRCDB_API		MODEL : private Noncopyable
 	{
 		friend class COLLIDER;
 		enum
@@ -64,9 +64,9 @@ namespace CDB
 			S_forcedword		= u32(-1)
 		};
 	private:
-		Lock		cs;
+		Lock		*pcs;
 		Opcode::OPCODE_Model*	tree;
-		u32						status;		// 0=ready, 1=init, 2=building
+		volatile u32			status;		// 0=ready, 1=init, 2=building
 
 		// tris
 		TRI*					tris;
@@ -83,14 +83,11 @@ namespace CDB
 		IC const TRI*			get_tris		()	const 	{ return tris;		}
 		IC TRI*					get_tris		()			{ return tris;		}
 		IC int					get_tris_count	()	const	{ return tris_count;}
-		IC void					syncronize		()	const
+		void					syncronize		()	const
 		{
 			if (S_READY!=status)
 			{
-				Log						("! WARNING: syncronized CDB::query");
-				Lock*	C	= (Lock*) &cs;
-				C->Enter				();
-				C->Leave				();
+				syncronize_impl();
 			}
 		}
 
@@ -98,6 +95,9 @@ namespace CDB
 		void					build_internal	(Fvector* V, int Vcnt, TRI* T, int Tcnt, build_callback* bc=NULL, void* bcp=NULL);
 		void					build			(Fvector* V, int Vcnt, TRI* T, int Tcnt, build_callback* bc=NULL, void* bcp=NULL);
 		u32						memory			();
+
+	private:
+		void syncronize_impl() const throw();
 	};
 
 	// Collider result

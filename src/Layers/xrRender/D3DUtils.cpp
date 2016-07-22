@@ -337,13 +337,15 @@ void CDrawUtilities::DrawEntity(u32 clr, ref_shader s)
 	// fill VB
 	_VertexStream*	Stream	= &RCache.Vertex;
 	u32			vBase;
-	FVF::L*	pv	 	= (FVF::L*)Stream->Lock(5,vs_L->vb_stride,vBase);
-    pv->set			(0.f,0.f,0.f,clr); pv++;
-    pv->set			(0.f,1.f,0.f,clr); pv++;
-    pv->set			(0.f,1.f,.5f,clr); pv++;
-    pv->set			(0.f,.5f,.5f,clr); pv++;
-    pv->set			(0.f,.5f,0.f,clr); pv++;
-	Stream->Unlock	(5,vs_L->vb_stride);
+    {
+        FVF::L*	pv = (FVF::L*)Stream->Lock(5, vs_L->vb_stride, vBase);
+        pv->set(0.f, 0.f, 0.f, clr); pv++;
+        pv->set(0.f, 1.f, 0.f, clr); pv++;
+        pv->set(0.f, 1.f, .5f, clr); pv++;
+        pv->set(0.f, .5f, .5f, clr); pv++;
+        pv->set(0.f, .5f, 0.f, clr); pv++;
+    }
+    Stream->Unlock	(5,vs_L->vb_stride);
 	// render flagshtok
 	DU_DRAW_SH		(RImplementation.m_WireShader);
     DU_DRAW_DP		(D3DPT_LINESTRIP,vs_L,vBase,4);
@@ -368,10 +370,12 @@ void CDrawUtilities::DrawFlag(const Fvector& p, float heading, float height, flo
 	// fill VB
 	_VertexStream*	Stream	= &RCache.Vertex;
 	u32			vBase;
-	FVF::L*	pv	 	= (FVF::L*)Stream->Lock(2,vs_L->vb_stride,vBase);
-    pv->set			(p,clr); pv++;
-    pv->set			(p.x,p.y+height,p.z,clr); pv++;
-	Stream->Unlock	(2,vs_L->vb_stride);
+    {
+        FVF::L*	pv = (FVF::L*)Stream->Lock(2, vs_L->vb_stride, vBase);
+        pv->set(p, clr); pv++;
+        pv->set(p.x, p.y + height, p.z, clr); pv++;
+    }
+    Stream->Unlock	(2,vs_L->vb_stride);
 	// and Render it as triangle list
     DU_DRAW_DP		(D3DPT_LINELIST,vs_L,vBase,1);
 

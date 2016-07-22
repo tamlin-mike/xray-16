@@ -92,7 +92,7 @@ void memory_monitor::monitor_alloc(const void* allocation_address, const u32& al
 {
     counter++;
     counter_alloc++;
-    //if(0==_stricmp(allocation_description,"char"))
+    //if(0==xr_stricmp(allocation_description,"char"))
     //{
     // int d = 65+56;
     //}

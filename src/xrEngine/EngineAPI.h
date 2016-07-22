@@ -4,10 +4,11 @@
 // Support for extension DLLs
 //****************************************************************************
 
+#pragma once
 #if !defined(AFX_ENGINEAPI_H__CF21372B_C8B8_4891_82FC_D872C84E1DD4__INCLUDED_)
 #define AFX_ENGINEAPI_H__CF21372B_C8B8_4891_82FC_D872C84E1DD4__INCLUDED_
-#pragma once
 #include "xrEngine/Engine.h"
+#include "xrCore/clsid.h"
 
 class IFactoryObject
 {

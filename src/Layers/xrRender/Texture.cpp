@@ -13,10 +13,10 @@ void fix_texture_name(LPSTR fn)
 {
 	LPSTR _ext = strext(fn);
 	if(  _ext					&&
-	  (0==_stricmp(_ext,".tga")	||
-		0==_stricmp(_ext,".dds")	||
-		0==_stricmp(_ext,".bmp")	||
-		0==_stricmp(_ext,".ogm")	) )
+	  (0==xr_stricmp(_ext,".tga")	||
+		0==xr_stricmp(_ext,".dds")	||
+		0==xr_stricmp(_ext,".bmp")	||
+		0==xr_stricmp(_ext,".ogm")	) )
 		*_ext = 0;
 }
 
@@ -248,7 +248,7 @@ IC u32 it_gloss_rev		(u32 d, u32 s)	{	return	color_rgba	(
 	color_get_G(d),
 	color_get_R(d)		);
 }
-IC u32 it_gloss_rev_base(u32 d, u32 s)	{	
+IC u32 it_gloss_rev_base(u32 d, u32 /*s*/)	{	
 	u32		occ		= color_get_A(d)/3;
 	u32		def		= 8;
 	u32		gloss	= (occ*1+def*3)/4;
@@ -259,7 +259,7 @@ IC u32 it_gloss_rev_base(u32 d, u32 s)	{
 		color_get_R(d)
 	);
 }
-IC u32 it_difference	(u32 d, u32 orig, u32 ucomp)	{	return	color_rgba(
+IC u32 it_difference	(u32 /*d*/, u32 orig, u32 ucomp)	{	return	color_rgba(
 	128+(int(color_get_R(orig))-int(color_get_R(ucomp)))*2,		// R-error
 	128+(int(color_get_G(orig))-int(color_get_G(ucomp)))*2,		// G-error
 	128+(int(color_get_B(orig))-int(color_get_B(ucomp)))*2,		// B-error
@@ -327,8 +327,8 @@ _DDS:
 #endif // DEBUG
 		img_size				= S->length	();
 		R_ASSERT				(S);
-		HRESULT const result	= D3DXGetImageInfoFromFileInMemory	(S->pointer(),S->length(),&IMG);
-		if ( FAILED(result) ) {
+		HRESULT const result1	= D3DXGetImageInfoFromFileInMemory	(S->pointer(),S->length(),&IMG);
+		if ( FAILED(result1) ) {
 			Msg					("! Can't get image info for texture '%s'",fn);
 			FS.r_close			(S);
 			string_path			temp;
@@ -377,7 +377,7 @@ _DDS_CUBE:
 		}
 _DDS_2D:
 		{
-			_strlwr					(fn);
+			xr_strlwr					(fn);
 			// Load   SYS-MEM-surface, bound to device restrictions
 			ID3DTexture2D*		T_sysmem;
 			HRESULT const result	=
@@ -398,7 +398,7 @@ _DDS_2D:
 				Msg					("! Can't load texture '%s'",fn);
 				string_path			temp;
 				R_ASSERT			( FS.exist( temp, "$game_textures$", "ed\\ed_not_existing_texture", ".dds" ) );
-				_strlwr				(temp);
+				xr_strlwr				(temp);
 				R_ASSERT			( xr_strcmp(temp,fn) );
 				xr_strcpy			( fn, temp );
 				goto _DDS;

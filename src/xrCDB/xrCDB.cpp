@@ -5,6 +5,7 @@
 #pragma hdrstop
 
 #include "xrCDB.h"
+#include "xrCore/Threading/Lock.hpp"
 
 #ifdef USE_ARENA_ALLOCATOR
 static const u32	s_arena_size = (128+16)*1024*1024;
@@ -36,9 +37,11 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 }
 
 // Model building
-MODEL::MODEL	()
+MODEL::MODEL() :
 #ifdef CONFIG_PROFILE_LOCKS
-	:cs(MUTEX_PROFILE_ID(MODEL))
+	pcs(new Lock(MUTEX_PROFILE_ID(MODEL)))
+#else
+	pcs(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 {
 	tree		= 0;
@@ -55,6 +58,15 @@ MODEL::~MODEL()
 	CDELETE		(tree);
 	CFREE		(tris);		tris_count = 0;
 	CFREE		(verts);	verts_count= 0;
+	delete pcs;
+}
+
+void MODEL::syncronize_impl() const
+{
+	Log("! WARNING: syncronized CDB::query");
+	Lock*	C = pcs;
+	C->Enter();
+	C->Leave();
 }
 
 struct	BTHREAD_params
@@ -73,10 +85,10 @@ void	MODEL::build_thread		(void *params)
 	_initialize_cpu_thread		();
 	FPU::m64r					();
 	BTHREAD_params	P			= *( (BTHREAD_params*)params );
-	P.M->cs.Enter				();
+	P.M->pcs->Enter				();
 	P.M->build_internal			(P.V,P.Vcnt,P.T,P.Tcnt,P.BC,P.BCP);
 	P.M->status					= S_READY;
-	P.M->cs.Leave				();
+	P.M->pcs->Leave				();
 	//Msg						("* xrCDB: cform build completed, memory usage: %d K",P.M->memory()/1024);
 }
 

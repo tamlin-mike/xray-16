@@ -17,7 +17,9 @@ using namespace	collide;
 CObjectSpace::CObjectSpace	( ):
 	xrc("object space")
 #ifdef CONFIG_PROFILE_LOCKS
-	,Lock(MUTEX_PROFILE_ID(CObjectSpace::Lock))
+	,lock(new Lock(MUTEX_PROFILE_ID(CObjectSpace::Lock)))
+#else
+	, lock(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 #ifdef DEBUG
 	,m_pRender(0)
@@ -42,6 +44,7 @@ CObjectSpace::~CObjectSpace	( )
 	//sh_debug.destroy			();
 	CDELETE(m_pRender);
 #endif
+	delete lock;
 }
 //----------------------------------------------------------------------
 

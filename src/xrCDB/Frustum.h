@@ -10,6 +10,7 @@
 //#pragma once
 
 #include "xrCore/fixedvector.h"
+#include "xrCore/_plane.h"
 
 #pragma pack(push,4)
 

@@ -177,7 +177,7 @@ void CSCompiler::end()
 
 void CSCompiler::compile(const char* name)
 {
-	if (0==_stricmp(name, "null"))
+	if (0==xr_stricmp(name, "null"))
 	{
 		m_cs = 0;
 		return;

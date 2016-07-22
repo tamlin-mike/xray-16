@@ -97,7 +97,9 @@ void dx10SamplerStateCache::PrepareSamplerStates(
 	u32	&uiMax
 ) const
 {
+	UNUSED(pCurrentState);
 	//	It seems that sizeof pSS is 4 wor win32!
+	// tamlin: Of course it is - 32-bit platform means pointers are 4 bytes.
 	ZeroMemory(pSS, sizeof(pSS[0])*D3D_COMMONSHADER_SAMPLER_SLOT_COUNT);
 
 	for ( u32 i=0; i<samplers.size(); ++i )

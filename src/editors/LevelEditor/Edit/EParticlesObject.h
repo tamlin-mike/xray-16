@@ -66,7 +66,7 @@ public:
     bool RefCompare(LPCSTR ref_name)
     {
         VERIFY(ref_name&&ref_name[0]);
-        return (0==_stricmp(ref_name, GetReferenceName()));
+        return (0==xr_stricmp(ref_name, GetReferenceName()));
     }
 
     bool Compile(LPCSTR ref_name);

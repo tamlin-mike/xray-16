@@ -217,7 +217,7 @@ void	CKinematics::Load(const char* N, IReader *data, u32 dwFlags)
 
 		// Bone
 		u16			ID				= u16(bones->size());
-		data->r_stringZ				(buf,sizeof(buf));	_strlwr(buf);
+		data->r_stringZ				(buf,sizeof(buf));	xr_strlwr(buf);
 		CBoneData* pBone 			= CreateBoneData(ID);
 		pBone->name					= shared_str(buf);
 		pBone->child_faces.resize	(children.size());
@@ -226,7 +226,7 @@ void	CKinematics::Load(const char* N, IReader *data, u32 dwFlags)
 		bone_map_P->push_back		(std::make_pair(pBone->name,ID));
 
 		// It's parent
-		data->r_stringZ				(buf,sizeof(buf));	_strlwr(buf);
+		data->r_stringZ				(buf,sizeof(buf));	xr_strlwr(buf);
 		L_parents.push_back			(buf);
 
 		data->r						(&pBone->obb,sizeof(Fobb));
@@ -489,7 +489,7 @@ void CKinematics::Visibility_Update	()
 		if				(!_c->has_visible_bones())	{
 			// move into invisible list
 			children_invisible.push_back	(children[c_it]);	
-			swap(children[c_it],children.back());
+			std::swap(children[c_it],children.back());
 			children.pop_back				();
 		}
 	}
@@ -500,7 +500,7 @@ void CKinematics::Visibility_Update	()
 		if				(_c->has_visible_bones())	{
 			// move into visible list
 			children.push_back				(children_invisible[_it]);	
-			swap(children_invisible[_it],children_invisible.back());
+			std::swap(children_invisible[_it],children_invisible.back());
 			children_invisible.pop_back		();
 		}
 	}
@@ -644,9 +644,9 @@ void CKinematics::AddWallmark(const Fmatrix* parent_xform, const Fvector3& start
 
 	// fill vertices
 	for (u32 i=0; i<children.size(); i++){
-		CSkeletonX* S		= LL_GetChild(i);
+		CSkeletonX* S2		= LL_GetChild(i);
 		for (U16It b_it=test_bones.begin(); b_it!=test_bones.end(); b_it++)
-			S->FillVertices		(mView,*wm,normal,size,*b_it);
+			S2->FillVertices		(mView,*wm,normal,size,*b_it);
 	}
 
 	wallmarks.push_back		(wm);

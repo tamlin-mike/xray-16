@@ -13,6 +13,7 @@
 #include "xrGameSpy/GameSpy_Full.h"
 #include "xrGameSpy/GameSpy_Browser.h"
 #include "spectator.h"
+#include "Common/Platform.hpp"
 
 LPCSTR GameTypeToString(EGameIDs gt, bool bShort);
 CGameSpy_Browser* g_gs_browser = NULL;
@@ -810,7 +811,7 @@ void CServerList::SrvInfo2LstSrvInfo(const ServerInfo* pServerInfo)
 	xr_string address				= pServerInfo->m_HostName;
 	char							port[8];
 	address							+= "/port=";	
-	address							+= _itoa(pServerInfo->m_Port, port, 10);
+	address							+= xr_itoa(pServerInfo->m_Port, port, 10);
 	m_itemInfo.info.address			= address.c_str();
 	m_itemInfo.info.map				= pServerInfo->m_SessionName;
 	m_itemInfo.info.game			= GameTypeToString( (EGameIDs)pServerInfo->m_GameType, true);

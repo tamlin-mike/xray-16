@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ISpatial.h"
 #include "xrCore/_fbox.h"
+#include "xrCore/Threading/Lock.hpp"
 
 extern Fvector	c_spatial_offset[8];
 
@@ -60,14 +61,14 @@ public:
 
 void	ISpatial_DB::q_box			(xr_vector<ISpatial*>& R, u32 _o, u32 _mask, const Fvector& _center, const Fvector& _size)
 {
-	cs.Enter			();
+	pcs->Enter			();
     Stats.Query.Begin();
 	q_result			= &R;
 	q_result->clear_not_free		();
 	if (_o & O_ONLYFIRST)			{ walker<true>	W(this,_mask,_center,_size);	W.walk(m_root,m_center,m_bounds); } 
 	else							{ walker<false>	W(this,_mask,_center,_size);	W.walk(m_root,m_center,m_bounds); } 
     Stats.Query.End();
-	cs.Leave			();
+	pcs->Leave			();
 }
 
 void	ISpatial_DB::q_sphere		(xr_vector<ISpatial*>& R, u32 _o, u32 _mask, const Fvector& _center, const float _radius)

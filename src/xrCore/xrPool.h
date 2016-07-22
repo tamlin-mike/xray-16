@@ -4,6 +4,7 @@
 #include "_types.h"
 #include "xrDebug_macros.h"
 //#include "_stl_extensions.h"
+#include "xrCommon/xr_vector.h"
 
 template <class T, int granularity>
 class poolSS

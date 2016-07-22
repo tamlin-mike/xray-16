@@ -112,7 +112,7 @@ class ECORE_API CCustomObject
     void__stdcall OnMotionCameraViewChange(PropValue*value);
     protected:
     LPCSTR GetName() const{return *FName;}
-    void SetName(LPCSTR N){string256 tmp; strcpy(tmp, N); _strlwr(tmp); FName = tmp;}
+    void SetName(LPCSTR N){string256 tmp; strcpy(tmp, N); xr_strlwr(tmp); FName = tmp;}
 
     virtual const Fvector&GetPosition() const{return FPosition;}
     virtual const Fvector&GetRotation() const{return FRotation;}

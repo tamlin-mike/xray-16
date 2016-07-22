@@ -133,7 +133,7 @@ struct		 STextureParams{
 	{
 		return flags.is(flHasSurface);
 	}
-	IC void	SetHasSurface(BOOL val)
+	IC void	SetHasSurface(bool val)
 	{
 		flags.set( flHasSurface, val );
 	}

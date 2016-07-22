@@ -437,14 +437,14 @@ void CSE_ALifeTraderAbstract::set_specific_character    (shared_str new_spec_cha
         xr_string n         = "name_";
         n                   += subset;
         n                   += "_";
-        n                   += _itoa(::Random.randI(name_cnt),S,10);
+        n                   += xr_itoa(::Random.randI(name_cnt),S,10);
         m_character_name    = *(CStringTable().translate(n.c_str()));
         m_character_name    += " ";
 
         n                   = "lname_";
         n                   += subset;
         n                   += "_";
-        n                   += _itoa(::Random.randI(last_name_cnt),S,10);
+        n                   += xr_itoa(::Random.randI(last_name_cnt),S,10);
         m_character_name    += *(CStringTable().translate(n.c_str()));
 
 

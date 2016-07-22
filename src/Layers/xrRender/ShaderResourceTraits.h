@@ -85,7 +85,7 @@
 
 			sh->dwFlags |= xr_resource_flagged::RF_REGISTERED;
 			sh_map.insert(std::make_pair(sh->set_name(name),sh));
-			if (0==_stricmp(name,"null"))
+			if (0==xr_stricmp(name,"null"))
 			{
 				sh->sh				= NULL;
 				return sh;

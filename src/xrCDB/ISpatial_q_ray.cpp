@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ISpatial.h"
 #include "xrCore/_fbox.h"
+#include "xrCore/Threading/Lock.hpp"
 #pragma warning(push)
 #pragma warning(disable:4995)
 #include <xmmintrin.h>
@@ -280,7 +281,7 @@ public:
 
 void	ISpatial_DB::q_ray	(xr_vector<ISpatial*>& R, u32 _o, u32 _mask_and, const Fvector&	_start,  const Fvector&	_dir, float _range)
 {
-	cs.Enter						();
+	pcs->Enter						();
     Stats.Query.Begin();
 	q_result						= &R;
 	q_result->clear_not_free		();
@@ -304,5 +305,5 @@ void	ISpatial_DB::q_ray	(xr_vector<ISpatial*>& R, u32 _o, u32 _mask_and, const F
 		}
 	}
     Stats.Query.End();
-	cs.Leave		();
+	pcs->Leave		();
 }

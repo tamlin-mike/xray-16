@@ -83,7 +83,7 @@ void CUISpinNum::OnBtnDownClick()
 void CUISpinNum::SetValue(int v)
 {
 	string16	buff;
-	m_pLines->SetText(_itoa(v, buff, 10)); 
+	m_pLines->SetText(xr_itoa(v, buff, 10)); 
 }
 
 bool CUISpinNum::CanPressUp()

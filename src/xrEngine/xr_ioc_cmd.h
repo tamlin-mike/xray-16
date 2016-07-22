@@ -173,7 +173,7 @@ public:
         xr_token* tok = tokens;
         while (tok->name)
         {
-            if (_stricmp(tok->name, args) == 0)
+            if (xr_stricmp(tok->name, args) == 0)
             {
                 *value = tok->id;
                 break;
@@ -346,7 +346,7 @@ public:
     }
     virtual void Status(TStatus& S)
     {
-        _itoa(*value, S, 10);
+        xr_itoa(*value, S, 10);
     }
     virtual void Info(TInfo& I)
     {

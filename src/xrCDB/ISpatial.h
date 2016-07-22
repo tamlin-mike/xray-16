@@ -3,11 +3,14 @@
 
 //#pragma once
 #include "Common/Platform.hpp"
+#include "Common/Noncopyable.hpp"
 #include "xrCore/xrPool.h"
 //#include "xr_collide_defs.h"
+#include "xrCore/xrCore_benchmark_macros.h"
 #include "xrCore/_types.h"
 #include "xrCore/_vector3d.h"
 #include "xrCore/_sphere.h"
+#include "xrCore/FTimer.h"
 #include "xrCDB.h"
 
 #pragma pack(push,4)
@@ -76,6 +79,7 @@ class IGameObject;
 namespace Feel { class Sound; }
 class 				IRenderable;
 class 				IRender_Light;
+class				Lock;
 
 class SpatialData
 {
@@ -179,7 +183,7 @@ public:
 #endif // #ifndef	DLL_API
 
 //////////////////////////////////////////////////////////////////////////
-class XRCDB_API	ISpatial_DB
+class XRCDB_API	ISpatial_DB :private Noncopyable
 {
 public:
     struct SpatialDBStatistics
@@ -217,7 +221,7 @@ public:
         }
     };
 private:
-	Lock				cs;
+	Lock				*pcs;
 
 	poolSS< ISpatial_NODE, 128 >	allocator;
 

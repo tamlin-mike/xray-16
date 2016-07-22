@@ -55,7 +55,7 @@ IC char* xr_strcpy(char* strDestination, const char* strSource)
 
 IC char* _strlwr_s(char* strDestination, size_t sizeInBytes)
 {
-    return _strlwr(strDestination);
+    return xr_strlwr(strDestination);
 }
 
 IC char* xr_strcat(char* strDestination, size_t sizeInBytes, const char* strSource)
@@ -96,7 +96,7 @@ IC LPCSTR get_token_name(const xr_token* tokens, int key)
 IC int get_token_id(const xr_token* tokens, LPCSTR key)
 {
     for (int k = 0; tokens[k].name; k++)
-        if (_stricmp(tokens[k].name, key) == 0)
+        if (xr_stricmp(tokens[k].name, key) == 0)
             return tokens[k].id;
     return -1;
 }
@@ -191,12 +191,12 @@ IC u32 xr_strlen(const char* S)
 
 IC char* xr_strupr(char *S)
 {
-    return _strupr(S);
+    return xr_strupr(S);
 }
 
 IC char* xr_strlwr(char* S)
 {
-    return _strlwr(S);
+    return xr_strlwr(S);
 }
 
 #ifdef BREAK_AT_STRCMP

@@ -14,9 +14,9 @@ struct BLK_NODE {
     BLK_NODE* next;
     BOOL   avail()      const { return (next != NULL); }
     void    link(BLK_NODE* p) { p->next=next; next=p; }
-    void  _unlink()            { next=next->next; }
+    void  xr_unlink()            { next=next->next; }
     void* remove()            {
-        BLK_NODE* p=next;                   _unlink();
+        BLK_NODE* p=next;                   xr_unlink();
         Stamp--;                            return p;
     }
     inline void insert(void* pv,int NU);
@@ -195,7 +195,7 @@ static inline void ExpandTextArea()
     for (UINT i=0;i < N_INDEXES;i++)
         for (p=BList+i;Count[i] != 0;p=p->next)
             while ( !p->next->Stamp ) {
-                p->_unlink();                BList[i].Stamp--;
+                p->xr_unlink();                BList[i].Stamp--;
                 if ( !--Count[i] )          break;
             }
 }

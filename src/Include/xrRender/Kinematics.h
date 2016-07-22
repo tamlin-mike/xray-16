@@ -48,7 +48,7 @@ public:
 
 	virtual CBoneData&				LL_GetData(u16 bone_id) = 0;
 
-virtual	const IBoneData&			GetBoneData(u16 bone_id) const = 0;
+	virtual	const IBoneData&		GetBoneData(u16 bone_id) const = 0;
 
 	virtual u16						LL_BoneCount()const = 0;
 	virtual u16							LL_VisibleBoneCount() = 0;

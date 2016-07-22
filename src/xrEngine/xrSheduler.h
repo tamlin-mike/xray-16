@@ -4,6 +4,8 @@
 
 //#include "ISheduled.h"
 #include "Engine_impexp.h"
+#include "xrCore/xrstring.h"
+
 class ISheduled;
 
 class ENGINE_API CSheduler

@@ -58,7 +58,7 @@ void Startup(LPSTR     lpCmdLine)
 //  BOOL bModifyOptions     = FALSE;
     bool bNet               = false;
     xr_strcpy(cmd,lpCmdLine);
-    _strlwr(cmd);
+    xr_strlwr(cmd);
     if (strstr(cmd,"-?") || strstr(cmd,"-h"))           { Help(); return; }
     if (strstr(cmd,"-f")==0)                            { Help(); return; }
 //  if (strstr(cmd,"-o"))                               bModifyOptions = TRUE;

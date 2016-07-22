@@ -761,6 +761,8 @@
     <ClInclude Include="xr_vector_defs.h">
       <Filter>Math\Extensions</Filter>
     </ClInclude>
+    <ClInclude Include="xrCore_benchmark_macros.h" />
+    <ClInclude Include="xrCore_impexp.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="xrCore.rc">
