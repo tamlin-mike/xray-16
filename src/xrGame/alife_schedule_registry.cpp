@@ -8,6 +8,7 @@
 
 #include "stdafx.h"
 #include "alife_schedule_registry.h"
+#include "xrServerEntities/smart_cast.h"
 
 CALifeScheduleRegistry::~CALifeScheduleRegistry	()
 {

@@ -9,6 +9,8 @@
 #include "stdafx.h"
 #include "alife_graph_registry.h"
 #include "xrEngine/x_ray.h"
+#include "xrServerEntities/smart_cast.h"
+#include "xrServerEntities/xrMessages.h"
 
 using namespace ALife;
 

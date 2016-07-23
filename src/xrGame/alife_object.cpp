@@ -10,6 +10,7 @@
 #include "xrServer_Objects_ALife.h"
 #include "alife_simulator.h"
 #include "xrServer_Objects_ALife_Items.h"
+#include "xrServerEntities/smart_cast.h"
 
 void CSE_ALifeObject::spawn_supplies		()
 {

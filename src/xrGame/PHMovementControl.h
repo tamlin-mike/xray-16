@@ -1,12 +1,11 @@
 #pragma once
 #ifndef CPHMOVEMENT_CONTROL_H
 #define CPHMOVEMENT_CONTROL_H
-
-
-
 #include "xrPhysics/physicsexternalcommon.h"
 #include "xrPhysics/MathUtils.h"
 #include "xrPhysics/movementboxdynamicactivate.h"
+#include "xrCDB/xr_collide_defs.h"
+
 namespace ALife {
 	enum EHitType;
 };
@@ -292,4 +291,4 @@ private:
 												 Fvector & dist_to_enemy);
 };
 
-#endif
+#endif // include guard

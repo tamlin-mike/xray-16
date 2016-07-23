@@ -11,6 +11,7 @@
 #include "gameobject.h"
 #include "Include/xrRender/kinematics.h"
 #include "animation_movement_controller.h"
+#include "xrServerEntities/smart_cast.h"
 
 using aimers::base;
 

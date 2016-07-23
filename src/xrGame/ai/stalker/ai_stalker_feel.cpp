@@ -14,6 +14,7 @@
 #include "sight_manager.h"
 #include "stalker_movement_manager_smart_cover.h"
 #include "stalker_animation_manager.h"
+#include "xrServerEntities/smart_cast.h"
 
 #ifdef DEBUG
 #include "ai_debug.h"

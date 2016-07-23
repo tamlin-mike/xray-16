@@ -19,6 +19,7 @@
 #include "CdkeyDecode/cdkeydecode.h"
 #include "string_table.h"
 #include "xrCore/os_clipboard.h"
+#include "xrServerEntities/smart_cast.h"
 
 #include "DemoInfo.h"
 #include "DemoInfo_Loader.h"

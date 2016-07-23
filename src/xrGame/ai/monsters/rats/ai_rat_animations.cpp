@@ -11,6 +11,7 @@
 #include "Include/xrRender/KinematicsAnimated.h"
 #include "ai_debug.h"
 #include "movement_manager.h"
+#include "xrServerEntities/smart_cast.h"
 
 #define MIN_TURN_ANGLE PI_DIV_6*.5f
 

@@ -1,6 +1,8 @@
 #pragma once
-
 #include "xrPhysics/CycleConstStorage.h"
+#include "xrCore/_vector3d.h"
+#include "xrCore/_quaternion.h"
+
 namespace extrapolation
 {
 
@@ -54,4 +56,4 @@ namespace extrapolation
 		container	m_points;
 	};
 
-}
+} // namespace extrapolation

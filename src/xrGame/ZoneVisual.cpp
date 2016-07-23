@@ -4,6 +4,7 @@
 #include "ZoneVisual.h"
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "Include/xrRender/RenderVisual.h"
+#include "xrServerEntities/smart_cast.h"
 
 CVisualZone::CVisualZone						()
 {

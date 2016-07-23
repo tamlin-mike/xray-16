@@ -11,6 +11,7 @@
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "xrEngine/IGame_Persistent.h"
 #include "xrNetServer/NET_Messages.h"
+#include "xrServerEntities/smart_cast.h"
 
 CRocketLauncher::CRocketLauncher()
 {

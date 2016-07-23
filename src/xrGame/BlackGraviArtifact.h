@@ -8,6 +8,8 @@
 #include "GraviArtifact.h"
 #include "xrEngine/feel_touch.h"
 #include "PhysicsShellHolder.h"
+#include "xrCDB/xr_collide_defs.h"
+
 DEFINE_VECTOR (CPhysicsShellHolder*, GAME_OBJECT_LIST, GAME_OBJECT_LIST_it);
 
 class CBlackGraviArtefact: public CGraviArtefact,

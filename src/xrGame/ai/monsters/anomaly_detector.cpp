@@ -5,6 +5,7 @@
 #include "CustomZone.h"
 #include "Level.h"
 #include "space_restriction_manager.h"
+#include "xrServerEntities/smart_cast.h"
 
 CAnomalyDetector::CAnomalyDetector(CBaseMonster *monster) : m_object(monster)
 {

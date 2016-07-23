@@ -4,6 +4,7 @@
 #include "xrMessages.h"
 #include "Include/xrRender/Kinematics.h"
 #include "Level.h"
+#include "xrServerEntities/smart_cast.h"
 
 void  
 CHelicopter::BoneMGunCallbackX(CBoneInstance *B)

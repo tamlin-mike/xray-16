@@ -16,6 +16,7 @@
 #include "alife_graph_registry.h"
 #include "xrAICore/Navigation/game_level_cross_table.h"
 #include "xrAICore/Navigation/level_graph.h"
+#include "xrServerEntities/smart_cast.h"
 
 void CSE_ALifeGroupAbstract::switch_online	()
 {

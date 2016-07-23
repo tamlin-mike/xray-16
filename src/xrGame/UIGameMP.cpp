@@ -6,6 +6,7 @@
 #include "UICursor.h"
 #include "Level.h"
 #include "game_cl_mp.h"
+#include "xrServerEntities/smart_cast.h"
 
 UIGameMP::UIGameMP() :
 	m_pDemoPlayControl(NULL),

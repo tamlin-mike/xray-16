@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include "game_sv_event_queue.h"
+#include "xrCore/Threading/Lock.hpp"
 
 
-// 
-GameEventQueue::GameEventQueue()		
+//
+GameEventQueue::GameEventQueue() :
 #ifdef CONFIG_PROFILE_LOCKS
-	:cs(MUTEX_PROFILE_ID(GameEventQueue))
+	pcs(new Lock(MUTEX_PROFILE_ID(GameEventQueue)))
+#else
+	pcs(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 {
 	unused.reserve	(128);
@@ -14,18 +17,19 @@ GameEventQueue::GameEventQueue()
 }
 GameEventQueue::~GameEventQueue()
 {
-	cs.Enter		();
+	pcs->Enter		();
 	u32				it;
 	for				(it=0; it<unused.size(); it++)	xr_delete(unused[it]);
 	for				(it=0; it<ready.size(); it++)	xr_delete(ready[it]);
-	cs.Leave		();
+	pcs->Leave		();
+	delete pcs;
 }
 
 static u32 LastTimeCreate = 0;
 GameEvent*		GameEventQueue::Create	()
 {
 	GameEvent*	ge			= 0;
-	cs.Enter		();
+	pcs->Enter		();
 	if (unused.empty())	
 	{
 		ready.push_back		(new GameEvent ());
@@ -41,7 +45,7 @@ GameEvent*		GameEventQueue::Create	()
 		unused.pop_back		();
 		ge					= ready.back	();
 	}
-	cs.Leave		();
+	pcs->Leave		();
 	return	ge;
 }
 
@@ -63,7 +67,7 @@ GameEvent*		GameEventQueue::CreateSafe	(NET_Packet& P, u16 type, u32 time, Clien
 GameEvent*		GameEventQueue::Create	(NET_Packet& P, u16 type, u32 time, ClientID clientID)
 {
 	GameEvent*	ge			= 0;
-	cs.Enter		();
+	pcs->Enter		();
 	if (unused.empty())	
 	{
 		ready.push_back		(new GameEvent ());
@@ -84,13 +88,13 @@ GameEvent*		GameEventQueue::Create	(NET_Packet& P, u16 type, u32 time, ClientID 
 	ge->time	= time;
 	ge->type	= type;
 
-	cs.Leave		();
+	pcs->Leave		();
 	return			ge;
 }
 GameEvent*		GameEventQueue::Retreive	()
 {
 	GameEvent*	ge			= 0;
-	cs.Enter		();
+	pcs->Enter		();
 	if (!ready.empty())		ge = ready.front();
 	//---------------------------------------------	
 	else
@@ -107,13 +111,13 @@ GameEvent*		GameEventQueue::Retreive	()
 		}		
 	}
 	//---------------------------------------------	
-	cs.Leave		();
+	pcs->Leave		();
 	return	ge;
 }
 
 void			GameEventQueue::Release	()
 {
-	cs.Enter		();
+	pcs->Enter		();
 	R_ASSERT		(!ready.empty());
 	//---------------------------------------------
 	u32 tmp_time = GetTickCount()-60000;
@@ -129,7 +133,7 @@ void			GameEventQueue::Release	()
 		unused.push_back(ready.front());
 	//---------------------------------------------		
 	ready.pop_front	();
-	cs.Leave		();
+	pcs->Leave		();
 }
 
 void GameEventQueue::SetIgnoreEventsFor(bool ignore, ClientID clientID)
@@ -153,10 +157,10 @@ void GameEventQueue::SetIgnoreEventsFor(bool ignore, ClientID clientID)
 u32 GameEventQueue::EraseEvents(event_predicate to_del)
 {
 	u32 ret_val = 0;
-	cs.Enter();
+	pcs->Enter();
 	if (ready.empty())	//read synchronization...
 	{
-		cs.Leave();
+		pcs->Leave();
 		return 0;
 	}
 	typedef xr_deque<GameEvent*>	event_queue;
@@ -186,6 +190,6 @@ u32 GameEventQueue::EraseEvents(event_predicate to_del)
 		++ret_val;
 		need_to_erase = std::find_if(ready.begin(), ready.end(), to_del);
 	}
-	cs.Leave();
+	pcs->Leave();
 	return ret_val;
 }

@@ -6,6 +6,7 @@
 #include "PHSkeleton.h"
 #include "animation_script_callback.h"
 #include "xrserver_objects_alife.h"
+#include "xrCommon/xr_deque.h"
 
 class CSE_ALifeObjectPhysic;
 class CPhysicsElement;
@@ -21,7 +22,8 @@ struct net_update_PItem
 	SPHNetState			State;
 };
 
-struct net_updatePhData{
+struct net_updatePhData
+{
 	xr_deque<net_update_PItem>	NET_IItem;
 	/// spline coeff /////////////////////
 	//float			SCoeff[3][4];

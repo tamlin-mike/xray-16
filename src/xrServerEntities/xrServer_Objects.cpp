@@ -9,6 +9,7 @@
 #include "stdafx.h"
 #include "xrServer_Objects.h"
 #include "game_base_space.h"
+#include "xrServerEntities/smart_cast.h"
 
 ////////////////////////////////////////////////////////////////////////////
 // CSE_Shape

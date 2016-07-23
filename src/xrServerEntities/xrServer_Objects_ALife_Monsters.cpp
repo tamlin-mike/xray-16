@@ -11,7 +11,7 @@
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "Common/object_broker.h"
 #include "alife_human_brain.h"
-
+#include "xrServerEntities/smart_cast.h"
 
 
 #ifndef AI_COMPILER

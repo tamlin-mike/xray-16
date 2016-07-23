@@ -9,6 +9,7 @@
 #include "ui/UIFrameWindow.h"
 #include "ui/UIScrollView.h"
 #include "ui/UIStatic.h"
+#include "xrServerEntities/smart_cast.h"
 
 #include "game_cl_mp.h"
 

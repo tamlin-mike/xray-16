@@ -1,4 +1,5 @@
 #pragma once
+#include "xrServerEntities/smart_cast.h"
 
 #define TEMPLATE_SPECIALIZATION template <\
 	typename _Object\

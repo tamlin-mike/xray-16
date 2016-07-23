@@ -11,6 +11,7 @@
 #include "xrServer_Objects_ALife_Monsters.h"
 #include "alife_graph_registry.h"
 #include "alife_schedule_registry.h"
+#include "xrServerEntities/smart_cast.h"
 /**
 #include "ef_storage.h"
 #include "ef_pattern.h"

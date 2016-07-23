@@ -7,6 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#ifdef LOG_ACTION
+#include "ai_space.h"
+#endif
 
 #define TEMPLATE_SPECIALIZATION \
 	template <\

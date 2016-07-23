@@ -3,6 +3,10 @@
 
 #include "state_arguments_functions.h"
 
+// fwd. decl.
+template <typename T> class buffer_vector;
+
+
 namespace award_system
 {
 

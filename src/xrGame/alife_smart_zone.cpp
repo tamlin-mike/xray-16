@@ -8,6 +8,7 @@
 
 #include "stdafx.h"
 #include "xrServer_Objects_ALife.h"
+#include "xrServerEntities/smart_cast.h"
 
 CSE_ALifeItemWeapon	*CSE_ALifeSmartZone::tpfGetBestWeapon	(ALife::EHitType		&tHitType,			float		&fHitPower)
 {

@@ -7,6 +7,7 @@
 #include "Car.h"
 #include "Level.h"
 #include "ui_base.h"
+#include "xrEngine/GameFont.h"
 
 void CCar::InitDebug()
 {
@@ -185,24 +186,4 @@ void CCar::DbgUbdateCl()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif
+#endif // DEBUG

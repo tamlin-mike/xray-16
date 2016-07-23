@@ -5,6 +5,7 @@
 #include "customzone.h"
 #include "artefact.h"
 #include "ai_sounds.h"
+#include "xrServerEntities/smart_cast.h"
 
 
 class CCustomZone;

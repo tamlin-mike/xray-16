@@ -6,7 +6,7 @@
 #include "game_object_space.h"
 #include "ai/monsters/control_animation_base.h"
 #include "ai/monsters/control_movement_base.h"
-
+#include "xrServerEntities/smart_cast.h"
 
 CAI_Boar::CAI_Boar()
 {

@@ -11,6 +11,7 @@
 #include "xrEngine/render.h"
 #include "xrEngine/IGame_Persistent.h"
 #include "xrEngine/Environment.h"
+#include "xrServerEntities/smart_cast.h"
 
 const Fvector zero_vel		= {0.f,0.f,0.f};
 

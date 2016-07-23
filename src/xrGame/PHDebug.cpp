@@ -22,6 +22,7 @@
 #include "xrCore/Animation/Bone.hpp"
 #include "xrEngine/iphdebug.h"
 #include "xrCore/xr_token.h"
+#include "xrEngine/GameFont.h"
 
 #include "ui_base.h"
 

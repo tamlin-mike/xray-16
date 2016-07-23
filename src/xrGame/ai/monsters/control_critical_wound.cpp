@@ -4,6 +4,7 @@
 #include "control_animation_base.h"
 #include "control_direction_base.h"
 #include "control_movement_base.h"
+#include "xrServerEntities/smart_cast.h"
 
 void CControlCriticalWound::activate()
 {

@@ -12,6 +12,7 @@
 #include "ui/UIHelper.h"
 #include "UITeamPanels.h"
 #include "Common/object_broker.h"
+#include "xrServerEntities/smart_cast.h"
 
 #define TEAM_PANELS_AHUNT_XML_NAME "ui_team_panels_ahunt.xml"
 

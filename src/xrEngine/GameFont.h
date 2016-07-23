@@ -1,11 +1,16 @@
+#pragma once
 #ifndef GameFontH
 #define GameFontH
-#pragma once
 
-#include "xrEngine/Engine.h"
 #include "xrEngine/IGameFont.hpp"
-#include "xrCore/Text/MbHelpers.h"
-#include "Include/xrRender/FontRender.h"
+#include "xrEngine/Engine_impexp.h"
+#include "xrCommon/xr_vector.h"
+#include "xrCore/_vector3d.h"
+#ifdef DEBUG
+#include "xrCore/xrstring.h"
+#endif
+
+class IFontRender;
 
 class ENGINE_API CGameFont : public IGameFont
 {
@@ -38,14 +43,14 @@ protected:
     u32 uFlags;
 
 protected:
-    IC const Fvector& GetCharTC(u16 c) { return TCMap[c]; }
+    const Fvector& GetCharTC(u16 c) { return TCMap[c]; }
 
 public:
-    CGameFont(LPCSTR section, u32 flags = 0);
-    CGameFont(LPCSTR shader, LPCSTR texture, u32 flags = 0);
+    CGameFont(const char* section, u32 flags = 0);
+    CGameFont(const char* shader, const char* texture, u32 flags = 0);
     virtual ~CGameFont();
 
-    virtual void Initialize(LPCSTR shader, LPCSTR texture) override;
+    virtual void Initialize(const char* shader, const char* texture) override;
     virtual void SetColor(u32 C) override { dwCurrentColor = C; }
     virtual u32 GetColor() const override { return dwCurrentColor; }
     virtual void SetHeightI(float S) override;
@@ -54,22 +59,22 @@ public:
     virtual void SetInterval(float x, float y) override { vInterval.set(x, y); };
     virtual void SetInterval(const Fvector2& v) override { vInterval.set(v); };
     virtual void SetAligment(EAligment aligment) override { eCurrentAlignment = aligment; }
-    virtual float SizeOf_(LPCSTR s) override;
+    virtual float SizeOf_(const char* s) override;
     virtual float SizeOf_(const wchar_t* wsStr) override;
     virtual float SizeOf_(const char cChar); // only ANSII
     virtual float CurrentHeight_() override;
     virtual void OutSetI(float x, float y) override;
     virtual void OutSet(float x, float y) override;
     virtual Fvector2 GetPosition() const override { return {fCurrentX, fCurrentY}; }
-    virtual void MasterOut(BOOL bCheckDevice, BOOL bUseCoords, BOOL bScaleCoords, BOOL bUseSkip,
-        float _x, float _y, float _skip, LPCSTR fmt, va_list p) override;
+    virtual void MasterOut(bool bCheckDevice, bool bUseCoords, bool bScaleCoords, bool bUseSkip,
+        float _x, float _y, float _skip, const char* fmt, va_list p) override;
     virtual u32 smart_strlen(const char* S) override;
     virtual BOOL IsMultibyte() const override { return (uFlags & fsMultibyte); };
     virtual u16 SplitByWidth(u16* puBuffer, u16 uBufferSize, float fTargetWidth, const char* pszText) override;
     virtual u16 GetCutLengthPos(float fTargetWidth, const char* pszText) override;
-    virtual void OutI(float _x, float _y, LPCSTR fmt, ...) override;
-    virtual void Out(float _x, float _y, LPCSTR fmt, ...) override;
-    virtual void OutNext(LPCSTR fmt, ...) override;
+    virtual void OutI(float _x, float _y, const char* fmt, ...) override;
+    virtual void Out(float _x, float _y, const char* fmt, ...) override;
+    virtual void OutNext(const char* fmt, ...) override;
     virtual void OutNextVA(const char *format, va_list args) override;
     virtual void OutSkip(float val = 1.f) override;
     virtual void OnRender() override;
@@ -80,4 +85,4 @@ public:
 #endif
 };
 
-#endif // _XR_GAMEFONT_H_
+#endif // GameFontH

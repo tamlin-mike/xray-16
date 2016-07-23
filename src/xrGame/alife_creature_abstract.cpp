@@ -13,6 +13,8 @@
 #include "ai_space.h"
 #include "alife_simulator.h"
 #include "alife_time_manager.h"
+#include "xrServerEntities/smart_cast.h"
+
 void CSE_ALifeCreatureAbstract::on_spawn	()
 {
 	inherited::on_spawn					();

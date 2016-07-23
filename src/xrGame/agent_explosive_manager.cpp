@@ -18,6 +18,7 @@
 #include "memory_manager.h"
 #include "visual_memory_manager.h"
 #include "danger_object_location.h"
+#include "xrServerEntities/smart_cast.h"
 
 const float GRENADE_RADIUS	= 10.f;
 const u32 AFTER_GRENADE_DESTROYED_INTERVAL = 1000;

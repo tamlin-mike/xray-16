@@ -2,6 +2,7 @@
 
 #include "MPPlayersBag.h"
 #include "Level.h"
+#include "xrServerEntities/smart_cast.h"
 
 #include "game_base_space.h"
 

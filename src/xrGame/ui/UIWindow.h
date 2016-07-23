@@ -1,8 +1,10 @@
 #pragma once
 #include "xr_level_controller.h"
-class CUIWindow;
 
+// fwd. decl.
+class CUIWindow;
 struct _12b	{ DWORD _[3]; };
+template <class T, int granularity> class poolSS;
 extern poolSS< _12b, 128>	ui_allocator;
 
 

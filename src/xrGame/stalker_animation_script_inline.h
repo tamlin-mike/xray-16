@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "xrEngine/xr_object.h"
 
 IC	CStalkerAnimationScript::CStalkerAnimationScript				(
 		const MotionID &animation,

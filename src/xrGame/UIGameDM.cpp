@@ -22,6 +22,7 @@
 #include "ui/UIHelper.h"
 #include "UITeamPanels.h"
 #include "Common/object_broker.h"
+#include "xrServerEntities/smart_cast.h"
 
 #define MSGS_OFFS 510
 

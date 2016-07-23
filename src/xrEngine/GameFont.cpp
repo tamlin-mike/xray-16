@@ -2,6 +2,7 @@
 #pragma hdrstop
 
 #include "GameFont.h"
+#include "xrCore/Text/MbHelpers.h"
 #ifndef _EDITOR
 #include "Render.h"
 #endif
@@ -13,7 +14,7 @@ ENGINE_API Fvector2 g_current_font_scale = {1.0f, 1.0f};
 #include "Include/xrRender/RenderFactory.h"
 #include "Include/xrRender/FontRender.h"
 
-CGameFont::CGameFont(LPCSTR section, u32 flags)
+CGameFont::CGameFont(const char* section, u32 flags)
 {
     pFontRender = GlobalEnv.RenderFactory->CreateFontRender();
     fCurrentHeight = 0.0f;
@@ -33,7 +34,7 @@ CGameFont::CGameFont(LPCSTR section, u32 flags)
         SetInterval(pSettings->r_fvector2(section, "interval"));
 }
 
-CGameFont::CGameFont(LPCSTR shader, LPCSTR texture, u32 flags)
+CGameFont::CGameFont(const char* shader, const char* texture, u32 flags)
 {
     pFontRender = GlobalEnv.RenderFactory->CreateFontRender();
     fCurrentHeight = 0.0f;
@@ -45,7 +46,7 @@ CGameFont::CGameFont(LPCSTR shader, LPCSTR texture, u32 flags)
     Initialize(shader, texture);
 }
 
-void CGameFont::Initialize(LPCSTR cShader, LPCSTR cTextureName)
+void CGameFont::Initialize(const char* cShader, const char* cTextureName)
 {
     string_path cTexture;
 
@@ -272,8 +273,8 @@ u16 CGameFont::SplitByWidth(u16* puBuffer, u16 uBufferSize, float fTargetWidth, 
     }
 
 void CGameFont::MasterOut(
-    BOOL bCheckDevice, BOOL bUseCoords, BOOL bScaleCoords, BOOL bUseSkip,
-    float _x, float _y, float _skip, LPCSTR fmt, va_list p)
+    bool bCheckDevice, bool bUseCoords, bool bScaleCoords, bool bUseSkip,
+    float _x, float _y, float _skip, const char* fmt, va_list p)
 {
     if (bCheckDevice && (!RDEVICE.b_is_Active))
         return;
@@ -309,23 +310,23 @@ void CGameFont::MasterOut(
     va_end( p ); \
 }
 
-void __cdecl CGameFont::OutI(float _x, float _y, LPCSTR fmt, ...)
+void __cdecl CGameFont::OutI(float _x, float _y, const char* fmt, ...)
 {
-    MASTER_OUT(FALSE, TRUE, TRUE, FALSE, _x, _y, 0.0f, fmt);
+    MASTER_OUT(false, true, true, false, _x, _y, 0.0f, fmt);
 };
 
-void __cdecl CGameFont::Out(float _x, float _y, LPCSTR fmt, ...)
+void __cdecl CGameFont::Out(float _x, float _y, const char* fmt, ...)
 {
-    MASTER_OUT(TRUE, TRUE, FALSE, FALSE, _x, _y, 0.0f, fmt);
+    MASTER_OUT(true, true, false, false, _x, _y, 0.0f, fmt);
 };
 
-void __cdecl CGameFont::OutNext(LPCSTR fmt, ...)
+void __cdecl CGameFont::OutNext(const char* fmt, ...)
 {
-    MASTER_OUT(TRUE, FALSE, FALSE, TRUE, 0.0f, 0.0f, 1.0f, fmt);
+    MASTER_OUT(true, false, false, true, 0.0f, 0.0f, 1.0f, fmt);
 };
 
 void CGameFont::OutNextVA(const char *format, va_list args)
-{ MasterOut(TRUE, FALSE, FALSE, TRUE, 0.0f, 0.0f, 1.0f, format, args); }
+{ MasterOut(true, false, false, true, 0.0f, 0.0f, 1.0f, format, args); }
 
 void CGameFont::OutSkip(float val)
 {
@@ -337,7 +338,7 @@ float CGameFont::SizeOf_(const char cChar)
     return (GetCharTC((u16)(u8)(((IsMultibyte() && cChar == ' ')) ? 0 : cChar)).z * vInterval.x);
 }
 
-float CGameFont::SizeOf_(LPCSTR s)
+float CGameFont::SizeOf_(const char* s)
 {
     if (!(s && s[0]))
         return 0;

@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Include/xrRender/Kinematics.h"
 #include "xrCore/Animation/Bone.hpp"
+#include "xrServerEntities/smart_cast.h"
 
 #pragma warning(push)
 #pragma warning(disable:4995)

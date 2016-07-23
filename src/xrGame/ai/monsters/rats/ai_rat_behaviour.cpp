@@ -13,6 +13,7 @@
 #include "xrAICore/Navigation/game_level_cross_table.h"
 #include "xrAICore/Navigation/ai_object_location.h"
 #include "xrAICore/Navigation/game_graph.h"
+#include "xrServerEntities/smart_cast.h"
 
 void CAI_Rat::update_home_position	()
 {

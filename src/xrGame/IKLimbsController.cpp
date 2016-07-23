@@ -12,6 +12,7 @@
 
 #include "CharacterPhysicsSupport.h"
 #include "xrCore/Animation/Motion.hpp"
+#include "xrServerEntities/smart_cast.h"
 #ifdef DEBUG
 #	include "PHDebug.h"
 #endif // DEBUG

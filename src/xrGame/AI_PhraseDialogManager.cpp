@@ -12,6 +12,7 @@
 #include "character_info.h"
 #include "gameobject.h"
 #include "relation_registry.h"
+#include "xrServerEntities/smart_cast.h"
 
 CAI_PhraseDialogManager::CAI_PhraseDialogManager	(void)
 {

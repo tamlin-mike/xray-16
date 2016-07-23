@@ -1,5 +1,5 @@
 #pragma	once
-
+#include "xrPhysics.h"
 
 XRPHYSICS_API bool			valid_pos( const Fvector &P );
 XRPHYSICS_API const Fbox	&ph_boundaries();
@@ -15,4 +15,3 @@ XRPHYSICS_API std::string dbg_valide_pos_string( const Fvector &pos, const IPhys
 #define	VERIFY_BOUNDARIES(pos,bounds,obj)
 #define	VERIFY_BOUNDARIES2(pos,bounds,obj,msg)
 #endif
-

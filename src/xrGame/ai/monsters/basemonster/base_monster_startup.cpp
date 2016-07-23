@@ -31,6 +31,7 @@
 #include "ai/Monsters/control_animation_base.h"
 #include "ai/Monsters/monster_velocity_space.h"
 #include "ai/Monsters/anti_aim_ability.h"
+#include "xrServerEntities/smart_cast.h"
 
 namespace detail
 {

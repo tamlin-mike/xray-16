@@ -4,6 +4,7 @@
 #include "entity_alive.h"
 #include "memory_manager.h"
 #include "basemonster/base_monster.h"
+#include "xrServerEntities/smart_cast.h"
 
 CMonsterSquad::CMonsterSquad() : leader(0), m_home_danger_end_tick(0), m_home_danger_mode_time(8000)
 {

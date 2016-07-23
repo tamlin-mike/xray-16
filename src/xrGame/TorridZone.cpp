@@ -2,6 +2,7 @@
 #include "torridZone.h"
 #include "xrEngine/objectanimator.h"
 #include "xrServer_Objects_ALife_Monsters.h"
+#include "xrServerEntities/smart_cast.h"
 
 CTorridZone::CTorridZone()
 {

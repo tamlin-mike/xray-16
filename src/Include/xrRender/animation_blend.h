@@ -1,6 +1,7 @@
 #pragma once
+#include "animation_motion.h"
+#include "xrCore/Animation/SkeletonMotions.hpp" // PlayCallback XXX: fwd. decl. it instead?s
 
-#include	"animation_motion.h"
 //*** Run-time Blend definition *******************************************************************
 
 // XXX: This header contains a few WAY too large functions to inline.

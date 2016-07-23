@@ -24,6 +24,7 @@
 #include "debug_renderer.h"
 #include "ai/Monsters/ai_monster_squad_manager.h"
 #include "ai/Monsters/ai_monster_squad.h"
+#include "xrServerEntities/smart_cast.h"
 
 IC bool CAI_Rat::bfCheckIfOutsideAIMap(Fvector &tTemp1)
 {

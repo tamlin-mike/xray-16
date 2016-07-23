@@ -7,8 +7,10 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "xrEngine/ISheduled.h"
 
-class CAutosaveManager : public ScheduledBase {
+class CAutosaveManager : public ScheduledBase
+{
 private:
 	typedef ScheduledBase	inherited;
 

@@ -4,6 +4,7 @@
 #include "Level.h"
 #include "physicsshellholder.h"
 #include "xrEngine/xr_collide_form.h"
+#include "xrServerEntities/smart_cast.h"
 
 CMosquitoBald::CMosquitoBald(void) 
 {

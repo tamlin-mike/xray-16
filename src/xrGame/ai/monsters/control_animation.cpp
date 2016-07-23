@@ -3,6 +3,7 @@
 #include "BaseMonster/base_monster.h"
 #include "control_manager.h"
 #include "xrEngine/profiler.h"
+#include "xrServerEntities/smart_cast.h"
 
 void SAnimationPart::set_motion (MotionID const& m) 
 { 

@@ -6,6 +6,7 @@
 #include "xrPhysics/MathUtils.h"
 #include "xrPhysics/extendedgeom.h"
 #include "xrEngine/GameMtlLib.h"
+#include "xrServerEntities/smart_cast.h"
 #ifdef DEBUG
 #	include "debug_renderer.h"
 #	include "Level.h"

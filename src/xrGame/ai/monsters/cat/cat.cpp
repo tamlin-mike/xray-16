@@ -5,7 +5,7 @@
 #include "ai/monsters/monster_velocity_space.h"
 #include "ai/monsters/control_animation_base.h"
 #include "ai/monsters/control_movement_base.h"
-
+#include "xrServerEntities/smart_cast.h"
 
 CCat::CCat()
 {

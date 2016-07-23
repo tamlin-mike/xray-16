@@ -6,6 +6,7 @@
 #include "Level.h"
 #include "game_sv_artefacthunt.h"
 #include "ui/UIInventoryUtilities.h"
+#include "xrServerEntities/smart_cast.h"
 
 //--------------------------- QR2 callbacks ---------------------------------------
 #define ADD_KEY_VAL(g, q, qf, o, gf)		{if (g) {q->qf(o, g->gf);} else q->BufferAdd(o, "");}

@@ -8,6 +8,8 @@
 #include "xrPhysics/MathUtils.h"
 #include "xrPhysics/matrix_utils.h"
 #include "pose_extrapolation.h"
+#include "xrServerEntities/smart_cast.h"
+#include "xrCore/buffer_vector.h"
 #ifdef DEBUG
 #include "PHDebug.h"
 #endif

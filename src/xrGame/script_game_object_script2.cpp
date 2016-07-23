@@ -27,6 +27,7 @@
 #include "relation_registry.h"
 #include "danger_object.h"
 #include "smart_cover_object.h"
+#include "xrScriptEngine/Functor.hpp"
 
 using namespace luabind;
 using namespace luabind::policy;

@@ -21,6 +21,7 @@
 #include "alife_monster_brain.h"
 #include "alife_monster_movement_manager.h"
 #include "alife_monster_detail_path_manager.h"
+#include "xrServerEntities/smart_cast.h"
 
 void CSE_ALifeMonsterAbstract::add_online							(const bool &update_registries)
 {

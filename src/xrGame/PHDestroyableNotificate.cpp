@@ -8,6 +8,8 @@
 #include "xrEngine/xr_object.h"
 #include "PhysicsShellHolder.h"
 #include "xrServer_Objects.h"
+#include "xrServerEntities/smart_cast.h"
+
 void CPHDestroyableNotificate::spawn_notificate(CSE_Abstract* so)
 {
 	CPHDestroyableNotificator* D	=NULL;

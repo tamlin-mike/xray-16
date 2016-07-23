@@ -11,6 +11,7 @@
 #include "Include/xrRender/Kinematics.h"
 #include "Common/object_broker.h"
 #include "ActorHelmet.h"
+#include "xrServerEntities/smart_cast.h"
 
 #define MAX_HEALTH 1.0f
 #define MIN_HEALTH -0.01f

@@ -1,7 +1,8 @@
 #pragma once
 #ifdef	DEBUG
+#include "xrPhysics.h"
 
-	enum
+enum
 {
 	phDbgDrawContacts			=		1<<0,
 	phDbgDrawEnabledAABBS		=		1<<1,
@@ -135,4 +136,4 @@ IC	IDebugOutput	&debug_output()
 	return *ph_debug_output;
 }
  
-#endif
+#endif // DEBUG

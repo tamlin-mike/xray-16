@@ -4,6 +4,7 @@
 #include "CharacterPhysicsSupport.h"
 #include "phmovementcontrol.h"
 #ifdef	DEBUG
+#include "xrServerEntities/smart_cast.h"
 #include "phdebug.h"
 #endif
 activating_character_delay::activating_character_delay(CCharacterPhysicsSupport *char_support_): 

@@ -3,6 +3,7 @@
 #include "xrserver_objects_alife.h"
 #include "xrPhysics/IPHStaticGeomShell.h"
 #include "xrPhysics/PhysicsShell.h"
+#include "xrServerEntities/xrMessages.h"
 
 
 

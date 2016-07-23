@@ -1,7 +1,8 @@
 #include "stdafx.h"
-
 #include "PHSoundPlayer.h"
 #include "PhysicsShellHolder.h"
+#include "xrServerEntities/smart_cast.h"
+
 CPHSoundPlayer::CPHSoundPlayer(CPhysicsShellHolder* obj)
 {
 

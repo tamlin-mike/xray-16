@@ -16,6 +16,7 @@
 #include "sound_player.h"
 #include "cover_point.h"
 #include "grenade.h"
+#include "xrServerEntities/smart_cast.h"
 
 class CMemberPredicate2 {
 protected:

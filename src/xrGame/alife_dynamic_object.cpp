@@ -16,6 +16,7 @@
 #include "xrAICore/Navigation/game_level_cross_table.h"
 #include "xrAICore/Navigation/game_graph.h"
 #include "xrServer.h"
+#include "xrServerEntities/smart_cast.h"
 
 void CSE_ALifeDynamicObject::on_spawn				()
 {

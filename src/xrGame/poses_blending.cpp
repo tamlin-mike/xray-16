@@ -1,6 +1,6 @@
 #include "stdafx.h"
-
 #include "poses_blending.h"
+#include "xrCore/_quaternion.h"
 
 
 	poses_interpolation::poses_interpolation (const Fmatrix &m0, const Fmatrix &m1 ):

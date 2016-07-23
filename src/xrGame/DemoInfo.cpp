@@ -6,6 +6,7 @@
 #include "xrCore/stream_reader.h"
 #include "Common/object_broker.h"
 #include "xrScriptEngine/ScriptExporter.hpp"
+#include "xrServerEntities/smart_cast.h"
 
 LPCSTR GameTypeToString(EGameIDs gt, bool bShort);
 

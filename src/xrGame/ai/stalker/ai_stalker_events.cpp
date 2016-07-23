@@ -15,6 +15,7 @@
 #include "Level.h"
 #include "ai_monster_space.h"
 #include "CharacterPhysicsSupport.h"
+#include "xrServerEntities/smart_cast.h"
 
 using namespace StalkerSpace;
 using namespace MonsterSpace;

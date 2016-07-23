@@ -13,6 +13,7 @@
 #include "UITeamPanels.h"
 #include "ui/UIMoneyIndicator.h"
 #include "ui/UIRankIndicator.h"
+#include "xrServerEntities/smart_cast.h"
 
 #define MSGS_OFFS 510
 #define TEAM_PANELS_TDM_XML_NAME "ui_team_panels_tdm.xml"

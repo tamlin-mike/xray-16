@@ -17,6 +17,7 @@
 #include "alife_schedule_registry.h"
 #include "alife_smart_terrain_registry.h"
 #include "alife_group_registry.h"
+#include "xrServerEntities/smart_cast.h"
 
 using namespace ALife;
 

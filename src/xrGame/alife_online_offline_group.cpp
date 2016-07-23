@@ -18,6 +18,7 @@
 #include "xrAICore/Navigation/level_graph.h"
 #include "alife_monster_movement_manager.h"
 #include "alife_monster_detail_path_manager.h"
+#include "xrServerEntities/smart_cast.h"
 
 #pragma warning(push)
 #pragma warning(disable:4995)

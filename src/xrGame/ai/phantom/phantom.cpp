@@ -5,6 +5,7 @@
 #include "xrCore/Animation/Motion.hpp"
 #include "Include/xrRender/RenderVisual.h"
 #include "Include/xrRender/KinematicsAnimated.h"
+#include "xrServerEntities/smart_cast.h"
 
 CPhantom::CPhantom()
 {

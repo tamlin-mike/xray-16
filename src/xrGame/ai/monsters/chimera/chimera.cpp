@@ -8,6 +8,7 @@
 #include "ai/monsters/control_animation_base.h"
 #include "ai/monsters/control_movement_base.h"
 #include "ai/monsters/control_path_builder_base.h"
+#include "xrServerEntities/smart_cast.h"
 
 
 CChimera::CChimera ()

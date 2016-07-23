@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "monster_hit_memory.h"
 #include "BaseMonster/base_monster.h"
+#include "xrServerEntities/smart_cast.h"
 
 CMonsterHitMemory::CMonsterHitMemory()
 {

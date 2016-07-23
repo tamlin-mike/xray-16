@@ -1,7 +1,7 @@
+#pragma once
 #ifndef XRENGINE_ISPATIAL_H_INCLUDED
 #define XRENGINE_ISPATIAL_H_INCLUDED
 
-//#pragma once
 #include "Common/Platform.hpp"
 #include "Common/Noncopyable.hpp"
 #include "xrCore/xrPool.h"
@@ -110,7 +110,12 @@ public:
 	virtual IRender_Light *dcast_Light() = 0;
 };
 
-inline ISpatial::~ISpatial() {}
+#ifdef _MSC_VER
+__forceinline
+#else
+inline
+#endif
+ISpatial::~ISpatial() {}
 
 class XRCDB_API	SpatialBase : public virtual ISpatial
 {
@@ -183,7 +188,7 @@ public:
 #endif // #ifndef	DLL_API
 
 //////////////////////////////////////////////////////////////////////////
-class XRCDB_API	ISpatial_DB :private Noncopyable
+class XRCDB_API	ISpatial_DB : private Noncopyable
 {
 public:
     struct SpatialDBStatistics

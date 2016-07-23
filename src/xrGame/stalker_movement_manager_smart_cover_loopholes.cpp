@@ -22,6 +22,8 @@
 #include "memory_manager.h"
 #include "enemy_manager.h"
 #include "xrAICore/Navigation/ai_object_location.h"
+#include "xrScriptEngine/Functor.hpp"
+#include "xrCore/buffer_vector.h"
 
 namespace smart_cover {
 	shared_str	transform_vertex(shared_str const &vertex_id, bool const &in);

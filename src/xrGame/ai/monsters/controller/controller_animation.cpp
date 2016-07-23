@@ -7,6 +7,7 @@
 #include "ai/monsters/control_path_builder_base.h"
 #include "controller_direction.h"
 #include "ai/monsters/monster_velocity_space.h"
+#include "xrServerEntities/smart_cast.h"
 
 const float	_pmt_psy_attack_time  = 0.5f;
 

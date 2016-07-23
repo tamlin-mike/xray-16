@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "monster_sound_memory.h"
 #include "BaseMonster/base_monster.h"
+#include "xrServerEntities/smart_cast.h"
 
 #define CHECK_SOUND_TYPE(a,b,c) { if ((a & b) == b) return c; }
 

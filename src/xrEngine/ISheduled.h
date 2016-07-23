@@ -2,6 +2,7 @@
 #ifndef XRENGINE_ISHEDULED_H_INCLUDED
 #define XRENGINE_ISHEDULED_H_INCLUDED
 #include "Engine.h"
+#include "Common/Noncopyable.hpp"
 
 class SchedulerData
 {
@@ -30,7 +31,7 @@ public:
 
 inline ISheduled::~ISheduled() {}
 
-class ENGINE_API ScheduledBase : public virtual ISheduled
+class ENGINE_API ScheduledBase : public virtual ISheduled, private Noncopyable
 {
 public:
     SchedulerData shedule;

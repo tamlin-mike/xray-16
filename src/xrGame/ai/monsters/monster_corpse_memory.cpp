@@ -5,6 +5,7 @@
 #include "visual_memory_manager.h"
 #include "item_manager.h"
 #include "xrAICore/Navigation/ai_object_location.h"
+#include "xrServerEntities/smart_cast.h"
 
 CMonsterCorpseMemory::CMonsterCorpseMemory()
 {

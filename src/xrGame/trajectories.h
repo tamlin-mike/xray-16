@@ -1,5 +1,11 @@
+#pragma once
 #ifndef TRAJECTORIES_H
 #define TRAJECTORIES_H
+#include "xrCore/_vector3d.h"
+
+// fwd. decl.
+namespace collide { class rq_results; }
+template <typename T, typename allocator> class xr_vector;
 
 struct trajectory_pick
 {

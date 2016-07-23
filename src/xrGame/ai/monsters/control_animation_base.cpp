@@ -11,9 +11,10 @@
 #include "monster_event_manager.h"
 #include "control_jump.h"
 #include "sound_player.h"
+#include "xrServerEntities/smart_cast.h"
 
 // DEBUG purpose only
-char *dbg_action_name_table[] = {
+const char * const dbg_action_name_table[] = {
 	"ACT_STAND_IDLE",
 		"ACT_SIT_IDLE",
 		"ACT_LIE_IDLE",

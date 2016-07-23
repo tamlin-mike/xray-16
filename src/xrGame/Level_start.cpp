@@ -14,6 +14,7 @@
 #include "UIGameCustom.h"
 #include "ui/UICDkey.h"
 #include "xrNetServer/NET_Messages.h"
+#include "xrServerEntities/smart_cast.h"
 
 int		g_cl_save_demo = 0;
 extern XRCORE_API bool g_allow_heap_min;
