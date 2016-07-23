@@ -13,7 +13,6 @@
 #include "UIGameCustom.h"
 #include "UIDialogHolder.h"
 
-xr_token	game_types		[];
 
 CUIChangeMap::CUIChangeMap()
 {

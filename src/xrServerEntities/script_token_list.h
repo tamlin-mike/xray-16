@@ -7,6 +7,9 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "xrCommon/xr_vector.h"
+#include "xrCore/xrstring.h"
+#include "xrCore/xr_token.h"
 
 class CScriptTokenList {
 protected:
@@ -16,30 +19,24 @@ protected:
 
 protected:
 	struct CTokenPredicateName {
-		LPCSTR			m_name;
+		const char*		m_name;
 
-		IC				CTokenPredicateName	(LPCSTR name)
-		{
-			m_name		= name;
-		}
+		CTokenPredicateName(const char* name) throw() : m_name(name) { }
 
-		IC		bool	operator()		(const xr_token &token) const
+		bool operator()(const xr_token &token) const throw()
 		{
-			return		(token.name && !xr_strcmp(token.name,m_name));
+			return token.name && !strcmp(token.name,m_name);
 		}
 	};
 	
 	struct CTokenPredicateID {
 		int				m_id;
 
-		IC				CTokenPredicateID	(int id)
-		{
-			m_id		= id;
-		}
+		CTokenPredicateID(int id) throw() : m_id(id) { }
 
-		IC		bool	operator()		(const xr_token &token) const
+		bool operator()(const xr_token &token) const
 		{
-			return		(token.name && (token.id == m_id));
+			return token.name && (token.id == m_id);
 		}
 	};
 
@@ -47,19 +44,19 @@ protected:
 	TOKEN_LIST					m_token_list;
 
 protected:
-	IC		iterator			token				(LPCSTR name);
+	IC		iterator			token				(const char* name);
 	IC		iterator			token				(int id);
 
 public:
 	IC							CScriptTokenList	();
 								~CScriptTokenList	();
-	IC		void				add					(LPCSTR name, int id);
-	IC		void				remove				(LPCSTR name);
+	IC		void				add					(const char* name, int id);
+	IC		void				remove				(const char* name);
 	IC		void				clear				();
-	IC		int					id					(LPCSTR name);
-	IC		LPCSTR				name				(int id);
-	IC		const TOKEN_LIST	&tokens				() const;
-	IC		TOKEN_LIST			&tokens				();
+	IC		int					id					(const char* name);
+	IC		const char*			name				(int id);
+			const TOKEN_LIST	&tokens() const throw() { return m_token_list; }
+			TOKEN_LIST			&tokens()       throw() { return m_token_list; }
 };
 
 #include "script_token_list_inline.h"

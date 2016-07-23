@@ -12,6 +12,7 @@
 #include "game_base_space.h"
 #include "script_value_container_impl.h"
 #include "clsid_game.h"
+#include "xrCore/xr_token.h"
 
 #pragma warning(push)
 #pragma warning(disable:4995)
@@ -419,7 +420,7 @@ Flags16&	CSE_Abstract::flags			()
 	return	(s_flags);
 }
 
-xr_token game_types[]={
+const xr_token game_types[]={
 	{ "any_game",				eGameIDNoGame				},
 	{ "single",					eGameIDSingle				},
 	{ "deathmatch",				eGameIDDeathmatch			},

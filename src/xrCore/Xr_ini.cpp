@@ -2,6 +2,7 @@
 #pragma hdrstop
 
 #include "FileSystem.h"
+#include "xrCore/xr_token.h"
 
 XRCORE_API CInifile const* pSettings = NULL;
 XRCORE_API CInifile const* pSettingsAuth = NULL;

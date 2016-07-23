@@ -443,7 +443,7 @@ bool NvStripInfo::Unique(NvFaceInfoVec& faceVec, NvFaceInfo* face)
 //
 // Builds a strip forward as far as we can go, then builds backwards, and joins the two lists
 //
-void NvStripInfo::Build(NvEdgeInfoVec &edgeInfos, NvFaceInfoVec &faceInfos){
+void NvStripInfo::Build(NvEdgeInfoVec &edgeInfos, NvFaceInfoVec &/*faceInfos*/){
 	
 	// used in building the strips forward and backward
 	static WordVec scratchIndices;
@@ -625,7 +625,7 @@ void NvStripifier::CommitStrips(NvStripInfoVec &allStrips, const NvStripInfoVec 
 //
 // Finds the next face to start the next strip on.
 //
-bool NvStripifier::FindTraversal(NvFaceInfoVec &faceInfos,
+bool NvStripifier::FindTraversal(NvFaceInfoVec &/*faceInfos*/,
 								 NvEdgeInfoVec    &edgeInfos,
 								 NvStripInfo      *strip,
 								 NvStripStartInfo &startInfo){
@@ -1049,16 +1049,16 @@ void NvStripifier::SplitUpStripsAndOptimize(NvStripInfoVec &allStrips, NvStripIn
 			bestNumHits = -1.0f;
 			
 			//find best strip to add next, given the current cache
-			for(int i = 0; i < tempStrips2.size(); i++)
+			for(int i2 = 0; i2 < tempStrips2.size(); i2++)
 			{
-				if(tempStrips2[i]->visited)
+				if(tempStrips2[i2]->visited)
 					continue;
 				
-				numHits = CalcNumHitsStrip(vcache, tempStrips2[i]);
+				numHits = CalcNumHitsStrip(vcache, tempStrips2[i2]);
 				if(numHits > bestNumHits)
 				{
 					bestNumHits = numHits;
-					bestIndex = i;
+					bestIndex = i2;
 				}
 			}
 			
@@ -1305,14 +1305,14 @@ void NvStripifier::FindAllStrips(NvStripInfoVec &allStrips,
 			
 			// build the first strip of the list
 			experiments[i][0]->Build(allEdgeInfos, allFaceInfos);
-			int experimentId = experiments[i][0]->m_experimentId;
+			int experimentId2 = experiments[i][0]->m_experimentId;
 			
 			NvStripInfo *stripIter = experiments[i][0];
 			NvStripStartInfo startInfo(NULL, NULL, false);
 			while (FindTraversal(allFaceInfos, allEdgeInfos, stripIter, startInfo)){
 				
 				// create the _new strip info
-				stripIter = new NvStripInfo (startInfo, stripId++, experimentId);
+				stripIter = new NvStripInfo (startInfo, stripId++, experimentId2);
 				
 				// build the next strip
 				stripIter->Build(allEdgeInfos, allFaceInfos);

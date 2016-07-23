@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #pragma hdrstop
 
-
 #include "gametype_chooser.h"
 #include "xrServer_Objects_Abstract.h"
+#include "xrCore/xr_token.h"
+
 //old
 enum ERPGameType{		// [0..255]
 	rpgtGameAny							= u8(0),
@@ -14,7 +15,7 @@ enum ERPGameType{		// [0..255]
 	rpgtGameCount,
 };
 
-xr_token rpoint_game_type[]={
+const xr_token rpoint_game_type[]={
 	{ "Any game",			rpgtGameAny					},
 	{ "Deathmatch",			rpgtGameDeathmatch			},
 	{ "TeamDeathmatch",		rpgtGameTeamDeathmatch		},

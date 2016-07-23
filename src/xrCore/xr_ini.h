@@ -1,3 +1,4 @@
+#pragma once
 #ifndef xr_iniH
 #define xr_iniH
 

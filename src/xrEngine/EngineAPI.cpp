@@ -6,8 +6,8 @@
 #include "EngineAPI.h"
 #include "xrCDB/xrXRC.h"
 #include "xrScriptEngine/script_engine.hpp"
-
 #include "xrCore/ModuleLookup.hpp"
+#include "xrCore/xr_token.h"
 
 extern xr_token* vid_quality_token;
 

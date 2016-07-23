@@ -156,9 +156,9 @@ struct ECORE_API STextureParams
 #pragma pack(pop)
 
 struct xr_token;
-extern xr_token	tparam_token[];
-extern xr_token	tfmt_token[];
-extern xr_token	ttype_token[];
+extern const xr_token tparam_token[];
+extern const xr_token tfmt_token[];
+extern const xr_token ttype_token[];
 
 #define THM_CHUNK_VERSION 0x0810
 #define THM_CHUNK_DATA 0x0811

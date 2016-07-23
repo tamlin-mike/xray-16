@@ -514,14 +514,14 @@ void CLevelSpawnConstructor::generate_artefact_spawn_positions	()
 
 //		Msg								("%s  %f [%f][%f][%f] : artefact spawn positions",zone->name_replace(),zone->m_fRadius,VPUSH(zone->o_Position));
 
-		LEVEL_POINT_STORAGE::iterator	I = m_level_points.begin() + zone->m_artefact_position_offset;
-		LEVEL_POINT_STORAGE::iterator	E = m_level_points.end();
+		LEVEL_POINT_STORAGE::iterator	I2 = m_level_points.begin() + zone->m_artefact_position_offset;
+		LEVEL_POINT_STORAGE::iterator	E2 = m_level_points.end();
 		xr_vector<u32>::iterator		i = l_tpaStack.begin();
-		for ( ; I != E; ++I, ++i) {
-			(*I).tNodeID				= *i;
-			(*I).tPoint					= level_graph().vertex_position(*i);
-			(*I).fDistance				= cross_table().vertex(*i).distance();
-//			Msg							("    [%f][%f][%f] : %f",VPUSH((*I).tPoint),zone->o_Position.distance_to((*I).tPoint));
+		for ( ; I2 != E2; ++I2, ++i) {
+			(*I2).tNodeID				= *i;
+			(*I2).tPoint					= level_graph().vertex_position(*i);
+			(*I2).fDistance				= cross_table().vertex(*i).distance();
+//			Msg							("    [%f][%f][%f] : %f",VPUSH((*I2).tPoint),zone->o_Position.distance_to((*I2).tPoint));
 		}
 		
 		l_tpaStack.clear				();

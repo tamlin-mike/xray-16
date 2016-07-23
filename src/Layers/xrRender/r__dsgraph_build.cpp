@@ -97,12 +97,12 @@ void D3DXRenderBase::r_dsgraph_insert_dynamic	(dxRender_Visual *pVisual, Fvector
 #if RENDER!=R_R1
 			if (sh->flags.bEmissive) 
 			{
-				mapSorted_Node* N		= mapHUDEmissive.insertInAnyWay	(distSQ);
-				N->val.ssa				= SSA;
-				N->val.pObject			= RI.val_pObject;
-				N->val.pVisual			= pVisual;
-				N->val.Matrix			= *RI.val_pTransform;
-				N->val.se				= &*pVisual->shader->E[4];		// 4=L_special
+				mapSorted_Node* N2		= mapHUDEmissive.insertInAnyWay	(distSQ);
+				N2->val.ssa				= SSA;
+				N2->val.pObject			= RI.val_pObject;
+				N2->val.pVisual			= pVisual;
+				N2->val.Matrix			= *RI.val_pTransform;
+				N2->val.se				= &*pVisual->shader->E[4];		// 4=L_special
 			}
 #endif	//	RENDER!=R_R1
 			return;
@@ -414,10 +414,10 @@ void CRender::add_leafs_Dynamic	(dxRender_Visual *pVisual)
 			// Add all children, doesn't perform any tests
 			PS::CParticleGroup* pG	= (PS::CParticleGroup*)pVisual;
 			for (PS::CParticleGroup::SItemVecIt i_it=pG->items.begin(); i_it!=pG->items.end(); i_it++)	{
-				PS::CParticleGroup::SItem&			I		= *i_it;
-				if (I._effect)		add_leafs_Dynamic		(I._effect);
-				for (xr_vector<dxRender_Visual*>::iterator pit = I._children_related.begin();	pit!=I._children_related.end(); pit++)	add_leafs_Dynamic(*pit);
-				for (xr_vector<dxRender_Visual*>::iterator pit = I._children_free.begin();		pit!=I._children_free.end();	pit++)	add_leafs_Dynamic(*pit);
+				PS::CParticleGroup::SItem&			I2		= *i_it;
+				if (I2._effect)		add_leafs_Dynamic		(I2._effect);
+				for (xr_vector<dxRender_Visual*>::iterator pit = I2._children_related.begin();	pit!= I2._children_related.end(); pit++)	add_leafs_Dynamic(*pit);
+				for (xr_vector<dxRender_Visual*>::iterator pit = I2._children_free.begin();		pit!= I2._children_free.end();	pit++)	add_leafs_Dynamic(*pit);
 			}
 		}
 		return;

@@ -8,6 +8,7 @@
 #include "Common/Platform.hpp"
 #include "xrCore/xrCore_impexp.h"
 #include "xrCommon/math_funcs_inline.h"
+//#include "xr_token.h"
 
 #ifdef abs
 #undef abs
@@ -70,35 +71,6 @@ IC int xr_sprintf(char* dest, size_t sizeOfBuffer, const char* format, ...)
     return sz;
 }
 #endif // _EDITOR
-
-// token type definition
-struct XRCORE_API xr_token
-{
-    LPCSTR name;
-    int id;
-};
-
-IC LPCSTR get_token_name(const xr_token* tokens, int key)
-{
-    for (int k = 0; tokens[k].name; k++)
-        if (key == tokens[k].id) return tokens[k].name;
-    return "";
-}
-
-IC int get_token_id(const xr_token* tokens, LPCSTR key)
-{
-    for (int k = 0; tokens[k].name; k++)
-        if (xr_stricmp(tokens[k].name, key) == 0)
-            return tokens[k].id;
-    return -1;
-}
-
-struct XRCORE_API xr_token2
-{
-    LPCSTR name;
-    LPCSTR info;
-    int id;
-};
 
 // generic
 template <class T> IC T _min(T a, T b) { return a < b ? a : b; }

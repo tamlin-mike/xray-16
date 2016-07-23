@@ -1,16 +1,7 @@
 #include "stdafx.h"
 #include "phmovementcontrol.h"
-
 #include "xrCDB/Intersect.hpp"
 #include "xrServerEntities/alife_space.h"
-
-
-
-
-
-
-
-
 #include "xrPhysics/phCharacter.h"
 #include "xrPhysics/IPHCapture.h"
 #include "xrPhysics/iphysicsshellholder.h"
@@ -20,13 +11,13 @@
 #include "xrPhysics/phvalide.h"
 #include "xrPhysics/physicsshell.h"
 #include "xrPhysics/iphworld.h"
-
 #include "detail_path_manager.h"
 #include "xrEngine/GameMtlLib.h"
 #include "xrEngine/xr_object.h"
 #include "CaptureBoneCallback.h"
 #include "Level.h"
 #include "physicsshellholder.h"
+#include "xrCore/xr_token.h"
 #ifdef DEBUG
 #include "phdebug.h"
 #endif
@@ -910,7 +901,7 @@ void CPHMovementControl::Load					(LPCSTR section){
 	float	cs_min		= pSettings->r_float	(section,"ph_crash_speed_min"	);
 	float	cs_max		= pSettings->r_float	(section,"ph_crash_speed_max"	);
 	float	mass		= pSettings->r_float	(section,"ph_mass"				);
-	xr_token retrictor_types[]={
+	static const xr_token retrictor_types[]={
 		{ "actor",			rtActor},
 		{ "medium_monster",	rtMonsterMedium},
 		{ "stalker",		rtStalker	},

@@ -1,6 +1,11 @@
+#pragma once
 #ifndef __IPHYSICSSHELL_H__
 #define __IPHYSICSSHELL_H__
-#pragma once
+#include "xrCore/_types.h"
+
+// fwd. decl.
+template <class T> struct _vector3; typedef _vector3<float> Fvector;
+template <class T> struct _matrix; typedef _matrix<float> Fmatrix;
 
 class IPhysicsGeometry;
 class IPhysicsElement
@@ -22,6 +27,5 @@ public:
     virtual const IPhysicsElement& Element(u16 index) const = 0;
     virtual u16 get_ElementsNumber() const = 0;
 };
-
 
 #endif //__IPHYSICSSHELL_H__

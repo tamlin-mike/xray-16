@@ -50,14 +50,14 @@ void setup_location_types_section(GameGraph::TERRAIN_VECTOR &m_vertex_types, CIn
     CInifile::SectCIt               E = sect.Data.end();
     for ( ; I != E; ++I) {
         LPCSTR                      S = *(*I).first;
-        string16                    I;
+        string16                    I2;
         u32                         N = _GetItemCount(S);
         
         if (N != GameGraph::LOCATION_TYPE_COUNT)
             continue;
 
         for (u32 j=0; j<GameGraph::LOCATION_TYPE_COUNT; ++j)
-            terrain_mask.tMask[j]   = GameGraph::_LOCATION_ID(atoi(_GetItem(S,j,I)));
+            terrain_mask.tMask[j]   = GameGraph::_LOCATION_ID(atoi(_GetItem(S,j,I2)));
         
         m_vertex_types.push_back    (terrain_mask);
     }
@@ -575,11 +575,11 @@ void CSE_ALifeTrader::STATE_Read            (NET_Packet &tNetPacket, u16 size)
         
     if ((m_wVersion > 29) && (m_wVersion < 118)) {
         u32                     l_dwCount   = tNetPacket.r_u32();
+        shared_str              temp;
         for (int i=0 ; i<(int)l_dwCount; ++i) {
-            shared_str          temp;
             tNetPacket.r_stringZ(temp);
             tNetPacket.r_u32    ();
-            for (int i=0, n=tNetPacket.r_u32(); i<n; ++i) {
+            for (int i2=0, n=tNetPacket.r_u32(); i2<n; ++i2) {
                 tNetPacket.r_stringZ(temp);
                 tNetPacket.r_u32    ();
                 tNetPacket.r_u32    ();

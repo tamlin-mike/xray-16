@@ -12,6 +12,7 @@
 #include "game_base_space.h"
 #include "Common/object_broker.h"
 #include "restriction_space.h"
+#include "xrCore/xr_token.h"
 
 #ifdef _MSC_VER
 #pragma warning(disable 4100) // unreferenced formal parameter
@@ -875,7 +876,7 @@ void CSE_ALifeSpaceRestrictor::UPDATE_Write (NET_Packet &tNetPacket)
     inherited1::UPDATE_Write    (tNetPacket);
 }
 
-xr_token defaul_retrictor_types[]={
+const xr_token defaul_retrictor_types[]={
     { "NOT A restrictor",           RestrictionSpace::eRestrictorTypeNone},
     { "NONE default restrictor",    RestrictionSpace::eDefaultRestrictorTypeNone},
     { "OUT default restrictor",     RestrictionSpace::eDefaultRestrictorTypeOut },

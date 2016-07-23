@@ -360,6 +360,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
+    <ClCompile Include="xr_token.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FTimer.h">
@@ -764,6 +765,7 @@
     <ClInclude Include="xrCore_benchmark_macros.h" />
     <ClInclude Include="xrCore_impexp.h" />
     <ClInclude Include="xr_shortcut.h" />
+    <ClInclude Include="xr_token.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="xrCore.rc">

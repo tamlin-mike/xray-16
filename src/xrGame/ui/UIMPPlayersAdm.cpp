@@ -13,9 +13,10 @@
 #include "game_cl_mp.h"
 #include "xrEngine/xr_ioconsole.h"
 #include "string_table.h"
+#include "xrCore/xr_token.h"
 
 extern int g_sv_adm_menu_ping_limit;
-xr_token g_ban_times[] = {
+extern const xr_token g_ban_times[] = {
 	{ "ui_mp_am_10_minutes",	600},
 	{ "ui_mp_am_30_minutes",	1800},
 	{ "ui_mp_am_1_hour",		3600},

@@ -152,6 +152,9 @@ void	CBackend::set_ClipPlanes	(u32 _enable, Fplane*	_planes /*=NULL */, u32 coun
 	//	TODO: DX10: Implement in the corresponding vertex shaders
 	//	Use this to set up location, were shader setup code will get data
 	//VERIFY(!"CBackend::set_ClipPlanes not implemented!");
+	UNUSED(_enable);
+	UNUSED(_planes);
+	UNUSED(count);
 	return;
 #else	//	USE_DX10
 	if (0==HW.Caps.geometry.dwClipPlanes)	return;

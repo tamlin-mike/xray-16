@@ -10,6 +10,7 @@
 #include "Layers/xrRender/HW.h"
 #include "xrEngine/XR_IOConsole.h"
 #include "Include/xrAPI/xrAPI.h"
+#include "xrCore/xr_token.h"
 
 #include "StateManager\dx10SamplerStateCache.h"
 #include "StateManager\dx10StateCache.h"
@@ -581,7 +582,7 @@ void CHW::Reset (HWND hwnd)
 	*/
 }
 
-D3DFORMAT CHW::selectDepthStencil	(D3DFORMAT fTarget)
+D3DFORMAT CHW::selectDepthStencil	(D3DFORMAT /*fTarget*/)
 {
 	// R3 hack
 #pragma todo("R3 need to specify depth format")

@@ -2,8 +2,9 @@
 #pragma hdrstop          
 
 #include "ETextureParams.h"
+#include "xrCore/xr_token.h"
 
-xr_token					tparam_token							[ ]={
+const xr_token					tparam_token							[ ]={
 	{ "Advanced",			STextureParams::kMIPFilterAdvanced			},
 																		
 	{ "Point",				STextureParams::kMIPFilterPoint				},
@@ -26,7 +27,7 @@ xr_token					tparam_token							[ ]={
 	{ 0,					0											}
 };
 
-xr_token					ttype_token								[ ]={
+const xr_token					ttype_token								[ ]={
 	{ "2D Texture",			STextureParams::ttImage						},
 	{ "Cube Map",  			STextureParams::ttCubeMap					},
 	{ "Bump Map",			STextureParams::ttBumpMap					},
@@ -35,7 +36,7 @@ xr_token					ttype_token								[ ]={
 	{ 0,					0											}
 };
 
-xr_token					tfmt_token								[ ]={
+const xr_token					tfmt_token								[ ]={
 	{ "DXT1",				STextureParams::tfDXT1						},
 	{ "DXT1 Alpha",			STextureParams::tfADXT1						},
 	{ "DXT3",				STextureParams::tfDXT3						},
@@ -49,7 +50,7 @@ xr_token					tfmt_token								[ ]={
 	{ 0,					0											}
 };
 
-xr_token					tmtl_token								[ ]={
+const xr_token					tmtl_token								[ ]={
 	{ "OrenNayar <-> Blin",	STextureParams::tmOrenNayar_Blin			},
 	{ "Blin <-> Phong",		STextureParams::tmBlin_Phong				},
 	{ "Phong <-> Metal",	STextureParams::tmPhong_Metal				},
@@ -57,7 +58,7 @@ xr_token					tmtl_token								[ ]={
 	{ 0,					0											}
 };
 
-xr_token					tbmode_token							[ ]={
+const xr_token					tbmode_token							[ ]={
 	{ "None",				STextureParams::tbmNone						},
 	{ "Use",				STextureParams::tbmUse						},
 	{ "Use parallax",		STextureParams::tbmUseParallax				},

@@ -2,7 +2,6 @@
 #include "Actor_Flags.h"
 #include "hudmanager.h"
 #ifdef DEBUG
-
 #	include "PHDebug.h"
 #endif // DEBUG
 #include "alife_space.h"
@@ -72,6 +71,7 @@
 #include "ui/UIActorMenu.h"
 #include "ActorHelmet.h"
 #include "UI/UIDragDropReferenceList.h"
+#include "xrCore/xr_token.h"
 
 const u32		patch_frames	= 50;
 const float		respawn_delay	= 1.f;
