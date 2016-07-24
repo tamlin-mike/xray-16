@@ -1,4 +1,5 @@
 #pragma once
+#include "xrCore/_types.h"
  
 // XXX: Can we declare IDamageSource __declspec(novtable), or is its RTTI info required somwehere?
 

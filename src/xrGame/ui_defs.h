@@ -4,6 +4,11 @@
 #include "Include/xrRender/UIRender.h"
 #include "Include/xrRender/UIShader.h"
 #include "xrCore/_plane2.h"
+#include "xrCore/_vector2.h"
+#include "xrCore/_rect.h"
+#include "xrCore/FixedVector.h"
+#include "xrCDB/Frustum.h"
+#include "xrEngine/Engine_impexp.h"
 
 typedef	FactoryPtr<IUIShader>	ui_shader;
 

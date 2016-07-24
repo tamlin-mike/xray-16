@@ -7,6 +7,7 @@
 #include "Tracer.h"
 #include "xrCDB/xr_collide_defs.h"
 #include "xrCommon/xr_vector.h"
+#include "xrSound/Sound.h"
 
 //коэфициенты и параметры патрона
 struct SBullet_Hit 

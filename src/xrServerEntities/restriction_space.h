@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "xrCore/intrusive_ptr.h"
 
 namespace RestrictionSpace {
 	struct CTimeIntrusiveBase : public intrusive_base {

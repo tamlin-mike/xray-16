@@ -137,11 +137,11 @@ struct CWrapperPure : public T, public luabind::wrap_base {
 };
 
 template <typename T>
-struct CWrapperAbstract : public T, public luabind::wrap_base {
+struct CWrapperAbstractLuabind : public T, public luabind::wrap_base {
 	typedef T							inherited;
-	typedef CWrapperAbstract<T>			self_type;
+	typedef CWrapperAbstractLuabind<T>	self_type;
 
-	CWrapperAbstract					(LPCSTR section) : inherited(section){}
+	CWrapperAbstractLuabind				(LPCSTR section) : inherited(section){}
 	INHERIT_ABSTRACT;
 };
 
@@ -338,8 +338,8 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 //	luabind_virtual_Pure(a,CWrapperPure<a>)
 
 //#define luabind_class_abstract0(a,b) \
-//	DEFINE_LUABIND_CLASS_WRAPPER_0(a,CWrapperAbstract<a>,b) \
-//	luabind_virtual_Abstract(a,CWrapperAbstract<a>)
+//	DEFINE_LUABIND_CLASS_WRAPPER_0(a,CWrapperAbstractLuabind<a>,b) \
+//	luabind_virtual_Abstract(a,CWrapperAbstractLuabind<a>)
 
 //#define luabind_class_alife0(a,b) \
 //	DEFINE_LUABIND_CLASS_WRAPPER_0(a,CWrapperAbstractALife<a>,b) \
@@ -373,8 +373,8 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 //	luabind_virtual_Pure(a,CWrapperPure<a>)
 
 #define luabind_class_abstract1(a,b,c) \
-	DEFINE_LUABIND_CLASS_WRAPPER_1(a,CWrapperAbstract<a>,b,c) \
-	luabind_virtual_Abstract(a,CWrapperAbstract<a>)
+	DEFINE_LUABIND_CLASS_WRAPPER_1(a,CWrapperAbstractLuabind<a>,b,c) \
+	luabind_virtual_Abstract(a,CWrapperAbstractLuabind<a>)
 
 #define luabind_class_alife1(a,b,c) \
 	DEFINE_LUABIND_CLASS_WRAPPER_1(a,CWrapperAbstractALife<a>,b,c) \
@@ -408,8 +408,8 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 //	luabind_virtual_Pure(a,CWrapperPure<a>)
 
 #define luabind_class_abstract2(a,b,c,d) \
-	DEFINE_LUABIND_CLASS_WRAPPER_2(a,CWrapperAbstract<a>,b,c,d) \
-	luabind_virtual_Abstract(a,CWrapperAbstract<a>)
+	DEFINE_LUABIND_CLASS_WRAPPER_2(a,CWrapperAbstractLuabind<a>,b,c,d) \
+	luabind_virtual_Abstract(a,CWrapperAbstractLuabind<a>)
 
 //#define luabind_class_alife2(a,b,c,d) \
 //	DEFINE_LUABIND_CLASS_WRAPPER_2(a,CWrapperAbstractALife<a>,b,c,d) \
@@ -447,8 +447,8 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 //	luabind_virtual_Pure(a,CWrapperPure<a>)
 
 //#define luabind_class_abstract3(a,b,c,d,e) \
-//	DEFINE_LUABIND_CLASS_WRAPPER_3(a,CWrapperAbstract<a>,b,c,d,e) \
-//	luabind_virtual_Abstract(a,CWrapperAbstract<a>)
+//	DEFINE_LUABIND_CLASS_WRAPPER_3(a,CWrapperAbstractLuabind<a>,b,c,d,e) \
+//	luabind_virtual_Abstract(a,CWrapperAbstractLuabind<a>)
 
 //#define luabind_class_alife3(a,b,c,d,e) \
 //	DEFINE_LUABIND_CLASS_WRAPPER_3(a,CWrapperAbstractALife<a>,b,c,d,e) \
@@ -482,8 +482,8 @@ struct CWrapperAbstractItem : public T, public luabind::wrap_base {
 //	luabind_virtual_Pure(a,CWrapperPure<a>)
 //
 //#define luabind_class_abstract4(a,b,c,d,e,f) \
-//	DEFINE_LUABIND_CLASS_WRAPPER_4(a,CWrapperAbstract<a>,b,c,d,e,f) \
-//	luabind_virtual_Abstract(a,CWrapperAbstract<a>)
+//	DEFINE_LUABIND_CLASS_WRAPPER_4(a,CWrapperAbstractLuabind<a>,b,c,d,e,f) \
+//	luabind_virtual_Abstract(a,CWrapperAbstractLuabind<a>)
 //
 //#define luabind_class_alife4(a,b,c,d,e,f) \
 //	DEFINE_LUABIND_CLASS_WRAPPER_4(a,CWrapperAbstractALife<a>,b,c,d,e,f) \

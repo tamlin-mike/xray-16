@@ -5,6 +5,7 @@
 //#include "ISheduled.h"
 #include "Engine_impexp.h"
 #include "xrCore/xrstring.h"
+#include "xrCore/FTimer.h"
 
 class ISheduled;
 

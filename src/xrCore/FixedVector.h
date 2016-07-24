@@ -2,6 +2,8 @@
 #ifndef FixedVectorH
 #define FixedVectorH
 #include "xrCore/_types.h"
+#include "xrCore/xrDebug_macros.h"
+#include "xrCore/xrMemory.h"
 
 template <class T, const int dim>
 class svector

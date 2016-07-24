@@ -2,6 +2,7 @@
 #ifndef _PURE_H_AAA_
 #define _PURE_H_AAA_
 #include "xrEngine/Engine_impexp.h"
+#include "xrCommon/xr_vector.h"
 
 // messages
 #define REG_PRIORITY_LOW 0x11111111ul

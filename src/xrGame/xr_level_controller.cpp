@@ -209,7 +209,7 @@ void remap_keys()
 	}
 }
 
-LPCSTR id_to_action_name(EGameActions _id)
+const char* id_to_action_name(EGameActions _id)
 {
 	int idx				= 0;
 	while( actions[idx].action_name )
@@ -222,7 +222,7 @@ LPCSTR id_to_action_name(EGameActions _id)
 	return			NULL;
 }
 
-EGameActions action_name_to_id(LPCSTR _name)
+EGameActions action_name_to_id(const char* _name)
 {
 	_action* action = action_name_to_ptr(_name);
 	if(action)
@@ -231,7 +231,7 @@ EGameActions action_name_to_id(LPCSTR _name)
 		return	kNOTBINDED;
 }
 
-_action* action_name_to_ptr(LPCSTR _name)
+_action* action_name_to_ptr(const char* _name)
 {
 	int idx				= 0;
 	while( actions[idx].action_name )
@@ -244,7 +244,7 @@ _action* action_name_to_ptr(LPCSTR _name)
 	return			NULL;
 }
 
-LPCSTR	dik_to_keyname			(int _dik)
+const char*	dik_to_keyname			(int _dik)
 {
 	_keyboard* kb = dik_to_ptr(_dik, true);
 	if(kb)
@@ -268,13 +268,13 @@ _keyboard* dik_to_ptr(int _dik, bool bSafe)
 	return			NULL;
 }
 
-int	keyname_to_dik (LPCSTR _name)
+int	keyname_to_dik (const char* _name)
 {
 	_keyboard* _kb = keyname_to_ptr(_name);
 	return _kb->dik;
 }
 
-_keyboard*	keyname_to_ptr(LPCSTR _name)
+_keyboard*	keyname_to_ptr(const char* _name)
 {
 	int idx =0;
 	while(keyboards[idx].key_name)
@@ -617,7 +617,7 @@ void ConsoleBindCmds::save(IWriter* F)
 	
 	for(;it!=m_bindConsoleCmds.end();++it)
 	{
-		LPCSTR keyname		= dik_to_keyname(it->first);
+		const char* keyname		= dik_to_keyname(it->first);
 		F->w_printf("bind_console %s %s\n", *it->second.cmd, keyname);
 	}
 }

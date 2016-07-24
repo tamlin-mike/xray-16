@@ -1,12 +1,12 @@
 #pragma once
-
-
 #include "Common/object_interfaces.h"
 #include "inventory_space.h"
 #include "gametype_chooser.h"
 #include "UIDialogHolder.h"
 #include "xrEngine/CustomHUD.h"
-// refs
+#include "xrCommon/xr_string.h"
+
+// fwd. decl.
 class CUI;
 class CTeamBaseZone;
 class game_cl_GameState;

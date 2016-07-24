@@ -24,7 +24,7 @@ enum EGamePlayerFlags
 	GAME_PLAYER_FLAG_SKIP				= (1<<7),
 	GAME_PLAYER_HAS_ADMIN_RIGHTS		= (1<<8),
 
-	GAME_PLAYER_FLAG_FORCEDWORD			= u32(-1)
+	GAME_PLAYER_FLAG_FORCEDWORD			= unsigned int(~0)
 };
 
 enum EGamePhases
@@ -40,5 +40,5 @@ enum EGamePhases
 	GAME_PHASE_PLAYER_SCORES,
 
 	GAME_PHASE_SCRIPT_BEGINS_FROM,
-	GAME_PHASE_FORCEDWORD				= u32(-1)
+	GAME_PHASE_FORCEDWORD				= unsigned int(~0)
 };

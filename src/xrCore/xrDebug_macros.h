@@ -4,6 +4,7 @@
 #ifndef DEBUG
 #include "Common/Platform.hpp" // Need the XR_ASSUME macro from Compiler.inl
 #endif
+#include "xrDebug.h"
 
 #define DEBUG_INFO {__FILE__, __LINE__, __FUNCTION__}
 
@@ -58,7 +59,6 @@
 #endif
 
 #ifdef DEBUG
-#include "xrDebug.h"
 #define NODEFAULT FATAL("nodefault reached")
 #define VERIFY(expr)\
     do {\

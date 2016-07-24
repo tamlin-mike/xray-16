@@ -1,5 +1,6 @@
 // Engine_impexp.h
 #pragma once
+#include "Common/xr_impexp_macros.h"
 
 #ifndef ENGINE_API
 #ifndef NO_ENGINE_API

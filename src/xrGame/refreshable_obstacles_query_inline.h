@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "xrEngine/device.h"
 
 IC	refreshable_obstacles_query::refreshable_obstacles_query()
 {

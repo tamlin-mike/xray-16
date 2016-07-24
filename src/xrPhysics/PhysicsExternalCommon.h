@@ -1,7 +1,10 @@
+#pragma once
 #ifndef	_PHYSICS_EXTERNAL_COMMON_
 #define _PHYSICS_EXTERNAL_COMMON_
-#pragma once
 #include "xrPhysics/xrPhysics.h"
+#include "xrCore/_types.h"
+#include "xrCore/_matrix.h"
+
 struct dContactGeom;
 struct dContact;
 struct SGameMtl;
@@ -48,4 +51,3 @@ enum ERestrictionType
 	rtActor
 };
 #endif
-

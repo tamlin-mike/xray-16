@@ -37,6 +37,7 @@ distribution.
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include "xrCore/xrCore_impexp.h"
 
 // Help out windows:
 #if defined( _DEBUG ) && !defined( DEBUG )
@@ -46,7 +47,8 @@ distribution.
 #define TIXML_USE_STL
 
 #ifdef TIXML_USE_STL
-	#include <string>
+//	#include <string>
+	#include "xrCommon/xr_string.h"
 	#define TIXML_STRING		xr_string
 #else
 	#include "tinystr.h"

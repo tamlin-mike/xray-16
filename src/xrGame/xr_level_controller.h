@@ -1,4 +1,7 @@
 #pragma once
+#include "xrCore/xrstring.h"
+#include "xrCommon/xr_string.h"
+#include "xrCommon/xr_map.h"
 
 enum	EGameActions
 {
@@ -83,12 +86,12 @@ enum	EGameActions
 
 	kLASTACTION,
 	kNOTBINDED,
-	kFORCEDWORD		= u32(-1)
+	kFORCEDWORD		= unsigned int(~0)
 };
 
 struct _keyboard		
 {
-	LPCSTR		key_name;
+	const char*	key_name;
 	int			dik;
 	xr_string	key_local_name;
 };
@@ -104,19 +107,19 @@ bool is_group_not_conflicted(_key_group g1, _key_group g2);
 
 struct _action
 {
-	LPCSTR			action_name;
+	const char*		action_name;
 	EGameActions	id;
 	_key_group		key_group;
 };
 
-LPCSTR			dik_to_keyname			(int _dik);
-int				keyname_to_dik			(LPCSTR _name);
-_keyboard*		keyname_to_ptr			(LPCSTR _name);
+const char*		dik_to_keyname			(int _dik);
+int				keyname_to_dik			(const char* _name);
+_keyboard*		keyname_to_ptr			(const char* _name);
 _keyboard*		dik_to_ptr				(int _dik, bool bSafe);
 
-LPCSTR			id_to_action_name		(EGameActions _id);
-EGameActions	action_name_to_id		(LPCSTR _name);
-_action*		action_name_to_ptr		(LPCSTR _name);
+const char*		id_to_action_name		(EGameActions _id);
+EGameActions	action_name_to_id		(const char* _name);
+_action*		action_name_to_ptr		(const char* _name);
 
 extern _action		actions		[];
 //extern _keyboard	keyboards	[];

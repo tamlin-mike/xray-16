@@ -3,6 +3,8 @@
 #pragma once
 
 #include "Common/Platform.hpp"
+#include "xrCommon/xr_vector.h"
+#include "xrCore/xrstring.h"
 
 const LPCSTR CONFIG_PATH			= "$game_config$";
 const LPCSTR UI_PATH				= "ui";

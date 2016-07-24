@@ -17,7 +17,7 @@ bool Touch::feel_touch_contact(IGameObject* O)
     return true;
 }
 
-void Touch::feel_touch_deny(IGameObject* O, DWORD T)
+void Touch::feel_touch_deny(IGameObject* O, unsigned long T)
 {
     DenyTouch D;
     D.O = O;

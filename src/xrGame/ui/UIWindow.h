@@ -3,7 +3,7 @@
 
 // fwd. decl.
 class CUIWindow;
-struct _12b	{ DWORD _[3]; };
+struct _12b	{ /*DWORD*/unsigned long _[3]; };
 template <class T, int granularity> class poolSS;
 extern poolSS< _12b, 128>	ui_allocator;
 

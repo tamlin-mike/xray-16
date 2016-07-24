@@ -10,7 +10,7 @@
 
 namespace StalkerDecisionSpace {
 	enum EWorldProperties {
-		eWorldPropertyAlive			= u32(0),
+		eWorldPropertyAlive			= unsigned int(0),
 		eWorldPropertyDead,
 		eWorldPropertyAlreadyDead,
 		
@@ -96,12 +96,12 @@ namespace StalkerDecisionSpace {
 		eWorldPropertyStayIdle,
 
 		eWorldPropertyScript,
-		eWorldPropertyDummy			= u32(-1),
+		eWorldPropertyDummy			= unsigned int(~0),
 	};
 
 	enum EWorldOperators {
 // death
-		eWorldOperatorDead	= u32(0),
+		eWorldOperatorDead	= unsigned int(0),
 		eWorldOperatorDying,
 		
 // alife
@@ -213,12 +213,12 @@ namespace StalkerDecisionSpace {
 
 // script
 		eWorldOperatorScript,
-		eWorldOperatorDummy			= u32(-1),
+		eWorldOperatorDummy			= unsigned int(~0),
 	};
 
 	enum ESightActionType {
-		eSightActionTypeWatchItem	= u32(0),
+		eSightActionTypeWatchItem	= unsigned int(0),
 		eSightActionTypeWatchEnemy,
-		eSightActionTypeDummy		= u32(-1),
+		eSightActionTypeDummy		= unsigned int(~0),
 	};
 };

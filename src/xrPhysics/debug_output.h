@@ -1,6 +1,16 @@
 #pragma once
 #ifdef	DEBUG
 #include "xrPhysics.h"
+#include "xrCore/_flags.h"
+#include "xrCore/xrDebug_macros.h"
+
+// fwd. decl.
+template <class T> struct _vector3; typedef _vector3<float> Fvector;
+template <class T> struct _matrix; typedef _matrix<float> Fmatrix;
+namespace CDB {
+struct RESULT;
+class TRI;
+}
 
 enum
 {

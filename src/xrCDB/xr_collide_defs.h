@@ -1,8 +1,10 @@
+//#pragma once // XXX: Why is this commented out?
 #ifndef xr_collide_defsH
 #define xr_collide_defsH
-//#pragma once
-
-#include "xrcdb.h"
+#include <algorithm>
+#include "xrCDB.h"
+#include "xrCore/_vector3d.h"
+#include "xrCore/_matrix.h"
 
 class IGameObject;
 namespace collide 

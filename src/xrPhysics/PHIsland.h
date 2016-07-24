@@ -1,5 +1,7 @@
+#pragma once
 #ifndef	PH_ISLAND_H
 #define PH_ISLAND_H
+#include "xrCore/_flags.h"
 
 #pragma warning(disable:4995)
 #pragma warning(disable:4267)
@@ -29,12 +31,12 @@ public:
 			CPHIslandFlags					()	{init();}
 
 	IC void init							()	{flags.zero();flags.set(stActive,TRUE);unmerge();}
-	IC BOOL is_active						()	{return flags.test(stActive<<shift_to_variable);}
+	IC bool is_active						()	{return flags.test(stActive<<shift_to_variable);}
 
 	IC void set_prefere_exact_integration	()	{flags.set(flPrefereExactIntegration,TRUE);}
 	IC void uset_prefere_exact_integration	()	{flags.set(flPrefereExactIntegration,FALSE);}
 
-	IC BOOL is_exact_integration_prefeared	()	{return flags.test(flPrefereExactIntegration<<shift_to_variable);}
+	IC bool is_exact_integration_prefeared	()	{return flags.test(flPrefereExactIntegration<<shift_to_variable);}
 
 	IC void merge							(CPHIslandFlags& aflags) 
 	{
@@ -252,4 +254,5 @@ void			Repair();
 protected:
 private:
 };
-#endif
+
+#endif // include guard

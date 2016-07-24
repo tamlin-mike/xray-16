@@ -1,10 +1,15 @@
+#pragma once
 #ifndef	DebugRender_included
 #define	DebugRender_included
-#pragma once
 
 #ifdef DEBUG
 
+#include "xrCore/_types.h"
 #include "DebugShader.h"
+
+// fwd. decl.
+template <class T> struct _vector3; typedef _vector3<float> Fvector;
+template <class T> struct _matrix; typedef _matrix<float> Fmatrix;
 
 class IDebugRender
 {

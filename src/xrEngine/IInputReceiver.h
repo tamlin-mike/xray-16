@@ -5,6 +5,14 @@
 #pragma once
 #ifndef IINPUTRECEIVERH
 #define IINPUTRECEIVERH
+#include "Engine_impexp.h"
+#include "Common/Platform.hpp" // HWND
+#include "xrCore/_flags.h"
+
+// fwd. decl.
+template <class T> struct _vector2;
+typedef _vector2<float> Fvector2;
+typedef _vector2<int> Ivector2;
 
 class ENGINE_API IInputReceiver
 {

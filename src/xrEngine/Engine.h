@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Common/Platform.hpp"
+#include "xrCore/xrCore_benchmark_macros.h"
 
 // you must define ENGINE_BUILD then building the engine itself
 // and not define it if you are about to build DLL
 
 #include "Engine_impexp.h"
-#include "engineAPI.h"
-#include "eventAPI.h"
+#include "EngineAPI.h"
+#include "EventAPI.h"
 #include "xrSheduler.h"
 
 class ENGINE_API CEngine

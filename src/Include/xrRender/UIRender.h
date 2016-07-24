@@ -1,8 +1,13 @@
 #ifndef	UIRender_included
 #define	UIRender_included
 #pragma once
+#include "xrCore/_types.h"
 
+// fwd. decl.
 class IUIShader;
+template <class T> struct _rect;  typedef _rect<int> Irect;
+template <class T> struct _vector2; typedef _vector2<float> Fvector2;
+template <class T> struct _matrix; typedef _matrix<float> Fmatrix;
 
 class IUIRender
 {

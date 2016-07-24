@@ -8,7 +8,9 @@
 
 #pragma once
 
+#include "xrCore/_types.h"
 #include "Common/object_type_traits.h"
+#include "xrCommon/inlining_macros.h"
 
 #pragma pack(push,4)
 
