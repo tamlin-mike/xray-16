@@ -25,5 +25,5 @@ void* operator new[](size_t size) { return Memory.mem_alloc(size); }
 
 #endif // DEBUG_MEMORY_NAME
 
-void operator delete(void* p) throw() { Memory.mem_free(p); }
-void operator delete[](void* p) throw() { Memory.mem_free(p); }
+void operator delete(void* p) noexcept { Memory.mem_free(p); }
+void operator delete[](void* p) noexcept { Memory.mem_free(p); }

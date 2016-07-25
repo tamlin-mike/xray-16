@@ -2,12 +2,12 @@
 #include "xrCommon/math_funcs_inline.h"
 #include "xrCore/math_constants.h"
 
-float WaveForm::signf(float t) const throw()
+float WaveForm::signf(float t) const noexcept
 {
 	return t / _abs(t);
 }
 
-float WaveForm::Func(float t) const throw()
+float WaveForm::Func(float t) const noexcept
 {
 	switch (F)
 	{
@@ -27,14 +27,14 @@ float WaveForm::Func(float t) const throw()
 	return 0.f;
 }
 
-float WaveForm::Calculate(float t) const throw()
+float WaveForm::Calculate(float t) const noexcept
 {
 	// y = arg0 + arg1*func( (time+arg2)*arg3 )
 	float x = (t + arg[2])*arg[3];
 	return arg[0] + arg[1] * Func(x - floorf(x));
 }
 
-bool WaveForm::Similar(const WaveForm& W) const throw()
+bool WaveForm::Similar(const WaveForm& W) const noexcept
 {
 	if (!fsimilar(arg[0], W.arg[0], EPS_L)) return FALSE;
 	if (!fsimilar(arg[1], W.arg[1], EPS_L)) return FALSE;

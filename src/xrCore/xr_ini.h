@@ -87,9 +87,9 @@ public:
     virtual ~CInifile();
     bool save_as(LPCSTR new_fname = 0);
     void save_as(IWriter& writer, bool bcheck = false)const;
-    void set_override_names(bool b) throw() { m_flags.set(eOverrideNames, b); }
-    void save_at_end(bool b) throw() { m_flags.set(eSaveAtEnd, b); }
-    LPCSTR fname() const throw() { return m_file_name; };
+    void set_override_names(bool b) noexcept { m_flags.set(eOverrideNames, b); }
+    void save_at_end(bool b) noexcept { m_flags.set(eSaveAtEnd, b); }
+    LPCSTR fname() const noexcept { return m_file_name; };
 
     Sect& r_section(LPCSTR S)const;
     Sect& r_section(const shared_str& S)const;

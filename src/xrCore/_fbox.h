@@ -28,9 +28,9 @@ public:
         };
     };
 
-    IC bool is_valid() const throw() { return (x2 >= x1) && (y2 >= y1) && (z2 >= z1); }
+    IC bool is_valid() const noexcept { return (x2 >= x1) && (y2 >= y1) && (z2 >= z1); }
 
-    IC const T* data() const throw() { return &vMin.x; }
+    IC const T* data() const noexcept { return &vMin.x; }
 
     IC SelfRef set(const Tvector& _min, const Tvector& _max) { vMin.set(_min); vMax.set(_max); return *this; };
     IC SelfRef set(T x1, T y1, T z1, T x2, T y2, T z2) { vMin.set(x1, y1, z1); vMax.set(x2, y2, z2); return *this; };

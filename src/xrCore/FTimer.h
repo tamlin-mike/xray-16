@@ -67,7 +67,7 @@ private:
     u64 m_ticks;
 
 private:
-	u64 GetElapsed_ticks(const u64 current_ticks) const throw();
+	u64 GetElapsed_ticks(const u64 current_ticks) const noexcept;
 
 public:
     IC CTimer() : m_time_factor(1.f), m_real_ticks(0), m_ticks(0) {}

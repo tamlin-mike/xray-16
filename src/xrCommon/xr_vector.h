@@ -28,9 +28,9 @@ public:
 	xr_vector() : inherited() {}
 	xr_vector(size_t _count, const T& _value) : inherited(_count, _value) {}
 	explicit xr_vector(size_t _count) : inherited(_count) {}
-	u32 size() const throw() { return (u32)inherited::size(); }
+	u32 size() const noexcept { return (u32)inherited::size(); }
 
-	void clear_and_free() throw() { inherited::clear(); }
+	void clear_and_free() noexcept { inherited::clear(); }
 	void clear_not_free() { erase(begin(), end()); }
 	void clear_and_reserve() { if (capacity() <= (size() + size() / 4)) clear_not_free(); else { u32 old = size(); clear_and_free(); reserve(old); } }
 

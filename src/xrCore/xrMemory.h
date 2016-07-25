@@ -101,7 +101,7 @@ template <class T> IC T* xr_alloc(u32 count) { return (T*)Memory.mem_alloc(count
 #endif // DEBUG_MEMORY_NAME
 
 template <class T>
-IC void xr_free(T*& P) throw() { if (P) { Memory.mem_free((void*)P); P = NULL; }; }
+IC void xr_free(T*& P) noexcept { if (P) { Memory.mem_free((void*)P); P = NULL; }; }
 
 XRCORE_API void* xr_malloc(size_t size);
 XRCORE_API void* xr_realloc(void* P, size_t size);
@@ -118,9 +118,9 @@ XRCORE_API char* xr_strdup(const char* string);
 // NOTE: Implementations of operator new/delete are in xrMisc/xrMemory.cpp, since they need
 //       to be in a static link library.
 void* operator new(size_t size); // TODO: throw(std::bad_alloc) ?
-void operator delete(void* p) throw();
+void operator delete(void* p) noexcept;
 void* operator new[](size_t size); // TODO: throw(std::bad_alloc) ?
-void operator delete[](void* p) throw();
+void operator delete[](void* p) noexcept;
 #endif // __BORLANDC__ etc
 
 

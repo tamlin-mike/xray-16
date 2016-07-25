@@ -15,7 +15,7 @@ CScriptTokenList::CScriptTokenList()
 	clear();
 }
 
-CScriptTokenList::~CScriptTokenList() throw()
+CScriptTokenList::~CScriptTokenList() noexcept
 {
 	iterator	I = tokens().begin();
 	iterator	E = tokens().end();

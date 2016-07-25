@@ -149,7 +149,7 @@ public:
     virtual CSE_Abstract            *base                   ();
     virtual const CSE_Abstract      *base                   () const;
     virtual CSE_Abstract            *init                   ();
-    virtual bool                    match_configuration     () const throw() {return true;}
+    virtual bool                    match_configuration     () const noexcept {return true;}
     // end of the virtual inheritance dependant code
     IC      int                     script_clsid            () const                    {VERIFY(m_script_clsid >= 0); return (m_script_clsid);}
             CInifile                &spawn_ini              ();

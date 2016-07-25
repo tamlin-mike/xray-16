@@ -88,7 +88,7 @@ void CSE_ALifeObject::spawn_supplies		(LPCSTR ini_string)
 	}
 }
 
-bool CSE_ALifeObject::keep_saved_data_anyway() const throw()
+bool CSE_ALifeObject::keep_saved_data_anyway() const noexcept
 {
 	return false;
 }

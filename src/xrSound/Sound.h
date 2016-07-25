@@ -107,7 +107,7 @@ public:
 	u32					dwBytesTotal;
 	float				fTimeTotal;
 public:
-						ref_sound_data		() throw();
+						ref_sound_data		() noexcept;
 						ref_sound_data		(LPCSTR fName, esound_type sound_type, int game_type);
 	virtual				~ref_sound_data		();
 	float				get_length_sec		() const {return fTimeTotal;};

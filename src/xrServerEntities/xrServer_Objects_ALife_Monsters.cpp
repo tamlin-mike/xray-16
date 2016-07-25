@@ -537,7 +537,7 @@ CSE_ALifeTrader::~CSE_ALifeTrader           ()
 }
 
 #ifdef DEBUG
-bool CSE_ALifeTrader::match_configuration   () const throw()
+bool CSE_ALifeTrader::match_configuration   () const noexcept
 {
     return                      (!strstr(Core.Params,"-designer"));
 }
@@ -611,7 +611,7 @@ void CSE_ALifeTrader::UPDATE_Read           (NET_Packet &tNetPacket)
     inherited2::UPDATE_Read     (tNetPacket);
 };
 
-bool CSE_ALifeTrader::interactive() const throw()
+bool CSE_ALifeTrader::interactive() const noexcept
 {
     return false;
 }
@@ -956,7 +956,7 @@ CSE_ALifeCreatureAbstract::~CSE_ALifeCreatureAbstract()
 }
 
 #ifdef DEBUG
-bool CSE_ALifeCreatureAbstract::match_configuration () const throw()
+bool CSE_ALifeCreatureAbstract::match_configuration () const noexcept
 {
     return                      (!strstr(Core.Params,"-designer"));
 }
@@ -1095,17 +1095,17 @@ void CSE_ALifeCreatureAbstract::FillProps   (LPCSTR pref, PropItemVec& items)
 }
 #endif // #ifndef XRGAME_EXPORTS
 
-bool CSE_ALifeCreatureAbstract::used_ai_locations() const throw()
+bool CSE_ALifeCreatureAbstract::used_ai_locations() const noexcept
 {
     return true;
 }
 
-bool CSE_ALifeCreatureAbstract::can_switch_online() const throw()
+bool CSE_ALifeCreatureAbstract::can_switch_online() const noexcept
 {
     return inherited::can_switch_online();
 }
 
-bool CSE_ALifeCreatureAbstract::can_switch_offline  () const throw()
+bool CSE_ALifeCreatureAbstract::can_switch_offline  () const noexcept
 {
     return inherited::can_switch_offline() && (get_health() > 0.f);
 }
@@ -1357,7 +1357,7 @@ CSE_ALifeCreatureActor::~CSE_ALifeCreatureActor()
 }
 
 #ifdef DEBUG
-bool CSE_ALifeCreatureActor::match_configuration() const throw()
+bool CSE_ALifeCreatureActor::match_configuration() const noexcept
 {
     return true;
 }
@@ -1571,7 +1571,7 @@ void CSE_ALifeCreatureCrow::FillProps           (LPCSTR pref, PropItemVec& value
 }
 #endif // #ifndef XRGAME_EXPORTS
 
-bool CSE_ALifeCreatureCrow::used_ai_locations() const throw()
+bool CSE_ALifeCreatureCrow::used_ai_locations() const noexcept
 {
     return false;
 }
@@ -1619,7 +1619,7 @@ void CSE_ALifeCreaturePhantom::FillProps        (LPCSTR pref, PropItemVec& value
 }
 #endif // #ifndef XRGAME_EXPORTS
 
-bool CSE_ALifeCreaturePhantom::used_ai_locations() const throw()
+bool CSE_ALifeCreaturePhantom::used_ai_locations() const noexcept
 {
     return false;
 }

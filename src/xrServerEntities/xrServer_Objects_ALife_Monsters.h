@@ -107,7 +107,7 @@ class CSE_ALifeTrader :
 public:
                                     CSE_ALifeTrader         (LPCSTR caSection);
     virtual                         ~CSE_ALifeTrader        ();
-    virtual bool                    interactive             () const throw();
+    virtual bool                    interactive             () const noexcept;
     virtual CSE_Abstract            *init                   ();
     virtual CSE_Abstract            *base                   ();
     virtual const CSE_Abstract      *base                   () const;
@@ -121,7 +121,7 @@ public:
     virtual void                    add_offline             (const xr_vector<ALife::_OBJECT_ID> &saved_children, const bool &update_registries);
 #endif
 #ifdef DEBUG
-    virtual bool                    match_configuration     () const throw();
+    virtual bool                    match_configuration     () const noexcept;
 #endif
     virtual CSE_Abstract            *cast_abstract          () {return this;};
     virtual CSE_ALifeTraderAbstract *cast_trader_abstract   () {return this;};
@@ -178,7 +178,7 @@ public:
     virtual ALife::EMeetActionType  tfGetActionType         (CSE_ALifeSchedulable   *tpALifeSchedulable,    int iGroupIndex, bool bMutualDetection);
     virtual bool                    bfActive                ();
     virtual CSE_ALifeDynamicObject  *tpfGetBestDetector     ();
-    virtual bool                    keep_saved_data_anyway  () const throw();
+    virtual bool                    keep_saved_data_anyway  () const noexcept;
 #endif
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
@@ -265,9 +265,9 @@ public:
     void                    set_killer_id           (ALife::_OBJECT_ID const killer_id);
 
     IC      bool                    g_Alive                 () const                                { return (get_health() > 0.f);}
-    virtual bool                    used_ai_locations       () const throw();
-    virtual bool                    can_switch_online       () const throw();
-    virtual bool                    can_switch_offline      () const throw();
+    virtual bool                    used_ai_locations       () const noexcept;
+    virtual bool                    can_switch_online       () const noexcept;
+    virtual bool                    can_switch_offline      () const noexcept;
     virtual u32                     ef_creature_type        () const;
     virtual u32                     ef_weapon_type          () const;
     virtual u32                     ef_detector_type        () const;
@@ -277,7 +277,7 @@ public:
     virtual void                    on_spawn                ();
 #endif
 #ifdef DEBUG
-    virtual bool                    match_configuration     () const throw();
+    virtual bool                    match_configuration     () const noexcept;
 #endif
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
@@ -409,7 +409,7 @@ public:
     virtual const CSE_Abstract      *base                   () const;
     virtual CSE_Abstract            *init                   ();
     virtual void                    load                    (NET_Packet &tNetPacket);
-    virtual bool                    can_save                () const throw() {return true;}
+    virtual bool                    can_save                () const noexcept {return true;}
     virtual bool                    natural_weapon          () const {return false;}
     virtual bool                    natural_detector        () const {return false;}
 #ifdef XRGAME_EXPORTS
@@ -418,7 +418,7 @@ public:
     virtual void                    add_offline             (const xr_vector<ALife::_OBJECT_ID> &saved_children, const bool &update_registries);
 #endif
 #ifdef DEBUG
-    virtual bool                    match_configuration     () const throw();
+    virtual bool                    match_configuration     () const noexcept;
 #endif
     virtual CSE_Abstract            *cast_abstract          () {return this;};
     virtual CSE_ALifeTraderAbstract *cast_trader_abstract   () {return this;};
@@ -437,7 +437,7 @@ class CSE_ALifeCreatureCrow : public CSE_ALifeCreatureAbstract
 public:
                                     CSE_ALifeCreatureCrow   (LPCSTR caSection);
     virtual                         ~CSE_ALifeCreatureCrow  ();
-    virtual bool                    used_ai_locations       () const throw();
+    virtual bool                    used_ai_locations       () const noexcept;
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
     virtual void STATE_Read(NET_Packet& P, u16 size);
@@ -451,7 +451,7 @@ class CSE_ALifeCreaturePhantom : public CSE_ALifeCreatureAbstract
 public:
                                     CSE_ALifeCreaturePhantom    (LPCSTR caSection);
     virtual                         ~CSE_ALifeCreaturePhantom   ();
-    virtual bool                    used_ai_locations           () const throw();
+    virtual bool                    used_ai_locations           () const noexcept;
     virtual void UPDATE_Read(NET_Packet& P);
     virtual void UPDATE_Write(NET_Packet& P);
     virtual void STATE_Read(NET_Packet& P, u16 size);

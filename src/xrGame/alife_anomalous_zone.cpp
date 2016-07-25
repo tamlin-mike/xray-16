@@ -131,7 +131,7 @@ void CSE_ALifeAnomalousZone::on_spawn						()
 //	spawn_artefacts			();
 }
 
-bool CSE_ALifeAnomalousZone::keep_saved_data_anyway() const throw()
+bool CSE_ALifeAnomalousZone::keep_saved_data_anyway() const noexcept
 {
 	return true;
 }

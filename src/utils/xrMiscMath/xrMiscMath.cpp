@@ -77,5 +77,5 @@ bool exact_normalize(Fvector3& a) { return exact_normalize(&a.x); }
 
 //////////////////////////////////////////////////////////////////
 
-int CRandom::randI() throw() { return(((holdrand = holdrand * 214013L + 2531011L) >> 16) & 0x7fff); }
+int CRandom::randI() noexcept { return(((holdrand = holdrand * 214013L + 2531011L) >> 16) & 0x7fff); }
 int CRandom::randI(int max) { VERIFY(max); return randI() % max; }

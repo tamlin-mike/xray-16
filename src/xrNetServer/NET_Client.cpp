@@ -1168,7 +1168,7 @@ IPureClient::HOST_NODE::HOST_NODE(const HOST_NODE& rhs)
 	dpSessionName = rhs.dpSessionName;
 }
 
-IPureClient::HOST_NODE::HOST_NODE(HOST_NODE&& rhs) throw()
+IPureClient::HOST_NODE::HOST_NODE(HOST_NODE&& rhs) noexcept
 :	pdpAppDesc(rhs.pdpAppDesc)
 {
 	pHostAddress = rhs.pHostAddress;
@@ -1177,7 +1177,7 @@ IPureClient::HOST_NODE::HOST_NODE(HOST_NODE&& rhs) throw()
 	rhs.pHostAddress = 0;
 }
 
-IPureClient::HOST_NODE::~HOST_NODE() throw()
+IPureClient::HOST_NODE::~HOST_NODE() noexcept
 {
 	delete pdpAppDesc;
 }

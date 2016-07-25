@@ -20,6 +20,7 @@
 #include "string_table.h"
 #include "xrCore/os_clipboard.h"
 #include "xrServerEntities/smart_cast.h"
+#include "xrGame/game_type.h"
 
 #include "DemoInfo.h"
 #include "DemoInfo_Loader.h"
@@ -36,6 +37,9 @@
 #include "profile_store.h"
 #include "stats_submitter.h"
 #include "atlas_submit_queue.h"
+
+// fwd. decl.
+extern ENGINE_API BOOL	bShowPauseString;
 
 //#define DEMO_BUILD
 
@@ -166,9 +170,6 @@ void CMainMenu::ReadTextureInfo()
 	}
 
 }
-
-extern ENGINE_API BOOL	bShowPauseString;
-extern bool				IsGameTypeSingle();
 
 void CMainMenu::Activate	(bool bActivate)
 {

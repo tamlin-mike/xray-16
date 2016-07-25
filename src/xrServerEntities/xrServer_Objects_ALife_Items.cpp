@@ -861,12 +861,12 @@ void CSE_ALifeItemAmmo::FillProps			(LPCSTR pref, PropItemVec& values) {
 }
 #endif // #ifndef XRGAME_EXPORTS
 
-bool CSE_ALifeItemAmmo::can_switch_online() const throw()
+bool CSE_ALifeItemAmmo::can_switch_online() const noexcept
 {
 	return inherited::can_switch_online();
 }
 
-bool CSE_ALifeItemAmmo::can_switch_offline() const throw()
+bool CSE_ALifeItemAmmo::can_switch_offline() const noexcept
 {
 	return inherited::can_switch_offline() && a_elapsed!=0;
 }
@@ -1207,11 +1207,11 @@ void CSE_ALifeItemBolt::UPDATE_Read			(NET_Packet &tNetPacket)
 	inherited::UPDATE_Read		(tNetPacket);
 };
 
-bool CSE_ALifeItemBolt::can_save() const throw()
+bool CSE_ALifeItemBolt::can_save() const noexcept
 {
 	return false; //!attached());
 }
-bool CSE_ALifeItemBolt::used_ai_locations() const throw()
+bool CSE_ALifeItemBolt::used_ai_locations() const noexcept
 {
 	return false;
 }

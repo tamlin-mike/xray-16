@@ -78,7 +78,7 @@ void pauseMngr::UnRegister(CTimer_paused* t)
 
 //////////////////////////////////////////////////////////////////
 
-u64 CTimer::GetElapsed_ticks(const u64 current_ticks) const throw()
+u64 CTimer::GetElapsed_ticks(const u64 current_ticks) const noexcept
 {
 	u64 delta = current_ticks - m_real_ticks;
 	double delta_d = (double)delta;

@@ -7,7 +7,7 @@ static inline void VerSndUnlocked() { VERIFY(!::Sound->i_locked()); }
 }
 
 /// ********* Sound ********* (utils, accessors, helpers)
-ref_sound_data::ref_sound_data() throw() : handle(0), feedback(0), s_type(st_Effect), g_type(0), g_object(0) { }
+ref_sound_data::ref_sound_data() noexcept : handle(0), feedback(0), s_type(st_Effect), g_type(0), g_object(0) { }
 ref_sound_data::ref_sound_data(LPCSTR fName, esound_type sound_type, int game_type) { ::Sound->_create_data(*this, fName, sound_type, game_type); }
 ref_sound_data::~ref_sound_data() { ::Sound->_destroy_data(*this); }
 

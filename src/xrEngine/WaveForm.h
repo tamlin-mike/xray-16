@@ -15,13 +15,13 @@ struct WaveForm
         fINVSAWTOOTH,
         fFORCE32 = unsigned int(~0)
     };
-	float signf(float t) const throw();
-	float Func(float t) const throw();
+	float signf(float t) const noexcept;
+	float Func(float t) const noexcept;
 public:
     EFunction F;
     float arg[4];
 
-	float Calculate(float t) const throw();
+	float Calculate(float t) const noexcept;
 
     WaveForm()
     {
@@ -32,7 +32,7 @@ public:
         arg[3] = 1;
     }
 
-	bool Similar(const WaveForm& W) const throw();
+	bool Similar(const WaveForm& W) const noexcept;
 };
 
 #pragma pack(pop)

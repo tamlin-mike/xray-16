@@ -77,7 +77,7 @@ template <class T> IC T _min(T a, T b) { return a < b ? a : b; }
 template <class T> IC T _max(T a, T b) { return a > b ? a : b; }
 template <class T> IC T _sqr(T a) { return a*a; }
 
-IC bool _valid(const float x) throw()
+IC bool _valid(const float x) noexcept
 {
     // check for: Signaling NaN, Quiet NaN, Negative infinity ( –INF), Positive infinity (+INF), Negative denormalized, Positive denormalized
     int cls = _fpclass(double(x));

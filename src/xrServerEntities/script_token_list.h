@@ -21,9 +21,9 @@ protected:
 	struct CTokenPredicateName {
 		const char*		m_name;
 
-		CTokenPredicateName(const char* name) throw() : m_name(name) { }
+		CTokenPredicateName(const char* name) noexcept : m_name(name) { }
 
-		bool operator()(const xr_token &token) const throw()
+		bool operator()(const xr_token &token) const noexcept
 		{
 			return token.name && !strcmp(token.name,m_name);
 		}
@@ -32,7 +32,7 @@ protected:
 	struct CTokenPredicateID {
 		int				m_id;
 
-		CTokenPredicateID(int id) throw() : m_id(id) { }
+		CTokenPredicateID(int id) noexcept : m_id(id) { }
 
 		bool operator()(const xr_token &token) const
 		{
@@ -49,12 +49,12 @@ protected:
 
 public:
 								CScriptTokenList	();
-								~CScriptTokenList	() throw();
+								~CScriptTokenList	() noexcept;
 			void				add					(const char* name, int id);
 			void				remove				(const char* name);
 			void				clear				();
 			int					id					(const char* name);
 			const char*			name				(int id);
-			const TOKEN_LIST	&tokens() const throw() { return m_token_list; }
-			TOKEN_LIST			&tokens()       throw() { return m_token_list; }
+			const TOKEN_LIST	&tokens() const noexcept { return m_token_list; }
+			TOKEN_LIST			&tokens()       noexcept { return m_token_list; }
 };

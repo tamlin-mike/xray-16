@@ -60,7 +60,7 @@
 #endif
 
 #define DEFINE_LUA_WRAPPER_CONST_METHOD_0(v_func_name,ret_type)							\
-		virtual ret_type v_func_name() const throw()									\
+		virtual ret_type v_func_name() const noexcept									\
 		{																				\
 			try {																		\
 				return call_member<ret_type>(this,#v_func_name);						\

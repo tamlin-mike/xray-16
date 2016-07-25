@@ -158,7 +158,7 @@ IC	void	dMatrixSmallDeviationAdd(const float* matrix33_from,const float* matrix3
 	vector_dev[2]+=matrix33_from[4]-matrix33_to[4];
 }
 
-// void twoq_2w(const Fquaternion& q1, const Fquaternion& q2, float dt, Fvector& w) throw(); // Not used, but move to xrMiscMath
+// void twoq_2w(const Fquaternion& q1, const Fquaternion& q2, float dt, Fvector& w) noexcept; // Not used, but move to xrMiscMath
 
 IC float	to_mag_and_dir(const Fvector &in_v,Fvector &out_v)
 {

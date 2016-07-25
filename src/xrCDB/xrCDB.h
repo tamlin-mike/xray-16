@@ -100,7 +100,7 @@ namespace CDB
 		u32						memory			();
 
 	private:
-		void syncronize_impl() const throw();
+		void syncronize_impl() const;
 	};
 
 	// Collider result

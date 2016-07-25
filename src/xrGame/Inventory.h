@@ -147,7 +147,7 @@ public:
 
 
 	u32					ModifyFrame					() const					{ return m_dwModifyFrame; }
-	void				InvalidateState				() throw();
+	void				InvalidateState				() noexcept;
 	void				Items_SetCurrentEntityHud	(bool current_entity);
 	bool				isBeautifulForActiveSlot	(CInventoryItem *pIItem);
 protected:

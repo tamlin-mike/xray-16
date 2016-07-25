@@ -426,7 +426,7 @@ public:
     {
         xr_sprintf(S, sizeof(S), "%dx%d", psCurrentVidMode[0], psCurrentVidMode[1]);
     }
-    virtual const xr_token* GetToken() throw() override { return GlobalEnv.vid_mode_token; }
+    virtual const xr_token* GetToken() noexcept override { return GlobalEnv.vid_mode_token; }
     virtual void Info(TInfo& I)
     {
         xr_strcpy(I, sizeof(I), "change screen resolution WxH");
@@ -579,7 +579,7 @@ public:
             inherited::Save(F);
         }
     }
-    virtual const xr_token* GetToken() throw() override
+    virtual const xr_token* GetToken() noexcept override
     {
         tokens = vid_quality_token;
         return inherited::GetToken();
@@ -609,7 +609,7 @@ public:
         inherited::Status(S);
     }
 
-    virtual const xr_token* GetToken() throw() override
+    virtual const xr_token* GetToken() noexcept override
     {
         tokens = snd_devices_token;
         return inherited::GetToken();

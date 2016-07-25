@@ -32,7 +32,7 @@ public:
     IC void seed(int val) { holdrand = val; }
     IC int maxI() { return 32767; }
 
-	int randI() throw();
+	int randI() noexcept;
 	int randI(int max);
     IC int randI(int min, int max) { return min + randI(max - min); }
     IC int randIs(int range) { return randI(-range, range); }
