@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PHYSICSSHELL_HOLDER_H
 #define PHYSICSSHELL_HOLDER_H
 
@@ -143,4 +144,4 @@ private://IPhysicsShellHolder
 #endif
 };
 
-#endif
+#endif // include guard

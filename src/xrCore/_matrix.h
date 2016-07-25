@@ -1,8 +1,10 @@
+#pragma once
 #ifndef __M__
 #define __M__
 #include "_vector2.h"
 #include "_vector3d.h"
 #include "_vector4.h"
+#include "_std_extensions.h" // _valid<float>
 /*
 * DirectX-compliant, ie row-column order, ie m[Row][Col].
 * Same as:
@@ -492,7 +494,7 @@ typedef _matrix<float> Fmatrix;
 typedef _matrix<double> Dmatrix;
 
 template <class T>
-BOOL _valid(const _matrix<T>& m)
+bool _valid(const _matrix<T>& m)
 {
     return
         _valid(m.i) && _valid(m._14_) &&

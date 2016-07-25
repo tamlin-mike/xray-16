@@ -4,6 +4,7 @@
 #include "net_server.h"
 #include "net_messages.h"
 #include "NET_Log.h"
+#include "xrCore/Threading/Lock.hpp"
 
 #include "xrGameSpy/xrGameSpy_MainDefs.h"
 
@@ -120,9 +121,11 @@ void	dump_URL	(LPCSTR p, IDirectPlay8Address* A)
 }
 
 // 
-INetQueue::INetQueue()		
+INetQueue::INetQueue() :
 #ifdef CONFIG_PROFILE_LOCKS
-	:cs(MUTEX_PROFILE_ID(INetQueue))
+	pcs(new Lock(MUTEX_PROFILE_ID(INetQueue)))
+#else
+	pcs(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 {
 	unused.reserve	(128);
@@ -132,18 +135,18 @@ INetQueue::INetQueue()
 
 INetQueue::~INetQueue()
 {
-	cs.Enter		();
+	pcs->Enter		();
 	u32				it;
 	for				(it=0; it<unused.size(); it++)	xr_delete(unused[it]);
 	for				(it=0; it<ready.size(); it++)	xr_delete(ready[it]);
-	cs.Leave		();
+	pcs->Leave		();
 }
 
 static u32 LastTimeCreate = 0;
 NET_Packet*		INetQueue::Create	()
 {
 	NET_Packet*	P			= 0;
-	//cs.Enter		();
+	//pcs->Enter		();
 //#ifdef _DEBUG
 //		Msg ("- INetQueue::Create - ready %d, unused %d", ready.size(), unused.size());
 //#endif
@@ -159,13 +162,13 @@ NET_Packet*		INetQueue::Create	()
 		unused.pop_back		();
 		P					= ready.back	();
 	}
-	//cs.Leave		();
+	//pcs->Leave		();
 	return	P;
 }
 NET_Packet*		INetQueue::Create	(const NET_Packet& _other)
 {
 	NET_Packet*	P			= 0;
-	cs.Enter		();
+	pcs->Enter		();
 //#ifdef _DEBUG
 //		Msg ("- INetQueue::Create - ready %d, unused %d", ready.size(), unused.size());
 //#endif
@@ -182,13 +185,13 @@ NET_Packet*		INetQueue::Create	(const NET_Packet& _other)
 		P					= ready.back	();
 	}	
 	CopyMemory	(P,&_other,sizeof(NET_Packet));	
-	cs.Leave		();
+	pcs->Leave		();
 	return			P;
 }
 NET_Packet*		INetQueue::Retreive	()
 {
 	NET_Packet*	P			= 0;
-	//cs.Enter		();
+	//pcs->Enter		();
 //#ifdef _DEBUG
 //			Msg ("INetQueue::Retreive - ready %d, unused %d", ready.size(), unused.size());
 //#endif
@@ -205,12 +208,12 @@ NET_Packet*		INetQueue::Retreive	()
 		}		
 	}
 	//---------------------------------------------	
-	//cs.Leave		();
+	//pcs->Leave		();
 	return	P;
 }
 void			INetQueue::Release	()
 {
-	//cs.Enter		();
+	//pcs->Enter		();
 //#ifdef _DEBUG
 //		Msg ("INetQueue::Release - ready %d, unused %d", ready.size(), unused.size());
 //#endif
@@ -227,8 +230,11 @@ void			INetQueue::Release	()
 		unused.push_back(ready.front());
 	//---------------------------------------------	
 	ready.pop_front	();
-	//cs.Leave		();
+	//pcs->Leave		();
 }
+
+void INetQueue::LockQ() { pcs->Enter(); };
+void INetQueue::UnlockQ() { pcs->Leave(); };
 
 //
 const u32 syncQueueSize		= 512;
@@ -340,9 +346,12 @@ IPureClient::_Recieve( const void* data, u32 data_size, u32 /*param*/ )
 
 //==============================================================================
 
-IPureClient::IPureClient	(CTimer* timer): net_Statistic(timer)
+IPureClient::IPureClient(CTimer* timer) :
+	net_Statistic(timer),
 #ifdef CONFIG_PROFILE_LOCKS
-	,net_csEnumeration(MUTEX_PROFILE_ID(IPureClient::net_csEnumeration))
+	net_csEnumeration(new Lock(MUTEX_PROFILE_ID(IPureClient::net_csEnumeration)))
+#else
+	net_csEnumeration(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 {
 	NET						= NULL;
@@ -362,6 +371,7 @@ IPureClient::~IPureClient	()
 {
 	xr_delete(pClNetLog); pClNetLog = NULL;
 	psNET_direct_connect = FALSE;
+	delete net_csEnumeration;
 }
 
 BOOL IPureClient::Connect	(LPCSTR options)
@@ -676,7 +686,7 @@ if(!psNET_direct_connect)
 			dpAppDesc.pwszPassword = SessionPasswordUNICODE;
 		};
 		
-		net_csEnumeration.Enter		();
+		net_csEnumeration->Enter		();
 		// real connect
 		for (u32 I=0; I<net_Hosts.size(); I++) 
 			Msg("* HOST #%d: %s\n",I+1,*net_Hosts[I].dpSessionName);
@@ -694,7 +704,7 @@ if(!psNET_direct_connect)
 			NULL,					// pvAsyncHandle
 			DPNCONNECT_SYNC);		// dwFlags
 //		R_CHK(res);		
-		net_csEnumeration.Leave		();
+		net_csEnumeration->Leave		();
 		_RELEASE					(pHostAddress);
 #ifdef DEBUG	
 //		const char* x = DXGetErrorString9(res);
@@ -743,13 +753,13 @@ void IPureClient::Disconnect()
 	if( NET )	NET->Close(0);
 
     // Clean up Host _list_
-	net_csEnumeration.Enter			();
+	net_csEnumeration->Enter			();
 	for (u32 i=0; i<net_Hosts.size(); i++) {
 		HOST_NODE&	N = net_Hosts[i];
 		_RELEASE	(N.pHostAddress);
 	}
 	net_Hosts.clear					();
-	net_csEnumeration.Leave			();
+	net_csEnumeration->Leave			();
 
 	// Release interfaces
 	_SHOW_REF	("cl_netADR_Server",net_Address_server);
@@ -787,7 +797,7 @@ HRESULT	IPureClient::net_Handler(u32 dwMessageType, PVOID pMessage)
 			}
 			
 			// Insert each host response if it isn't already present
-			net_csEnumeration.Enter			();
+			net_csEnumeration->Enter			();
 			BOOL	bHostRegistered			= FALSE;
 			for (u32 I=0; I<net_Hosts.size(); I++)
 			{
@@ -827,7 +837,7 @@ HRESULT	IPureClient::net_Handler(u32 dwMessageType, PVOID pMessage)
 				net_Hosts.push_back			(NODE);
 
 			}
-			net_csEnumeration.Leave			();
+			net_csEnumeration->Leave			();
 		}
 		break;
 
@@ -921,7 +931,7 @@ HRESULT	IPureClient::net_Handler(u32 dwMessageType, PVOID pMessage)
 void	IPureClient::OnMessage(void* data, u32 size)
 {
 	// One of the messages - decompress it
-	net_Queue.Lock();
+	net_Queue.LockQ();
 	NET_Packet* P = net_Queue.Create();
 
 	P->construct( data, size );	
@@ -929,7 +939,7 @@ void	IPureClient::OnMessage(void* data, u32 size)
 
 	u16			m_type;
 	P->r_begin	(m_type);
-	net_Queue.Unlock();
+	net_Queue.UnlockQ();
 }
 
 void	IPureClient::timeServer_Correct(u32 sv_time, u32 cl_time)

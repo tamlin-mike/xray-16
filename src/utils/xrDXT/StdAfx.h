@@ -9,10 +9,11 @@
 
 #pragma once
 
-#include "xrCore/xrCore.h"
 #include <io.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include "xrCore/xrCore.h"
+#include "xrCore/_std_extensions.h"
 
 #define ENGINE_API
 #define XR_EPROPS_API

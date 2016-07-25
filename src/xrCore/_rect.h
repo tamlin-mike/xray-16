@@ -89,7 +89,7 @@ typedef _rect<double> Drect;
 typedef _rect<int> Irect;
 
 template <class T>
-BOOL _valid(const _rect<T>& m)
+bool _valid(const _rect<T>& m)
 {
     return m.lt._valid() && m.rb._valid();
 }

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #pragma hdrstop
+#include "xrCommon/xr_vector.h"
 
 XRCORE_API BOOL g_bEnableStatGather = FALSE;
 
@@ -34,17 +35,30 @@ XRCORE_API pauseMngr *g_pauseMngr()
     return manager;
 }
 
-pauseMngr::pauseMngr() :m_paused(FALSE)
+struct pauseMngrImpl
 {
-    m_timers.reserve(3);
+	xr_vector<CTimer_paused*> m_timers;
+};
+
+pauseMngr::pauseMngr() :
+	m_paused(false),
+	m_pimpl(new pauseMngrImpl)
+{
+	m_pimpl->m_timers.reserve(3);
 }
 
-void pauseMngr::Pause(BOOL b)
+pauseMngr::~pauseMngr()
+{
+	delete m_pimpl;
+}
+
+void pauseMngr::Pause(bool b)
 {
     if (m_paused == b)return;
 
-    xr_vector<CTimer_paused*>::iterator it = m_timers.begin();
-    for (; it != m_timers.end(); ++it)
+	xr_vector<CTimer_paused*>::iterator it = m_pimpl->m_timers.begin();
+	xr_vector<CTimer_paused*>::iterator E = m_pimpl->m_timers.end();
+    for (; it != E; ++it)
         (*it)->Pause(b);
 
     m_paused = b;
@@ -52,12 +66,24 @@ void pauseMngr::Pause(BOOL b)
 
 void pauseMngr::Register(CTimer_paused* t)
 {
-    m_timers.push_back(t);
+	m_pimpl->m_timers.push_back(t);
 }
 
 void pauseMngr::UnRegister(CTimer_paused* t)
 {
-    xr_vector<CTimer_paused*>::iterator it = std::find(m_timers.begin(), m_timers.end(), t);
-    if (it != m_timers.end())
-        m_timers.erase(it);
+    xr_vector<CTimer_paused*>::iterator it = std::find(m_pimpl->m_timers.begin(), m_pimpl->m_timers.end(), t);
+    if (it != m_pimpl->m_timers.end())
+		m_pimpl->m_timers.erase(it);
+}
+
+//////////////////////////////////////////////////////////////////
+
+u64 CTimer::GetElapsed_ticks(const u64 current_ticks) const throw()
+{
+	u64 delta = current_ticks - m_real_ticks;
+	double delta_d = (double)delta;
+	double time_factor_d = time_factor();
+	double time = delta_d*time_factor_d + .5;
+	u64 result = (u64)time;
+	return (m_ticks + result);
 }

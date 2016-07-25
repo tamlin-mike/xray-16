@@ -12,6 +12,7 @@
 #define NO_XRC_STATS
 
 #include "xrCore/xrCore.h"
+#include "xrCore/_std_extensions.h"
 
 #pragma warning(push)
 #pragma warning(disable:4995)

@@ -1,9 +1,10 @@
+#pragma once
 #ifndef SoundRender_EmitterH
 #define SoundRender_EmitterH
-#pragma once
 
 #include "soundrender.h"
 #include "soundrender_environment.h"
+#include "xrCore/_std_extensions.h"
 
 class CSoundRender_Emitter : public CSound_emitter
 {

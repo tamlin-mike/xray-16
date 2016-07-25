@@ -1,10 +1,10 @@
 #pragma once
 #ifndef __V3D__
 #define __V3D__
-
 #include "xrCommon/inlining_macros.h"
+#include "_types.h"
 #include "_random.h"
-#include "_std_extensions.h" // only for _min/_max. FIX!
+#include "math_constants.h"
 
 template <class T>
 struct _vector3
@@ -56,7 +56,7 @@ public:
     IC SelfRef max(const Self& v) { x = _max(x, v.x); y = _max(y, v.y); z = _max(z, v.z); return *this; }
 
     IC SelfRef abs(const Self& v) { x = _abs(v.x); y = _abs(v.y); z = _abs(v.z); return *this; }
-    ICF BOOL similar(const Self& v, T E = EPS_L) const { return _abs(x - v.x) < E && _abs(y - v.y) < E && _abs(z - v.z) < E; };
+    ICF bool similar(const Self& v, T E = EPS_L) const { return _abs(x - v.x) < E && _abs(y - v.y) < E && _abs(z - v.z) < E; };
 
 	SelfRef set_length(T l);
 
@@ -148,6 +148,10 @@ public:
 
 	static void generate_orthonormal_basis(const _vector3<T>& dir, _vector3<T>& up, _vector3<T>& right);
 	static void generate_orthonormal_basis_normalized(_vector3<T>& dir, _vector3<T>& up, _vector3<T>& right);
+
+private:
+	static T _min(T a, T b) { return a < b ? a : b; }
+	static T _max(T a, T b) { return a > b ? a : b; }
 };
 typedef _vector3<float> Fvector;
 typedef _vector3<float> Fvector3;
@@ -157,7 +161,7 @@ typedef _vector3<s32> Ivector;
 typedef _vector3<s32> Ivector3;
 
 template <class T>
-BOOL _valid(const _vector3<T>& v) { return _valid((T)v.x) && _valid((T)v.y) && _valid((T)v.z); }
+bool _valid(const _vector3<T>& v) { return _valid((T)v.x) && _valid((T)v.y) && _valid((T)v.z); }
 
 //////////////////////////////////////////////////////////////////////////
 #pragma warning(push)

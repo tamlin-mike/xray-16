@@ -10,6 +10,7 @@
 #include "xrCDB/xrCDB.h"
 #include "xrSound/sound.h"
 #include "xrEngine/GameMtlLib.h"
+#include "xrCore/_std_extensions.h"
 
 #include "xrPhysics.h"
 #include "Include/xrAPI/xrapi.h"

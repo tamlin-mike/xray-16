@@ -13,6 +13,7 @@
 #include <malloc.h>
 #include <direct.h>
 #include <stdarg.h>
+#include "xrCore/_std_extensions.h"
 
 extern bool shared_str_initialized;
 extern LPCSTR log_name();

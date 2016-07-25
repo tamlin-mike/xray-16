@@ -7,6 +7,7 @@
 #pragma once
 
 #include "xrCore/xrCore.h"
+#include "xrCore/_std_extensions.h"
 
 // mmsystem.h
 #define MMNOSOUND

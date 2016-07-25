@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "xrMemory_align.h"
 #include "xrMemory_pure.h"
+#include "xrCore/_std_extensions.h"
 
 #ifndef __BORLANDC__
 

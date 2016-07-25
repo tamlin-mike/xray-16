@@ -5,12 +5,14 @@
 #include "xrCommon/xr_deque.h"
 #include "xrCommon/xr_vector.h"
 #include "Common/Noncopyable.hpp"
+#include "xrCore/xrstring.h"
 
 struct ip_address;
+class Lock;
 
-class XRNETSERVER_API INetQueue
+class XRNETSERVER_API INetQueue : private Noncopyable
 {
-	Lock		cs;
+	Lock		*pcs;
 	xr_deque<NET_Packet*>	ready;
 	xr_vector<NET_Packet*>	unused;
 public:
@@ -21,8 +23,8 @@ public:
 	NET_Packet*			Create	(const NET_Packet& _other);
 	NET_Packet*			Retreive();
 	void				Release	();
-	inline void			Lock	() { cs.Enter(); };
-	inline void			Unlock	() { cs.Leave(); };
+	void				LockQ	();
+	void				UnlockQ	();
 };
 
 
@@ -38,7 +40,8 @@ struct IDirectPlay8Client;
 class XRNETSERVER_API 
 IPureClient
   : private MultipacketReciever,
-    private MultipacketSender
+    private MultipacketSender,
+	private Noncopyable
 {
 	enum ConnectionState
 	{
@@ -66,7 +69,7 @@ protected:
 	IDirectPlay8Address*	net_Address_device;
 	IDirectPlay8Address*	net_Address_server;
 		
-	Lock		net_csEnumeration;
+	Lock		*net_csEnumeration;
 	xr_vector<HOST_NODE>	net_Hosts;
 
 	NET_Compressor			net_Compressor;
@@ -108,10 +111,10 @@ public:
 	LPCSTR					net_SessionName			()	{ return *(net_Hosts.front().dpSessionName); }
 
 	// receive
-	IC void							StartProcessQueue		()	{ net_Queue.Lock(); }; // WARNING ! after Start mast be End !!! <-
+	IC void							StartProcessQueue		()	{ net_Queue.LockQ(); }; // WARNING ! after Start mast be End !!! <-
 	IC virtual	NET_Packet*			net_msg_Retreive		()	{ return net_Queue.Retreive();	};//							|
 	IC void							net_msg_Release			()	{ net_Queue.Release();			};//							|
-	IC void							EndProcessQueue			()	{ net_Queue.Unlock();			};//							<-
+	IC void							EndProcessQueue			()	{ net_Queue.UnlockQ();			};//							<-
 
 	// send
 	virtual	void			Send					(NET_Packet& P, u32 dwFlags= 0x0008 /*DPNSEND_GUARANTEED*/, u32 dwTimeout=0);

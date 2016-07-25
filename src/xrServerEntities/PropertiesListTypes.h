@@ -3,7 +3,7 @@
 #ifndef PropertiesListTypesH
 #define PropertiesListTypesH
 
-#include "WaveForm.H"
+#include "WaveForm.h"
 #include "gametype_chooser.h"
 #include "xrCommon/xr_string.h"
 #include "xrCommon/xr_vector.h"

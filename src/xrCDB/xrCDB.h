@@ -1,4 +1,4 @@
-//#pragma once
+//#pragma once // XXX: Why is this disabled?
 #ifndef XRCDB_H
 #define XRCDB_H
 

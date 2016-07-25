@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "stream_reader.h"
+#include "xrCore/_std_extensions.h"
 
 void CStreamReader::construct(
     const HANDLE& file_mapping_handle,

@@ -2,6 +2,9 @@
 
 #include "Common/Platform.hpp"
 #include "xrCore/_types.h"
+#include "xrCore/_flags.h"
+#include "xrCore/client_id.h"
+#include "xrCore/FTimer.h"
 
 #ifdef XR_NETSERVER_EXPORTS
 	#define XRNETSERVER_API XR_EXPORT

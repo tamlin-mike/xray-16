@@ -1,12 +1,16 @@
+#pragma once
 #if !defined(AFX_NET_COMPRESSOR_H__21E1ED1C_BF92_4BF0_94A8_18A27486EBFD__INCLUDED_)
 #define AFX_NET_COMPRESSOR_H__21E1ED1C_BF92_4BF0_94A8_18A27486EBFD__INCLUDED_
-#pragma once
 
-#include "xrCore/Threading/Lock.hpp"
+#include "Common/Noncopyable.hpp"
+#include "xrCore/_types.h"
+#include "xrCommon/xr_map.h"
 
-class	XRNETSERVER_API  NET_Compressor
+class Lock;
+
+class	XRNETSERVER_API  NET_Compressor : private Noncopyable
 {
-	Lock		CS;
+	Lock		*pCS;
 
 	struct SCompressorStats
 	{

@@ -3,21 +3,24 @@
 #define FTimerH
 #include "_types.h"
 #include "xrCore_impexp.h"
-#include "xrCommon/xr_vector.h"
-//#include "_stl_extensions.h"
+#include "Common/Noncopyable.hpp"
 #include "_math.h"
 #include "log.h"
 
 class CTimer_paused;
 
-class XRCORE_API pauseMngr
+// XXX: Why on earth play these tricks with the FPU (FPU::m64r() / FPU::m24r())?
+
+
+class XRCORE_API pauseMngr : private Noncopyable
 {
-    xr_vector<CTimer_paused*> m_timers;
-    BOOL m_paused;
+	struct pauseMngrImpl * m_pimpl;
+    bool m_paused;
 public:
-    pauseMngr();
-    BOOL Paused() { return m_paused; };
-    void Pause(BOOL b);
+	pauseMngr();
+	~pauseMngr();
+    bool Paused() { return m_paused; };
+    void Pause(bool b);
     void Register(CTimer_paused* t);
     void UnRegister(CTimer_paused* t);
 };
@@ -64,15 +67,7 @@ private:
     u64 m_ticks;
 
 private:
-    IC u64 GetElapsed_ticks(const u64& current_ticks) const
-    {
-        u64 delta = current_ticks - m_real_ticks;
-        double delta_d = (double)delta;
-        double time_factor_d = time_factor();
-        double time = delta_d*time_factor_d + .5;
-        u64 result = (u64)time;
-        return (m_ticks + result);
-    }
+	u64 GetElapsed_ticks(const u64 current_ticks) const throw();
 
 public:
     IC CTimer() : m_time_factor(1.f), m_real_ticks(0), m_ticks(0) {}
@@ -93,7 +88,7 @@ public:
         return (m_time_factor);
     }
 
-    IC void time_factor(const float& time_factor)
+    IC void time_factor(const float time_factor)
     {
         u64 current = inherited::GetElapsed_ticks();
         m_ticks = GetElapsed_ticks(current);

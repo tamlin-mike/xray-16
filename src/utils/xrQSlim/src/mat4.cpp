@@ -9,6 +9,7 @@
 #pragma hdrstop
 
 #include "mat4.h"
+#include "xrCommon/math_funcs_inline.h"
 
 Mat4 Mat4::I()
 {

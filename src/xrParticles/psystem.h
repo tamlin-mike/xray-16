@@ -1,8 +1,9 @@
+#pragma once
 #ifndef PSystemH
 #define PSystemH
-#pragma once
 
 #include "Common/Platform.hpp"
+#include "xrCommon/math_funcs_inline.h"
 
 #ifdef XR_PARTICLES_EXPORTS
 	#define PARTICLES_API XR_EXPORT

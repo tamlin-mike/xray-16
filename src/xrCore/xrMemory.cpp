@@ -3,6 +3,7 @@
 
 #include "xrsharedmem.h"
 #include "xrMemory_pure.h"
+#include "xrCore/_std_extensions.h"
 
 #include <malloc.h>
 

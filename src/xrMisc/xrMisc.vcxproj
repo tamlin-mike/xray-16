@@ -116,6 +116,7 @@
     <ClCompile Include="gametype_chooser.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="string_functions.cpp" />
+    <ClCompile Include="WaveForm.cpp" />
     <ClCompile Include="xrMisc_xrMemory.cpp" />
   </ItemGroup>
   <ItemGroup>

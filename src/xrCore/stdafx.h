@@ -11,6 +11,7 @@
 #include "xrCore.h"
 #include "Common/Platform.hpp"
 #include "Common/Util.hpp"
+#include "_std_extensions.h"
 //.#include "Include/xrAPI/xrAPI.h"
 #endif
 

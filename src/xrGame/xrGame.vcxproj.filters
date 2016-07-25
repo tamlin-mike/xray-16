@@ -6646,6 +6646,7 @@
     <ClInclude Include="profile_data_types_script.h">
       <Filter>Core\Server\Games\PlayerAccounts</Filter>
     </ClInclude>
+    <ClInclude Include="game_type.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -10153,6 +10154,7 @@
       <Filter>PCH</Filter>
     </ClCompile>
     <ClCompile Include="$(xrExternals)GameSpy\src\GameSpy\md5c.c" />
+    <ClCompile Include="game_type.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">

@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cylinder.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="quaternion.cpp" />
     <ClCompile Include="vector.cpp" />

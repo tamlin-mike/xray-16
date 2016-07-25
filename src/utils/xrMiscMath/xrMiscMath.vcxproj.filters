@@ -26,5 +26,8 @@
     <ClCompile Include="vector3d_ext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

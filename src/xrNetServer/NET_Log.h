@@ -1,6 +1,9 @@
 #pragma once
-
 #include "net_shared.h"
+#include "Common/Noncopyable.hpp"
+
+class Lock;
+
 struct SLogPacket
 {
 	u32			m_u32Time;
@@ -9,14 +12,15 @@ struct SLogPacket
 	string64	m_sTypeStr;
 	bool		m_bIsIn;
 };
-class INetLog
+
+class INetLog : private Noncopyable
 {
 private:
 	FILE*		m_pLogFile;
 	string1024  m_cFileName;
 	u32			m_dwStartTime;
 
-	Lock		m_cs;
+	Lock		*m_pcs;
 	
 	xr_vector<SLogPacket>	m_aLogPackets;
 

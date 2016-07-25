@@ -6,6 +6,8 @@
 
 #include "NET_Common.h"
 #include "NET_Compressor.h"
+#include "xrCore/Threading/Lock.hpp"
+
 #if NET_USE_COMPRESSION
 
 #	ifdef DEBUG
@@ -255,9 +257,11 @@ void NET_Compressor::done_decoding		( )
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-NET_Compressor::NET_Compressor()
+NET_Compressor::NET_Compressor() :
 #ifdef CONFIG_PROFILE_LOCKS
-	:CS(MUTEX_PROFILE_ID(NET_Compressor))
+	pCS(new new Lock(MUTEX_PROFILE_ID(NET_Compressor)))
+#else
+	pCS(new Lock)
 #endif // CONFIG_PROFILE_LOCKS
 {
 }
@@ -281,12 +285,13 @@ NET_Compressor::~NET_Compressor()
         RawTrafficDump = NULL;
     }
 #endif // DEBUG
+	delete pCS;
 }
 
 /*
 void NET_Compressor::Initialize	()
 {
-	CS.Enter		();
+	pCS->Enter		();
 
 #if 1//def DEBUG
 	if( strstr(Core.Params,"-dump_traffic") ) 
@@ -296,7 +301,7 @@ void NET_Compressor::Initialize	()
 	}
 #endif // DEBUG
 
-	CS.Leave		();
+	pCS->Leave		();
 }*/
 
 u16 NET_Compressor::compressed_size	(const u32 &count)
@@ -364,13 +369,13 @@ u16 NET_Compressor::Compress(BYTE* dest, const u32 &dest_size, BYTE* src, const 
 
 	if( !psNET_direct_connect  && g_net_compressor_enabled && b_compress_packet) 
 	{
-		CS.Enter							();
+		pCS->Enter							();
 		compressed_size = offset + ENCODE( dest+offset, dest_size-offset, src, count );
 
 		if(g_net_compressor_gather_stats)
 			m_stats.total_compressed_bytes		+= compressed_size;
 
-		CS.Leave();
+		pCS->Leave();
 	}
 
 	if( compressed_size < count ) 
@@ -437,7 +442,7 @@ u16 NET_Compressor::Compress(BYTE* dest, const u32 &dest_size, BYTE* src, const 
 		VERIFY		(*I == *J);
 
 */
-//	CS.Leave		();
+//	pCS->Leave		();
     #endif // DEBUG
 
 	return (u16(compressed_size));
@@ -499,9 +504,9 @@ u16 NET_Compressor::Decompress	(BYTE* dest, const u32 &dest_size, BYTE* src, con
 	R_ASSERT2(crc == *((u32*)(src + 1)),make_string("crc is different! (0x%08x != 0x%08x)",crc,*((u32*)(src + 1))));
     #endif // NET_USE_COMPRESSION_CRC
 
-	CS.Enter();
+	pCS->Enter();
 	u32 uncompressed_size = DECODE( dest, dest_size, src+offset, count-offset );
-	CS.Leave();
+	pCS->Leave();
 	
 	return (u16(uncompressed_size));
 	
