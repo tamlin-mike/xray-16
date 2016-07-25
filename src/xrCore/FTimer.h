@@ -33,11 +33,11 @@ protected:
     u64 qwStartTime;
     u64 qwPausedTime;
     u64 qwPauseAccum;
-    BOOL bPause;
+    bool bPause;
 public:
-    CTimerBase() : qwStartTime(0), qwPausedTime(0), qwPauseAccum(0), bPause(FALSE) { }
-    ICF void Start() { if (bPause) return; qwStartTime = CPU::QPC() - qwPauseAccum; }
-    ICF u64 GetElapsed_ticks()const { if (bPause) return qwPausedTime; else return CPU::QPC() - qwStartTime - CPU::qpc_overhead - qwPauseAccum; }
+	constexpr CTimerBase() noexcept : qwStartTime(0), qwPausedTime(0), qwPauseAccum(0), bPause(FALSE) { }
+    ICF void Start() noexcept { if (bPause) return; qwStartTime = CPU::QPC() - qwPauseAccum; }
+    ICF u64 GetElapsed_ticks() const noexcept { if (bPause) return qwPausedTime; else return CPU::QPC() - qwStartTime - CPU::qpc_overhead - qwPauseAccum; }
     IC u32 GetElapsed_ms()const { return u32(GetElapsed_ticks()*u64(1000) / CPU::qpc_freq); }
     IC float GetElapsed_sec()const
     {
@@ -70,9 +70,9 @@ private:
 	u64 GetElapsed_ticks(const u64 current_ticks) const noexcept;
 
 public:
-    IC CTimer() : m_time_factor(1.f), m_real_ticks(0), m_ticks(0) {}
+	constexpr CTimer() noexcept : m_time_factor(1.f), m_real_ticks(0), m_ticks(0) {}
 
-    ICF void Start()
+    ICF void Start() noexcept
     {
         if (bPause)
             return;
@@ -83,12 +83,12 @@ public:
         m_ticks = 0;
     }
 
-    IC const float& time_factor() const
+    const float time_factor() const noexcept
     {
         return (m_time_factor);
     }
 
-    IC void time_factor(const float time_factor)
+    IC void time_factor(const float time_factor) noexcept
     {
         u64 current = inherited::GetElapsed_ticks();
         m_ticks = GetElapsed_ticks(current);
@@ -138,10 +138,10 @@ class XRCORE_API CTimer_paused_ex : public CTimer
 {
     u64 save_clock;
 public:
-    CTimer_paused_ex() { }
+    CTimer_paused_ex() noexcept { }
     virtual ~CTimer_paused_ex() { }
-    IC BOOL Paused()const { return bPause; }
-    IC void Pause(BOOL b)
+    bool Paused() const noexcept { return bPause; }
+    IC void Pause(bool b) noexcept
     {
         if (bPause == b) return;
 

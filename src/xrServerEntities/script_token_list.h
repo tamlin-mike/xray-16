@@ -21,7 +21,7 @@ protected:
 	struct CTokenPredicateName {
 		const char*		m_name;
 
-		CTokenPredicateName(const char* name) noexcept : m_name(name) { }
+		constexpr CTokenPredicateName(const char* name) noexcept : m_name(name) { }
 
 		bool operator()(const xr_token &token) const noexcept
 		{

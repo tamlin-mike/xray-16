@@ -21,31 +21,32 @@ public:
     ICF T& operator[] (int i) { return *((T*)this + i); }
     ICF T& operator[] (int i) const { return *((T*)this + i); }
 
-    ICF SelfRef set(T _x, T _y, T _z) { x = _x; y = _y; z = _z; return *this; };
-    ICF SelfRef set(const _vector3<float>& v) { x = T(v.x); y = T(v.y); z = T(v.z); return *this; };
-    ICF SelfRef set(const _vector3<double>& v) { x = T(v.x); y = T(v.y); z = T(v.z); return *this; };
-    ICF SelfRef set(float* p) { x = p[0]; y = p[1]; z = p[2]; return *this; };
-    ICF SelfRef set(double* p) { x = p[0]; y = p[1]; z = p[2]; return *this; };
+    ICF SelfRef set(T _x, T _y, T _z) noexcept { x = _x; y = _y; z = _z; return *this; };
+    ICF SelfRef set(const _vector3<float>& v) noexcept { x = T(v.x); y = T(v.y); z = T(v.z); return *this; };
+    ICF SelfRef set(const _vector3<double>& v) noexcept { x = T(v.x); y = T(v.y); z = T(v.z); return *this; };
+    ICF SelfRef set(float* p) noexcept { x = p[0]; y = p[1]; z = p[2]; return *this; };
+    ICF SelfRef set(double* p) noexcept { x = p[0]; y = p[1]; z = p[2]; return *this; };
 
-    ICF SelfRef add(const Self& v) { x += v.x; y += v.y; z += v.z; return *this; };
-    ICF SelfRef add(T s) { x += s; y += s; z += s; return *this; };
-    ICF SelfRef add(const Self& a, const Self& v) { x = a.x + v.x; y = a.y + v.y; z = a.z + v.z; return *this; };
-    ICF SelfRef add(const Self& a, T s) { x = a.x + s; y = a.y + s; z = a.z + s; return *this; };
+	// XXX: The vast majority of these basic math operations can be expressed as non-class functions.
+    ICF SelfRef add(const Self& v) noexcept { x += v.x; y += v.y; z += v.z; return *this; };
+    ICF SelfRef add(const T s) noexcept { x += s; y += s; z += s; return *this; };
+    ICF SelfRef add(const Self& a, const Self& v) noexcept { x = a.x + v.x; y = a.y + v.y; z = a.z + v.z; return *this; };
+    ICF SelfRef add(const Self& a, T s) noexcept { x = a.x + s; y = a.y + s; z = a.z + s; return *this; };
 
-    ICF SelfRef sub(const Self& v) { x -= v.x; y -= v.y; z -= v.z; return *this; };
-    ICF SelfRef sub(T s) { x -= s; y -= s; z -= s; return *this; };
-    ICF SelfRef sub(const Self& a, const Self& v) { x = a.x - v.x; y = a.y - v.y; z = a.z - v.z; return *this; };
-    ICF SelfRef sub(const Self& a, T s) { x = a.x - s; y = a.y - s; z = a.z - s; return *this; };
+    ICF SelfRef sub(const Self& v) noexcept { x -= v.x; y -= v.y; z -= v.z; return *this; };
+    ICF SelfRef sub(const T s) noexcept { x -= s; y -= s; z -= s; return *this; };
+    ICF SelfRef sub(const Self& a, const Self& v) noexcept { x = a.x - v.x; y = a.y - v.y; z = a.z - v.z; return *this; };
+    ICF SelfRef sub(const Self& a, T s) noexcept { x = a.x - s; y = a.y - s; z = a.z - s; return *this; };
 
-    ICF SelfRef mul(const Self& v) { x *= v.x; y *= v.y; z *= v.z; return *this; };
-    ICF SelfRef mul(T s) { x *= s; y *= s; z *= s; return *this; };
-    ICF SelfRef mul(const Self& a, const Self& v) { x = a.x*v.x; y = a.y*v.y; z = a.z*v.z; return *this; };
-    ICF SelfRef mul(const Self& a, T s) { x = a.x*s; y = a.y*s; z = a.z*s; return *this; };
+    ICF SelfRef mul(const Self& v) noexcept { x *= v.x; y *= v.y; z *= v.z; return *this; };
+    ICF SelfRef mul(const T s) noexcept { x *= s; y *= s; z *= s; return *this; };
+    ICF SelfRef mul(const Self& a, const Self& v) noexcept { x = a.x*v.x; y = a.y*v.y; z = a.z*v.z; return *this; };
+    ICF SelfRef mul(const Self& a, T s) noexcept { x = a.x*s; y = a.y*s; z = a.z*s; return *this; };
 
-    ICF SelfRef div(const Self& v) { x /= v.x; y /= v.y; z /= v.z; return *this; };
-    ICF SelfRef div(T s) { x /= s; y /= s; z /= s; return *this; };
-    ICF SelfRef div(const Self& a, const Self& v) { x = a.x / v.x; y = a.y / v.y; z = a.z / v.z; return *this; };
-    ICF SelfRef div(const Self& a, T s) { x = a.x / s; y = a.y / s; z = a.z / s; return *this; };
+    ICF SelfRef div(const Self& v) noexcept { x /= v.x; y /= v.y; z /= v.z; return *this; };
+    ICF SelfRef div(const T s) noexcept { x /= s; y /= s; z /= s; return *this; };
+    ICF SelfRef div(const Self& a, const Self& v) noexcept { x = a.x / v.x; y = a.y / v.y; z = a.z / v.z; return *this; };
+    ICF SelfRef div(const Self& a, T s) noexcept { x = a.x / s; y = a.y / s; z = a.z / s; return *this; };
 
     IC SelfRef invert() { x = -x; y = -y; z = -z; return *this; }
     IC SelfRef invert(const Self& a) { x = -a.x; y = -a.y; z = -a.z; return *this; }
@@ -150,8 +151,8 @@ public:
 	static void generate_orthonormal_basis_normalized(_vector3<T>& dir, _vector3<T>& up, _vector3<T>& right);
 
 private:
-	static T _min(T a, T b) { return a < b ? a : b; }
-	static T _max(T a, T b) { return a > b ? a : b; }
+	static constexpr T _min(T a, T b) noexcept { return a < b ? a : b; }
+	static constexpr T _max(T a, T b) noexcept { return a > b ? a : b; }
 };
 typedef _vector3<float> Fvector;
 typedef _vector3<float> Fvector3;
